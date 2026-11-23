@@ -6,6 +6,7 @@
   <title>PULSAR</title>
   <meta name="theme-color" content="#070B1A">
   <meta property="og:title" content="PULSAR">
+  <meta property="og:image" content="https://mansawy123.github.io/mining-app/pulsar-icon.png">
   <meta property="og:description" content="Mine every 24 hours, invite friends and level up.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -866,7 +867,7 @@
     let tonConnectUI = null, userClickedConnect = false;
     try {
       tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json',
+        manifestUrl: 'https://mansawy123.github.io/mining-app/tonconnect-manifest.json',
         buttonRootId: 'ton-connect-container'
       });
       tonConnectUI.onStatusChange(async wallet => {
