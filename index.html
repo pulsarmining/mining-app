@@ -637,17 +637,17 @@
     }
 
     const defaultConfig = {
-      brandTitle: "$VIKING MINER", coinSym: "$VIKING",
+      brandTitle: "PULSAR", coinSym: "$VIKING",
       lvl1PerDay: 250,
       adReward: 5, maxAdsPerDay: 10, taskReward: 50,
       refClaimPercent: 5, refMinHold: 200,
       minWithdraw: 5000, holdPercentReq: 25, withdrawFeePercent: 5,
-      payoutWallet: "", adsgramBlockId: "", botToken: "", payoutChannel: "@YGRAM1",
+      payoutWallet: "", adsgramBlockId: "", botToken: "", payoutChannel: "",
       adminChatId: "",
       buySwapUrl: "https://app.ston.fi/swap?chartVisible=false&tt=EQBah244kAnjZEDX9HOIit4BX3UoGFmvp-y013x-14U3PLpg&ft=GRAM",
-      channel1: "https://t.me/YGRAM1", channel2: "https://t.me/telegram", botUsername: "VIKINGMINER_BOT"
+      channel1: "", channel2: "", botUsername: ""
     };
-    let config = Object.assign({}, defaultConfig, JSON.parse(localStorage.getItem('vksec_config') || "{}"));
+    let config = Object.assign({}, defaultConfig);
     delete config.botToken;
 
     let minedInApp = parseFloat(localStorage.getItem('vksec_mined')) || 0;
@@ -970,8 +970,8 @@
 
       document.getElementById('ads-watched-txt').innerText = `${adsWatched}/${config.maxAdsPerDay}`;
       document.getElementById('ads-prog-bar').style.width = Math.min(100, (adsWatched / Math.max(1, config.maxAdsPerDay)) * 100) + "%";
-      if (task1Done || localStorage.getItem('vksec_task1')) document.getElementById('ch-task-1-btn').innerText = "✓ Done";
-      if (task2Done || localStorage.getItem('vksec_task2')) document.getElementById('ch-task-2-btn').innerText = "✓ Done";
+      if (task1Done) document.getElementById('ch-task-1-btn').innerText = "✓ Done";
+      if (task2Done) document.getElementById('ch-task-2-btn').innerText = "✓ Done";
 
       document.getElementById('boost-lvl-header').innerText = "Level " + cur.level;
       document.getElementById('boost-rank-badge').innerText = cur.groupName + "s";
