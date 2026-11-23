@@ -6,7 +6,6 @@
   <title>PULSAR</title>
   <meta name="theme-color" content="#070B1A">
   <meta property="og:title" content="PULSAR">
-  <meta property="og:image" content="https://mansawy123.github.io/mining-app/pulsar-icon.png">
   <meta property="og:description" content="Mine every 24 hours, invite friends and level up.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,9 +77,6 @@
     .prog-fill-3d{height:100%;width:0;background:var(--violet);border-radius:999px;transition:width .3s}
     body.rtl-mode .prog-bg-3d{direction:ltr}
     .shift-card{margin:0;padding:10px 12px}
-    .turbo-btn{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:14px;border:1px solid var(--cyan);background:#0B1A2A;color:var(--cyan2);text-align:start}
-    .turbo-btn svg{flex:none}
-    .turbo-btn:active{transform:scale(.98)}
     .mini-pill{height:40px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-size:13px;font-weight:600;direction:ltr;white-space:nowrap;overflow:hidden}
     .collect-btn{width:100%;height:52px;flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 18px;border:none;border-radius:14px;background:var(--violet);color:#fff;font-family:var(--display);font-size:16px;font-weight:600;letter-spacing:.02em}
     .collect-btn:active{transform:scale(.98)}
@@ -129,8 +125,9 @@
     #banned-screen{position:fixed;inset:0;background:var(--bg);z-index:99999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center}
     #toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);display:none;align-items:center;gap:10px;min-width:220px;max-width:calc(100vw - 32px);padding:10px 16px 10px 14px;border-radius:14px;background:var(--card2);border:1px solid var(--line2);color:var(--text);font-size:13px;font-weight:600;z-index:100000;box-shadow:0 12px 30px rgba(0,0,0,.5)}
     #toast::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--tc,#7C3AED);flex:none}
-    @media (max-height:800px){#page-mine.page.active{gap:9px}.pulsar-btn svg{width:150px;height:150px}.live-counter{font-size:20px}.balance-num{font-size:34px}.card-3d.stat-card{padding:10px 12px}}
-    @media (max-height:700px){#page-mine.page.active{gap:8px}.pulsar-btn svg{width:120px;height:120px}.chip{display:none}.collect-btn{height:48px}}
+    @media (max-height:800px){#page-mine.page.active{gap:8px}.pulsar-btn svg{width:124px;height:124px}.live-counter{font-size:20px}.shift-card{padding:8px 12px!important}.balance-num{font-size:34px}.card-3d.stat-card{padding:10px 12px}}
+    @media (max-height:740px){.chip{display:none}}
+    @media (max-height:680px){#page-mine.page.active{gap:7px}.pulsar-btn svg{width:96px;height:96px}.collect-btn{height:48px}.balance-num{font-size:30px}}
     @media (max-width:350px){.brand-logo-3d{font-size:15px;letter-spacing:.1em}.mini-pill{font-size:12px}}
   </style>
 </head>
@@ -213,12 +210,12 @@
         <div class="prog-bg-3d"><div class="prog-fill-3d" id="mine-prog-bar"></div></div>
       </div>
 
-      <div class="grid-2" style="flex:none;">
-        <div class="card-3d shift-card">
+      <div class="card-3d shift-card" style="flex:none;display:flex;align-items:center;gap:12px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>
+        <div style="min-width:0;">
           <div style="font-size:13px;font-weight:600;" data-i18n="streak_txt">24h shift</div>
           <div style="font-size:11px;color:var(--m);line-height:1.35;margin-top:2px;" data-i18n="streak_sub">Collect every 24h to keep mining</div>
         </div>
-        <button type="button" class="turbo-btn" id="btn-turbo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3L5 14h6l-1 7l8-11h-6z"/></svg><span style="display:flex;flex-direction:column;gap:1px;"><span style="font-size:14px;font-weight:700;" data-i18n="turbo_btn">Turbo ×2</span><span style="font-size:11px;color:#A5F3FC;" data-i18n="turbo_sub">Watch an ad</span></span></button>
       </div>
 
       <div class="grid-2" style="flex:none;">
@@ -666,7 +663,7 @@
     let wdHistory = [], myReferrals = [], usersDB = [], allWithdrawalsDB = [], currentUserFilter = 'all';
     let dailyStreak = 0;
     let lastDailyCheckIn = 0;
-    let turboUntil = parseInt(localStorage.getItem('vksec_turbo')) || 0;
+    try { localStorage.removeItem('vksec_turbo'); } catch (e) {}
     let isCollecting = false;
     let initialLoadDone = false;
     
@@ -867,7 +864,7 @@
     let tonConnectUI = null, userClickedConnect = false;
     try {
       tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://mansawy123.github.io/mining-app/tonconnect-manifest.json',
+        manifestUrl: new URL('tonconnect-manifest.json', location.href).href,
         buttonRootId: 'ton-connect-container'
       });
       tonConnectUI.onStatusChange(async wallet => {
@@ -954,7 +951,7 @@
     function applyUI() {
       applyTranslations();
       const { cur, next } = getCurrentLevelObj();
-      const mult = Date.now() < turboUntil ? 2 : 1;
+      const mult = 1;
 
       document.getElementById('ui-brand-title').innerText = config.brandTitle;
       document.querySelectorAll('.coin-sym').forEach(el => el.innerText = config.coinSym);
@@ -1028,7 +1025,7 @@
     function updateLiveMining() {
       const { cur } = getCurrentLevelObj();
       const dict = I18N[currentLang] || I18N.en;
-      const mult = Date.now() < turboUntil ? 2 : 1;
+      const mult = 1;
       const perSec = (cur.perDay * mult) / 86400;
       
       if (Date.now() < lastCollectTime - 60000) lastCollectTime = Date.now();
@@ -1248,15 +1245,6 @@
     document.getElementById('btn-goto-boost').addEventListener('click', () => switchTab('boost'));
     document.getElementById('btn-collect-ref').addEventListener('click', collectReferralProfits);
     document.getElementById('btn-claim-daily').addEventListener('click', claimDailyLogin);
-
-    document.getElementById('btn-turbo').addEventListener('click', e => {
-      if (!isHumanClick(e)) return;
-      showRealTelegramAd(() => {
-        turboUntil = Date.now() + 300000;
-        localStorage.setItem('vksec_turbo', turboUntil);
-        SoundFX.buySuccess(); applyUI(); showToast("⚡ Turbo x2 Activated (5 Min)!");
-      });
-    });
 
     document.querySelectorAll('.btn-stonfi-buy').forEach(b => b.addEventListener('click', openStonfiSwap));
     document.getElementById('btn-connect-wallet').addEventListener('click', connectTonWallet);
