@@ -985,7 +985,9 @@
       document.getElementById('ref-pending-count').innerText = myReferrals.length - verCount;
       document.getElementById('ref-verified-count').innerText = verCount;
       document.getElementById('ref-earned-total').innerText = Math.floor(refCommissionEarned).toLocaleString();
-      document.getElementById('ref-link-box').value = `https://t.me/${config.botUsername}?startapp=ref_${CURRENT_UID}`;
+      // "@PulsarMinerBot" or "t.me/PulsarMinerBot" -> "PulsarMinerBot" (t.me/@name links don't open)
+      const botUser = String(config.botUsername || '').trim().replace(/^(?:https?:\/\/)?(?:t\.me\/)?@?/i, '').replace(/\/+$/, '');
+      document.getElementById('ref-link-box').value = `https://t.me/${botUser}?startapp=ref_${CURRENT_UID}`;
       
       const prcEl = document.getElementById('pending-ref-comm-display');
       if (prcEl) prcEl.innerText = pendingRefComm.toFixed(4);
