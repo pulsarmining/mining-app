@@ -448,6 +448,10 @@
             <div><label>👤 Bot Username (no @):</label><input type="text" id="adm-botuser" class="input-3d" style="direction:ltr;"></div>
           </div>
           <div class="grid-2">
+            <div><label>📢 /start "News" button link:</label><input type="text" id="adm-news-url" class="input-3d" style="direction:ltr;" placeholder="https://t.me/..."></div>
+            <div><label>💸 /start "Payouts" button link:</label><input type="text" id="adm-payouts-url" class="input-3d" style="direction:ltr;" placeholder="https://t.me/..."></div>
+          </div>
+          <div class="grid-2">
             <div><label>Your Mined Balance:</label><input type="number" id="adm-minebal" class="input-3d"></div>
             <div><label>Your Hold Balance:</label><input type="number" id="adm-holdbal" class="input-3d"></div>
           </div>
@@ -987,7 +991,9 @@
       document.getElementById('ref-earned-total').innerText = Math.floor(refCommissionEarned).toLocaleString();
       // "@PulsarMinerBot" or "t.me/PulsarMinerBot" -> "PulsarMinerBot" (t.me/@name links don't open)
       const botUser = String(config.botUsername || '').trim().replace(/^(?:https?:\/\/)?(?:t\.me\/)?@?/i, '').replace(/\/+$/, '');
-      document.getElementById('ref-link-box').value = `https://t.me/${botUser}?startapp=ref_${CURRENT_UID}`;
+      // with a Mini App made by /newapp the link shows a picture card: t.me/<bot>/<app>?startapp=...
+      const appPart = /^[A-Za-z0-9_]{3,30}$/.test(config.appName || '') ? '/' + config.appName : '';
+      document.getElementById('ref-link-box').value = `https://t.me/${botUser}${appPart}?startapp=ref_${CURRENT_UID}`;
       
       const prcEl = document.getElementById('pending-ref-comm-display');
       if (prcEl) prcEl.innerText = pendingRefComm.toFixed(4);
@@ -1209,7 +1215,7 @@
       }));
     }
 
-    const ADMIN_FIELDS = { 'adm-title':'brandTitle','adm-sym':'coinSym','adm-lvl1-day':'lvl1PerDay','adm-ad-rew':'adReward','adm-ad-max':'maxAdsPerDay','adm-task-rew':'taskReward','adm-ref-pct':'refClaimPercent','adm-ref-minhold':'refMinHold','adm-minwd':'minWithdraw','adm-holdpct':'holdPercentReq','adm-wdfee-pct':'withdrawFeePercent','adm-payout-wallet':'payoutWallet','adm-adsgram-id':'adsgramBlockId','adm-payout-ch':'payoutChannel','adm-admin-chat':'adminChatId','adm-ch1':'channel1','adm-ch2':'channel2','adm-botuser':'botUsername' };
+    const ADMIN_FIELDS = { 'adm-title':'brandTitle','adm-sym':'coinSym','adm-lvl1-day':'lvl1PerDay','adm-ad-rew':'adReward','adm-ad-max':'maxAdsPerDay','adm-task-rew':'taskReward','adm-ref-pct':'refClaimPercent','adm-ref-minhold':'refMinHold','adm-minwd':'minWithdraw','adm-holdpct':'holdPercentReq','adm-wdfee-pct':'withdrawFeePercent','adm-payout-wallet':'payoutWallet','adm-adsgram-id':'adsgramBlockId','adm-payout-ch':'payoutChannel','adm-admin-chat':'adminChatId','adm-ch1':'channel1','adm-ch2':'channel2','adm-botuser':'botUsername','adm-news-url':'newsUrl','adm-payouts-url':'payoutsUrl' };
     async function openOwnerDashboard() {
       if (CURRENT_UID !== OWNER_UID) return showToast("❌ Access Denied! (Owner Only)", "#ef4444");
       try { await loadAdminData(); } catch (err) { return showToast("❌ " + err.message, "#ef4444"); }
