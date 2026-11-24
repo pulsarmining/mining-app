@@ -1112,7 +1112,9 @@
       box.innerHTML = wdHistory.map(w => `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);direction:ltr;"><span><strong>#${esc(w.wdNum || 1)}</strong> · ${esc(stripEmoji(w.status))} (Net: ${esc(w.net)})</span><strong style="color:#FCA5A5;">-${esc(w.amt)}</strong></div>`).join('');
     }
 
-    function isSuspect(u) { return usersDB.filter(x => x.deviceHash && x.deviceHash === u.deviceHash).length > 1; }
+    // referrals opened on the inviter's own phone (players never see this mark, only the owner)
+    function dupRefs(u) { return (u.referrals || []).filter(r => r.dup || String(r.status || '').includes('Duplicate')).length; }
+    function isSuspect(u) { return usersDB.filter(x => x.deviceHash && x.deviceHash === u.deviceHash).length > 1 || dupRefs(u) > 0; }
     
     function renderAdminUsersList() {
       const q = (document.getElementById('adm-user-search')?.value || "").toLowerCase();
@@ -1123,7 +1125,7 @@
 
       const list = usersDB.filter(u => ((u.name||"").toLowerCase().includes(q) || String(u.id).includes(q)) && (currentUserFilter==='all' || (currentUserFilter==='suspect'&&isSuspect(u)) || (currentUserFilter==='banned'&&u.banned)));
       const box = document.getElementById('adm-users-container');
-      box.innerHTML = list.map(u => `<div class="user-row-card ${isSuspect(u)?'suspect':''} ${u.banned?'banned':''}"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><div><strong>${esc(u.name)}</strong> (${esc(u.id)})<div style="font-size:10px;color:#94a3b8;">Last active: ${timeAgo(u.lastSeen)} · Hold: ${Math.floor(u.hold||0)} · Refs: ${(u.referrals||[]).length}</div></div><span class="badge-tag" style="background:${u.banned?'#ef4444':'#10b981'};">${u.banned?'Banned 🚫':'Active ✅'}</span></div><div class="grid-2"><button class="btn-3d-dark adm-ed" data-id="${esc(u.id)}">➕/➖ Balance (${Math.floor(u.mined||0)})</button><button class="btn-3d-dark adm-bn" data-id="${esc(u.id)}" style="color:${u.banned?'#22c55e':'#ef4444'};">${u.banned?'✅ Unban':'🚫 Ban'}</button></div></div>`).join('');
+      box.innerHTML = list.map(u => `<div class="user-row-card ${isSuspect(u)?'suspect':''} ${u.banned?'banned':''}"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><div><strong>${esc(u.name)}</strong> (${esc(u.id)})<div style="font-size:10px;color:#94a3b8;">Last active: ${timeAgo(u.lastSeen)} · Hold: ${Math.floor(u.hold||0)} · Refs: ${(u.referrals||[]).length}${dupRefs(u) ? ` · <span style="color:#ef4444;">⚠️ ${dupRefs(u)} إحالة من نفس جهازه</span>` : ''}</div></div><span class="badge-tag" style="background:${u.banned?'#ef4444':'#10b981'};">${u.banned?'Banned 🚫':'Active ✅'}</span></div><div class="grid-2"><button class="btn-3d-dark adm-ed" data-id="${esc(u.id)}">➕/➖ Balance (${Math.floor(u.mined||0)})</button><button class="btn-3d-dark adm-bn" data-id="${esc(u.id)}" style="color:${u.banned?'#22c55e':'#ef4444'};">${u.banned?'✅ Unban':'🚫 Ban'}</button></div></div>`).join('');
       
       box.querySelectorAll('.adm-ed').forEach(b => b.addEventListener('click', async () => {
         const v = prompt("Enter amount (+ to add, - to subtract):");
