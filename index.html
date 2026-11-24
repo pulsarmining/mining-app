@@ -456,6 +456,7 @@
             <div><label>Your Hold Balance:</label><input type="number" id="adm-holdbal" class="input-3d"></div>
           </div>
           <button class="btn-3d-gold" id="btn-save-admin">💾 Save & Apply to All Users</button>
+          <button class="btn-3d-dark" id="btn-adm-emoji" style="margin-top:10px;width:100%;">✨ Create PULSAR emoji (needs Telegram Premium)</button>
         </div>
       </div>
     </div>
@@ -1310,6 +1311,18 @@
         document.getElementById('adm-lvl100-day').value = LEVELS_DATA[99].perDay;
         SoundFX.buySuccess(); showToast("☁️ Settings saved and applied!");
       } catch (err) { showToast("❌ " + err.message, "#ef4444"); }
+    });
+
+    // the bot makes the PULSAR custom emoji pack on the owner's account and turns it on for its messages
+    document.getElementById('btn-adm-emoji').addEventListener('click', async (ev) => {
+      if (CURRENT_UID !== OWNER_UID) return showToast("Access Denied!", "#ef4444");
+      const b = ev.currentTarget, label = b.textContent;
+      b.disabled = true; b.textContent = "⏳ Creating emoji… up to 1 minute";
+      try {
+        const j = await api("adminEmoji", {});
+        SoundFX.buySuccess(); showToast(`✨ ${j.count} PULSAR emoji are ready! Check your chat with the bot.`);
+      } catch (err) { showToast("❌ " + err.message, "#ef4444"); }
+      finally { b.disabled = false; b.textContent = label; }
     });
 
     initCloudSync(); setInterval(updateLiveMining, 1000); updateLiveMining();
