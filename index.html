@@ -13,8 +13,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="https://unpkg.com/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script>
-  <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+  <!-- wallet and ads libraries load in the background so the loading screen shows at once -->
+  <script defer src="https://unpkg.com/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script>
+  <script async src="https://sad.adsgram.ai/js/sad.min.js"></script>
   
   
   
@@ -121,7 +122,71 @@
     .user-row-card{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:8px}
     .user-row-card.suspect{border-color:#F59E0B}
     .user-row-card.banned{border-color:#EF4444;opacity:.85}
-    #boot-loader{position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;text-align:center}
+    /* loading screen: animated pulsar, beams sweep, rings pulse */
+    #boot-loader{position:fixed;inset:0;z-index:99999;overflow:hidden;background:#050816;color:#F1F5FF;
+      background:radial-gradient(120% 70% at 50% 0%,#0E1640 0%,#070B1F 55%,#03050E 100%);transition:opacity .5s ease,transform .5s ease}
+    #boot-loader.bl-out{opacity:0;transform:scale(1.04);pointer-events:none}
+    #boot-loader .bl-neb{position:absolute;border-radius:50%;filter:blur(40px);opacity:.9}
+    #boot-loader .n1{width:95vw;height:60vh;left:-10vw;top:2vh;background:radial-gradient(closest-side,rgba(124,58,237,.55),rgba(91,33,182,.22) 55%,transparent)}
+    #boot-loader .n2{width:80vw;height:45vh;right:-25vw;bottom:8vh;background:radial-gradient(closest-side,rgba(34,211,238,.28),transparent)}
+    #boot-loader .n3{width:70vw;height:40vh;right:-20vw;top:-8vh;background:radial-gradient(closest-side,rgba(192,38,211,.22),transparent)}
+    #boot-loader .bl-stars{position:absolute;left:0;top:0;border-radius:50%;background:transparent}
+    #boot-loader .s1{width:1px;height:1px;box-shadow:45.2vw 56.0vh 0 0 #C4B5FD,45.2vw 85.5vh 0 0 #ffffff,18.5vw 51.2vh 0 0 #A5F3FC,79.3vw 9.4vh 0 0 #ffffff,14.2vw 53.9vh 0 0 #ffffff,59.5vw 39.6vh 0 0 #C4B5FD,65.4vw 61.6vh 0 0 #ffffff,62.3vw 83.2vh 0 0 #ffffff,6.0vw 19.0vh 0 0 #ffffff,60.0vw 77.8vh 0 0 #ffffff,44.1vw 84.2vh 0 0 #A5F3FC,23.4vw 29.4vh 0 0 #ffffff,66.2vw 45.7vh 0 0 #ffffff,40.7vw 55.1vh 0 0 #ffffff,70.8vw 31.5vh 0 0 #ffffff,51.3vw 3.0vh 0 0 #A5F3FC,76.6vw 40.0vh 0 0 #ffffff,38.7vw 95.8vh 0 0 #ffffff,21.4vw 92.7vh 0 0 #ffffff,47.0vw 98.0vh 0 0 #C4B5FD,42.0vw 56.6vh 0 0 #ffffff,77.9vw 27.0vh 0 0 #ffffff,31.1vw 1.5vh 0 0 #C4B5FD,75.8vw 11.8vh 0 0 #ffffff,70.7vw 1.1vh 0 0 #C4B5FD,79.7vw 17.8vh 0 0 #A5F3FC,18.8vw 50.9vh 0 0 #ffffff,41.9vw 38.4vh 0 0 #C4B5FD,42.1vw 21.3vh 0 0 #ffffff,86.4vw 97.5vh 0 0 #A5F3FC,30.4vw 88.5vh 0 0 #ffffff,18.7vw 99.6vh 0 0 #A5F3FC,64.2vw 10.0vh 0 0 #ffffff,21.3vw 25.8vh 0 0 #A5F3FC,32.9vw 29.6vh 0 0 #ffffff,7.4vw 20.9vh 0 0 #ffffff,1.6vw 36.9vh 0 0 #A5F3FC,45.3vw 95.9vh 0 0 #C4B5FD,83.2vw 13.6vh 0 0 #C4B5FD,18.3vw 15.4vh 0 0 #ffffff,81.8vw 24.9vh 0 0 #ffffff,15.8vw 62.9vh 0 0 #A5F3FC,19.7vw 95.0vh 0 0 #C4B5FD,60.4vw 42.1vh 0 0 #ffffff,10.9vw 51.2vh 0 0 #ffffff,23.8vw 70.5vh 0 0 #ffffff,42.1vw 90.5vh 0 0 #C4B5FD,29.3vw 17.5vh 0 0 #ffffff,12.6vw 47.9vh 0 0 #A5F3FC,61.4vw 28.0vh 0 0 #ffffff,74.9vw 6.9vh 0 0 #C4B5FD,44.6vw 6.0vh 0 0 #ffffff,28.2vw 53.1vh 0 0 #ffffff,9.2vw 13.8vh 0 0 #C4B5FD,98.0vw 65.7vh 0 0 #A5F3FC,58.4vw 14.0vh 0 0 #ffffff,92.4vw 47.5vh 0 0 #ffffff,70.1vw 96.3vh 0 0 #ffffff,59.8vw 7.5vh 0 0 #ffffff,73.0vw 31.9vh 0 0 #ffffff,7.5vw 54.6vh 0 0 #ffffff,90.0vw 73.7vh 0 0 #ffffff,79.3vw 91.5vh 0 0 #ffffff,8.5vw 47.3vh 0 0 #ffffff,87.1vw 41.7vh 0 0 #ffffff,86.3vw 57.3vh 0 0 #A5F3FC,66.2vw 37.9vh 0 0 #ffffff,60.9vw 8.0vh 0 0 #ffffff,99.3vw 88.0vh 0 0 #ffffff,38.8vw 73.5vh 0 0 #A5F3FC;animation:bl-tw 3.6s ease-in-out infinite alternate}
+    #boot-loader .s2{width:1.6px;height:1.6px;box-shadow:45.8vw 46.3vh 0 0 #A5F3FC,8.4vw 75.0vh 0 0 #ffffff,31.0vw 8.8vh 0 0 #ffffff,23.0vw 69.8vh 0 0 #C4B5FD,78.0vw 66.0vh 0 0 #C4B5FD,25.6vw 1.1vh 0 0 #ffffff,14.3vw 61.2vh 0 0 #A5F3FC,17.0vw 90.6vh 0 0 #C4B5FD,49.8vw 24.1vh 0 0 #C4B5FD,66.6vw 19.9vh 0 0 #C4B5FD,80.4vw 75.5vh 0 0 #ffffff,88.0vw 38.4vh 0 0 #A5F3FC,92.1vw 21.0vh 0 0 #ffffff,49.6vw 83.7vh 0 0 #ffffff,71.1vw 95.0vh 0 0 #ffffff,82.2vw 11.3vh 0 0 #C4B5FD,27.5vw 21.4vh 0 0 #C4B5FD,38.3vw 52.0vh 0 0 #ffffff,71.6vw 84.2vh 0 0 #A5F3FC,45.2vw 7.5vh 0 0 #ffffff,27.8vw 60.8vh 0 0 #ffffff,57.1vw 30.9vh 0 0 #A5F3FC,1.9vw 13.6vh 0 0 #C4B5FD,19.0vw 76.9vh 0 0 #ffffff,23.7vw 14.1vh 0 0 #ffffff,98.4vw 11.5vh 0 0 #ffffff,63.0vw 65.5vh 0 0 #ffffff,95.8vw 68.4vh 0 0 #ffffff,82.4vw 25.6vh 0 0 #ffffff,75.5vw 53.5vh 0 0 #ffffff,17.9vw 27.2vh 0 0 #ffffff,54.0vw 94.7vh 0 0 #A5F3FC,61.4vw 75.6vh 0 0 #C4B5FD,84.9vw 70.0vh 0 0 #ffffff,8.7vw 93.3vh 0 0 #C4B5FD,13.0vw 45.4vh 0 0 #ffffff,37.7vw 56.9vh 0 0 #A5F3FC,79.7vw 94.4vh 0 0 #C4B5FD,32.6vw 98.2vh 0 0 #ffffff,72.2vw 81.8vh 0 0 #ffffff,21.3vw 90.0vh 0 0 #ffffff,97.7vw 53.7vh 0 0 #ffffff,26.2vw 71.8vh 0 0 #ffffff,34.9vw 8.3vh 0 0 #C4B5FD,34.2vw 42.1vh 0 0 #ffffff;animation:bl-tw 5.2s ease-in-out infinite alternate-reverse}
+    #boot-loader .s3{width:2.4px;height:2.4px;box-shadow:48.7vw 2.8vh 0 0 #ffffff,42.9vw 3.5vh 0 0 #A5F3FC,33.5vw 78.8vh 0 0 #ffffff,47.1vw 100.0vh 0 0 #A5F3FC,84.0vw 68.9vh 0 0 #C4B5FD,57.9vw 68.9vh 0 0 #ffffff,43.9vw 55.9vh 0 0 #A5F3FC,63.9vw 52.3vh 0 0 #A5F3FC,25.7vw 67.1vh 0 0 #A5F3FC,20.8vw 85.1vh 0 0 #A5F3FC,52.4vw 57.3vh 0 0 #ffffff,41.1vw 11.4vh 0 0 #ffffff,60.5vw 2.8vh 0 0 #ffffff,51.6vw 40.1vh 0 0 #A5F3FC,12.2vw 9.3vh 0 0 #ffffff,6.6vw 53.9vh 0 0 #C4B5FD,92.1vw 80.0vh 0 0 #C4B5FD,26.9vw 47.3vh 0 0 #ffffff;animation:bl-tw 2.8s ease-in-out infinite alternate}
+    #boot-loader .bl-hero{position:absolute;left:50%;top:32%;width:min(90vw,390px);aspect-ratio:1;transform:translate(-50%,-50%)}
+    #boot-loader .bl-beams{position:absolute;left:50%;top:50%;width:0;height:0;animation:bl-spin 10s linear infinite;will-change:transform}
+    #boot-loader .bl-beams i{position:absolute;left:-34px;bottom:0;width:68px;height:78vh;transform-origin:50% 100%;
+      background:linear-gradient(to top,rgba(236,254,255,.95),rgba(103,232,249,.62) 14%,rgba(34,211,238,.2) 50%,transparent 92%);
+      clip-path:polygon(47% 100%,53% 100%,100% 0,0 0)}
+    #boot-loader .bl-beams i.soft{left:-90px;width:180px;opacity:.45;filter:blur(14px)}
+    #boot-loader .bl-beams .b2{transform:rotate(180deg)}
+    #boot-loader .bl-halo{position:absolute;inset:4%;border-radius:50%;animation:bl-pulse 2.8s ease-in-out infinite;
+      background:radial-gradient(circle,#fff 0 7%,rgba(237,233,254,.92) 11%,rgba(196,181,253,.55) 21%,rgba(124,58,237,.3) 38%,rgba(124,58,237,.08) 56%,transparent 70%)}
+    #boot-loader .bl-orbits{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+    #boot-loader .bl-dots{transform-origin:0 0;animation:bl-spin 40s linear infinite}
+    #boot-loader .bl-cr{animation:bl-float 4.5s ease-in-out infinite}
+    #boot-loader .bl-cr.c2{animation-duration:5.5s;animation-delay:-1.5s}
+    #boot-loader .bl-cr.c3{animation-duration:6.5s;animation-delay:-3s}
+    #boot-loader .bl-core{position:absolute;left:50%;top:50%;width:15%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+      background:radial-gradient(circle,#fff 52%,#F5F3FF 70%,#C4B5FD);box-shadow:0 0 26px 10px rgba(237,233,254,.6),0 0 90px 34px rgba(124,58,237,.5)}
+    #boot-loader .bl-dust{position:absolute;left:var(--x);bottom:-10px;width:3px;height:3px;border-radius:50%;background:#A5F3FC;box-shadow:0 0 6px #22D3EE;
+      opacity:0;animation:bl-rise var(--d) linear infinite;animation-delay:var(--w)}
+    #boot-loader .bl-brand{position:absolute;left:0;right:0;top:61%;text-align:center}
+    #boot-loader .bl-word{display:inline-block;font-family:'Space Grotesk','Montserrat',system-ui,sans-serif;font-weight:700;
+      font-size:clamp(44px,14.5vw,66px);letter-spacing:.2em;margin-right:-.2em;line-height:1;color:transparent;
+      background:linear-gradient(100deg,#C4B5FD 0%,#FFFFFF 30%,#FFFFFF 42%,#A5F3FC 50%,#FFFFFF 58%,#FFFFFF 70%,#C4B5FD 100%);
+      background-size:260% 100%;-webkit-background-clip:text;background-clip:text;animation:bl-shine 3.6s ease-in-out infinite;
+      filter:drop-shadow(0 0 16px rgba(124,58,237,.75)) drop-shadow(0 2px 0 rgba(15,22,48,.9))}
+    #boot-loader .bl-tag{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px;
+      font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:.48em;color:#67E8F9;text-shadow:0 0 12px rgba(34,211,238,.6)}
+    #boot-loader .bl-tag span{margin-right:-.48em}
+    #boot-loader .bl-tag::before,#boot-loader .bl-tag::after{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,#67E8F9)}
+    #boot-loader .bl-tag::after{background:linear-gradient(270deg,transparent,#67E8F9)}
+    #boot-loader .bl-load{position:absolute;left:0;right:0;top:79%;display:flex;flex-direction:column;align-items:center}
+    #boot-loader .bl-bar{position:relative;width:min(74vw,300px);height:10px;border-radius:99px;background:rgba(15,22,48,.9);
+      border:1px solid #22305C;box-shadow:inset 0 1px 3px rgba(0,0,0,.7),0 0 0 4px rgba(124,58,237,.06)}
+    #boot-loader .bl-fill{position:relative;height:100%;width:0;border-radius:inherit;overflow:visible;
+      background:linear-gradient(90deg,#6D28D9,#8B5CF6 40%,#22D3EE);box-shadow:0 0 12px rgba(139,92,246,.85),0 0 26px rgba(34,211,238,.35)}
+    #boot-loader .bl-fill::before{content:"";position:absolute;inset:0;border-radius:inherit;
+      background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.55) 50%,transparent 100%) no-repeat;background-size:40% 100%;animation:bl-sweep 1.6s linear infinite}
+    #boot-loader .bl-fill::after{content:"";position:absolute;right:-9px;top:50%;width:20px;height:20px;transform:translateY(-50%);border-radius:50%;
+      background:radial-gradient(circle,#fff 0 30%,rgba(165,243,252,.85) 45%,rgba(34,211,238,0) 72%)}
+    #boot-loader .bl-pct{margin-top:16px;font:700 20px/1 'Space Grotesk',Inter,system-ui,sans-serif;color:#fff;letter-spacing:.04em}
+    #boot-loader .bl-status{margin-top:9px;font:600 10.5px/1 Inter,system-ui,sans-serif;letter-spacing:.34em;margin-right:-.34em;color:#8C9AC4;text-transform:uppercase}
+    @keyframes bl-spin{to{transform:rotate(360deg)}}
+    @keyframes bl-pulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.06);opacity:1}}
+    @keyframes bl-tw{from{opacity:.35}to{opacity:1}}
+    @keyframes bl-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+    @keyframes bl-shine{0%{background-position:100% 0}60%,100%{background-position:0 0}}
+    @keyframes bl-sweep{from{background-position:-60% 0}to{background-position:160% 0}}
+    @keyframes bl-rise{0%{transform:translateY(0);opacity:0}12%{opacity:.9}100%{transform:translateY(-62vh);opacity:0}}
+    @media (max-height:640px){#boot-loader .bl-hero{width:min(70vw,300px);top:31%}#boot-loader .bl-brand{top:59%}#boot-loader .bl-load{top:78%}}
+    @media (prefers-reduced-motion:reduce){#boot-loader *{animation:none!important}}
+    #boot-loader .bl-wave{position:absolute;left:50%;top:50%;width:36%;aspect-ratio:1;border-radius:50%;border:2px solid rgba(196,181,253,.7);
+      box-shadow:0 0 18px rgba(124,58,237,.5),inset 0 0 18px rgba(124,58,237,.35);transform:translate(-50%,-50%) scale(.3);opacity:0;animation:bl-wave 2.8s cubic-bezier(.2,.6,.3,1) infinite}
+    #boot-loader .bl-wave.w2{animation-delay:1.4s}
+    @keyframes bl-wave{0%{transform:translate(-50%,-50%) scale(.3);opacity:.9}100%{transform:translate(-50%,-50%) scale(2.3);opacity:0}}
     #banned-screen{position:fixed;inset:0;background:var(--bg);z-index:99999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center}
     #toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);display:none;align-items:center;gap:10px;min-width:220px;max-width:calc(100vw - 32px);padding:10px 16px 10px 14px;border-radius:14px;background:var(--card2);border:1px solid var(--line2);color:var(--text);font-size:13px;font-weight:600;z-index:100000;box-shadow:0 12px 30px rgba(0,0,0,.5)}
     #toast::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--tc,#7C3AED);flex:none}
@@ -133,10 +198,12 @@
 </head>
 <body oncontextmenu="return false;">
 
-  <div id="boot-loader">
-    <svg width="72" height="72" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="#7C3AED" stroke-width="1.5"/><path d="M4 4l4.5 4.5M15.5 15.5L20 20" stroke="#22D3EE" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" fill="#EDE9FE"/></svg>
-    <div style="width:180px;height:4px;background:var(--card2);border-radius:999px;overflow:hidden;"><div id="boot-progress" style="width:0%;height:100%;background:var(--violet);transition:width .15s;"></div></div>
-    <div style="color:var(--m);font-size:12px;">Loading…</div>
+  <div id="boot-loader" role="status" aria-label="Loading PULSAR">
+    <div class="bl-neb n1"></div><div class="bl-neb n2"></div><div class="bl-neb n3"></div>
+    <div class="bl-stars s1"></div><div class="bl-stars s2"></div><div class="bl-stars s3"></div><i class="bl-dust" style="--x:12%;--d:7s;--w:-1s"></i><i class="bl-dust" style="--x:26%;--d:9s;--w:-4s"></i><i class="bl-dust" style="--x:41%;--d:8s;--w:-6s"></i><i class="bl-dust" style="--x:58%;--d:10s;--w:-2s"></i><i class="bl-dust" style="--x:70%;--d:7.5s;--w:-5s"></i><i class="bl-dust" style="--x:83%;--d:9.5s;--w:-3s"></i><i class="bl-dust" style="--x:91%;--d:8.5s;--w:-7s"></i><i class="bl-dust" style="--x:5%;--d:10.5s;--w:-8s"></i>
+    <div class="bl-hero"><div class="bl-beams"><i class="soft"></i><i></i><i class="soft b2"></i><i class="b2"></i></div><div class="bl-halo"></div><i class="bl-wave"></i><i class="bl-wave w2"></i><svg class="bl-orbits" viewBox="-200 -200 400 400" aria-hidden="true"><defs><linearGradient id="blc1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ECFEFF"/><stop offset="1" stop-color="#0891B2"/></linearGradient><linearGradient id="blc2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#67E8F9"/><stop offset="1" stop-color="#155E75"/></linearGradient><linearGradient id="blv1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#EDE9FE"/><stop offset="1" stop-color="#6D28D9"/></linearGradient><linearGradient id="blv2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#3B0764"/></linearGradient></defs><g class="bl-dots"><circle r="132" fill="none" stroke="#A78BFA" stroke-opacity=".32" stroke-width="2" stroke-dasharray="1.5 10" stroke-linecap="round"/></g><g transform="rotate(-18)"><ellipse rx="176" ry="56" fill="none" stroke="#7C3AED" stroke-width="9" opacity=".22"/><ellipse rx="176" ry="56" fill="none" stroke="#8B5CF6" stroke-width="2.4"/><g><circle r="13" fill="#22D3EE" opacity=".35"/><circle r="8" fill="#22D3EE" stroke="#ECFEFF" stroke-width="2"/><animateMotion dur="9s" repeatCount="indefinite" path="M176 0 A176 56 0 1 1 -176 0 A176 56 0 1 1 176 0"/></g></g><g transform="rotate(14)"><ellipse rx="108" ry="35" fill="none" stroke="#A78BFA" stroke-width="10" opacity=".22"/><ellipse rx="108" ry="35" fill="none" stroke="#C4B5FD" stroke-width="3"/><circle r="5" fill="#F0ABFC"><animateMotion dur="5.5s" repeatCount="indefinite" path="M-108 0 A108 35 0 1 1 108 0 A108 35 0 1 1 -108 0"/></circle></g><g transform="translate(150 92) rotate(18)"><g class="bl-cr c1"><polygon points="0,-20 -8.4,-10.0 -8.4,11.0 0,20" fill="url(#blc1)"/><polygon points="0,-20 8.4,-10.0 8.4,11.0 0,20" fill="url(#blc2)"/><polygon points="0,-20 -8.4,-10.0 0,-6.4 8.4,-10.0" fill="#fff" opacity=".6"/></g></g><g transform="translate(-158 60) rotate(-22)"><g class="bl-cr c2"><polygon points="0,-15 -6.3,-7.5 -6.3,8.2 0,15" fill="url(#blv1)"/><polygon points="0,-15 6.3,-7.5 6.3,8.2 0,15" fill="url(#blv2)"/><polygon points="0,-15 -6.3,-7.5 0,-4.8 6.3,-7.5" fill="#fff" opacity=".6"/></g></g><g transform="translate(118 -138) rotate(28)"><g class="bl-cr c3"><polygon points="0,-10 -4.2,-5.0 -4.2,5.5 0,10" fill="url(#blv1)"/><polygon points="0,-10 4.2,-5.0 4.2,5.5 0,10" fill="url(#blv2)"/><polygon points="0,-10 -4.2,-5.0 0,-3.2 4.2,-5.0" fill="#fff" opacity=".6"/></g></g><g transform="translate(-112 -118) rotate(-14)"><g class="bl-cr c1"><polygon points="0,-8 -3.4,-4.0 -3.4,4.4 0,8" fill="url(#blc1)"/><polygon points="0,-8 3.4,-4.0 3.4,4.4 0,8" fill="url(#blc2)"/><polygon points="0,-8 -3.4,-4.0 0,-2.6 3.4,-4.0" fill="#fff" opacity=".6"/></g></g></svg><div class="bl-core"></div></div>
+    <div class="bl-brand"><div class="bl-word">PULSAR</div><div class="bl-tag"><span>MINE THE STARS</span></div></div>
+    <div class="bl-load"><div class="bl-bar"><div id="boot-progress" class="bl-fill"></div></div><div class="bl-pct" id="boot-pct">0%</div><div class="bl-status" id="boot-status">Powering up the reactor</div></div>
   </div>
 
   <div id="banned-screen">
@@ -675,26 +742,33 @@
     const DAILY_REWARDS = [10, 20, 30, 50, 70, 100, 200];
     let currentLevelPage = 1;
 
-    let bootProg = 0;
-    const bootTimer = setInterval(() => {
-      bootProg += Math.random() * 20;
-      if (bootProg > 95) bootProg = 95;
-      const el = document.getElementById('boot-progress');
-      if (el) el.style.width = bootProg + '%';
-    }, 150);
-
+    // loading screen: smooth progress that creeps while the server answers, at least ~1.8s so the intro is seen
+    const BOOT_T0 = Date.now();
+    const BOOT_STATUS = [[0, 'Powering up the reactor'], [30, 'Syncing your miner'], [60, 'Aligning the beams'], [85, 'Almost there'], [100, 'Ready for launch']];
+    let bootShown = 0, bootDone = false;
+    function bootFrame() {
+      const goal = bootDone ? 100 : Math.min(90, 16 + (Date.now() - BOOT_T0) / 1000 * 24);
+      bootShown += (goal - bootShown) * (bootDone ? 0.2 : 0.08);
+      if (Math.abs(goal - bootShown) < 0.4) bootShown = goal;
+      const v = Math.round(bootShown);
+      const fill = document.getElementById('boot-progress'), pct = document.getElementById('boot-pct'), st = document.getElementById('boot-status');
+      if (fill) fill.style.width = bootShown + '%';
+      if (pct) pct.textContent = v + '%';
+      if (st) { const label = BOOT_STATUS.filter((x) => v >= x[0]).pop()[1]; if (st.textContent !== label) st.textContent = label; }
+      if (bootDone && v >= 100) return setTimeout(hideBoot, 220);
+      requestAnimationFrame(bootFrame);
+    }
+    requestAnimationFrame(bootFrame);
+    function hideBoot() {
+      const loader = document.getElementById('boot-loader');
+      const app = document.getElementById('main-app-shell');
+      if (app && document.getElementById('banned-screen').style.display !== 'flex') app.style.display = 'flex';
+      if (loader) { loader.classList.add('bl-out'); setTimeout(() => { loader.style.display = 'none'; }, 520); }
+    }
     function finishBoot() {
       if (initialLoadDone) return;
       initialLoadDone = true;
-      clearInterval(bootTimer);
-      const el = document.getElementById('boot-progress');
-      if (el) el.style.width = '100%';
-      setTimeout(() => {
-        const loader = document.getElementById('boot-loader');
-        if (loader) loader.style.display = 'none';
-        const app = document.getElementById('main-app-shell');
-        if (app && document.getElementById('banned-screen').style.display !== 'flex') app.style.display = 'flex';
-      }, 300);
+      setTimeout(() => { bootDone = true; }, Math.max(0, 1800 - (Date.now() - BOOT_T0)));
     }
 
     const customLevels = [
@@ -867,23 +941,29 @@
     }
 
     let tonConnectUI = null, userClickedConnect = false;
-    try {
-      tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: new URL('tonconnect-manifest.json', location.href).href,
-        buttonRootId: 'ton-connect-container'
-      });
-      tonConnectUI.onStatusChange(async wallet => {
-        const addr = wallet?.account?.address || "";
-        if (!addr) return;
-        const announce = userClickedConnect;
-        userClickedConnect = false;
-        try {
-          await api("wallet", { address: addr });
-          await refreshState();
-          if (announce) { SoundFX.buySuccess(); showToast("👛 Wallet Connected!"); }
-        } catch (err) { if (announce) showToast("❌ " + err.message, "#ef4444"); }
-      });
-    } catch (e) {}
+    // the wallet library is loaded with "defer": set it up as soon as it is there
+    function initTonConnect() {
+      if (tonConnectUI || !window.TON_CONNECT_UI) return;
+      try {
+        tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+          manifestUrl: new URL('tonconnect-manifest.json', location.href).href,
+          buttonRootId: 'ton-connect-container'
+        });
+        tonConnectUI.onStatusChange(async wallet => {
+          const addr = wallet?.account?.address || "";
+          if (!addr) return;
+          const announce = userClickedConnect;
+          userClickedConnect = false;
+          try {
+            await api("wallet", { address: addr });
+            await refreshState();
+            if (announce) { SoundFX.buySuccess(); showToast("👛 Wallet Connected!"); }
+          } catch (err) { if (announce) showToast("❌ " + err.message, "#ef4444"); }
+        });
+      } catch (e) {}
+    }
+    initTonConnect();
+    if (!tonConnectUI) document.addEventListener('DOMContentLoaded', initTonConnect);
 
     async function connectTonWallet(e) {
       if (!isHumanClick(e)) return;
@@ -1326,7 +1406,7 @@
     });
 
     initCloudSync(); setInterval(updateLiveMining, 1000); updateLiveMining();
-    setTimeout(() => { finishBoot(); }, 2500);
+    setTimeout(() => { finishBoot(); }, 6000); // show the app even if the server is slow
   })();
   </script>
 </body>
