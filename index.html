@@ -382,6 +382,19 @@
     .token-card.no-price .tc-contract{border:none;padding-left:0}
     #page-profile .token-card{margin-bottom:10px}
     body.fs #toast{top:calc(var(--safe-top) + var(--safe-ctop) + 6px)}
+    /* one-time activation + halving */
+    .act-note{margin:-4px 4px 0;font-size:11.5px;line-height:1.35;color:var(--m);text-align:center}
+    .act-note[hidden],.halving-row[hidden]{display:none}
+    .collect-btn.act{filter:drop-shadow(0 6px 16px rgba(245,158,11,.45))}
+    .collect-btn.act .cb-frame{background:linear-gradient(180deg,#FEF3C7,#FBBF24 35%,#F97316 70%,#B45309)}
+    .collect-btn.act .cb-in{background:linear-gradient(180deg,#F59E0B 0%,#D97706 45%,#B45309 80%,#92400E 100%);font-size:14px;letter-spacing:.06em}
+    .collect-btn.busy{opacity:.75;pointer-events:none}
+    .collect-btn.ended{opacity:.55;filter:none;animation:none}
+    .halving-row{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:11px;color:var(--m);font-variant-numeric:tabular-nums}
+    .halving-row #halving-txt{flex:none;white-space:nowrap}
+    .hv-bar{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+    .hv-bar i{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,#F59E0B,#F0ABFC)}
+    body.rtl-mode .hv-bar i{margin-left:auto}
   </style>
 </head>
 <body oncontextmenu="return false;">
@@ -453,9 +466,11 @@
       <div class="tank">
         <div class="prog-row"><span id="mine-cycle-label">24h tank · 0%</span><strong id="mine-to-go" style="color:var(--text);direction:ltr;">Hold: 0</strong></div>
         <div class="prog-bg-3d"><div class="prog-fill-3d" id="mine-prog-bar"></div></div>
+        <div class="halving-row" id="halving-row" hidden><span id="halving-txt"></span><span class="hv-bar"><i id="halving-bar"></i></span></div>
       </div>
 
-      <button type="button" class="collect-btn" id="btn-collect-main"><span class="cb-frame"></span><span class="cb-in"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l9-9"/><path d="M9 5.5c4-2 8.5-1 11.5 2.5"/><path d="M18.5 6.5c1.5 3.5 1 7.5-1.5 10.5"/></svg><span data-i18n="collect_btn">Collect 24h mining</span></span></button>
+      <button type="button" class="collect-btn" id="btn-collect-main"><span class="cb-frame"></span><span class="cb-in"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l9-9"/><path d="M9 5.5c4-2 8.5-1 11.5 2.5"/><path d="M18.5 6.5c1.5 3.5 1 7.5-1.5 10.5"/></svg><span id="collect-label" data-i18n="collect_btn">Collect 24h mining</span></span></button>
+      <p class="act-note" id="act-note" hidden></p>
 
     </div>
 
@@ -650,6 +665,12 @@
             <div><label style="color:var(--gb);">Level 100 Profit (Auto):</label><input type="text" id="adm-lvl100-day" class="input-3d" readonly style="background:#1e293b;color:#94a3b8;"></div>
           </div>
           <div class="grid-3">
+            <div><label style="color:#f59e0b;">Activation fee (TON):</label><input type="number" step="0.01" min="0" id="adm-act-fee" class="input-3d"></div>
+            <div><label style="color:#f59e0b;">Halving every:</label><input type="number" min="0" id="adm-halving" class="input-3d" style="font-size:13px;padding-left:8px;padding-right:8px;"></div>
+            <div><label style="color:#f59e0b;">Mining cap:</label><input type="number" min="0" id="adm-cap" class="input-3d" style="font-size:13px;padding-left:8px;padding-right:8px;"></div>
+          </div>
+          <div id="adm-econ-stats" style="font-size:11px;line-height:1.5;color:var(--m);margin:-2px 0 8px;direction:rtl;text-align:right;"></div>
+          <div class="grid-3">
             <div><label style="color:#38bdf8;">Ad Reward:</label><input type="number" id="adm-ad-rew" class="input-3d"></div>
             <div><label style="color:#38bdf8;">Max Ads/Day:</label><input type="number" id="adm-ad-max" class="input-3d"></div>
             <div><label style="color:#38bdf8;">Task Reward:</label><input type="number" id="adm-task-rew" class="input-3d"></div>
@@ -663,7 +684,7 @@
             <div><label>Withdraw Hold %:</label><input type="number" id="adm-holdpct" class="input-3d"></div>
             <div><label>Withdraw Fee %:</label><input type="number" id="adm-wdfee-pct" class="input-3d"></div>
           </div>
-          <label style="color:#22c55e;">👛 Payout Wallet Address:</label>
+          <label style="color:#22c55e;">👛 Payout Wallet Address (activation fees arrive here):</label>
           <input type="text" id="adm-payout-wallet" class="input-3d" placeholder="UQ..." style="direction:ltr;">
           <label style="color:var(--gb);">📺 Adsgram Block ID:</label>
           <input type="text" id="adm-adsgram-id" class="input-3d" placeholder="e.g., 4829 or int-4829" style="direction:ltr;">
@@ -810,7 +831,7 @@
       en: {
         mining_rate:"Mining rate", per_day:"/day", pilot_rank:"Pilot rank", price_lbl:"Price", contract_lbl:"Official contract", daily_badge:"Daily", settings_title:"Settings", language_lbl:"Language", sound_lbl:"Sound effects", current_rank:"Wallet level", claimed_in_app:"Claimed in the app",
         streak_txt:"24h shift", streak_sub:"Collect every 24h to keep mining", turbo_btn:"Turbo ×2", turbo_sub:"Watch an ad",
-        collect_btn:"Collect 24h mining", buy_btn:"Buy", levels_btn:"Levels 1–100",
+        collect_btn:"Collect 24h mining", act_btn:"Activate mining", act_note:"One-time fee from your TON wallet · after that, collecting is free", act_connect:"Connect your TON wallet to activate mining", act_wait:"Payment sent · waiting for the network…", act_checking:"Confirming payment…", act_slow:"Not confirmed yet · tap again in a minute", act_done:"Mining activated!", act_cancel:"Payment cancelled", mining_ended:"Mining has ended", st_ended:"Ended", halving_next:"Next halving in", buy_btn:"Buy", levels_btn:"Levels 1–100",
         watch_ads_title:"Watch video ads", ads_today:"Watched today", watch_ad_btn:"Watch full ad",
         ch1_title:"Official channel", ch2_title:"Payouts & community",
         open_ch:"1. Open channel", open_grp:"1. Open channel", verify_btn:"2. Verify",
@@ -834,7 +855,7 @@
       ar: {
         mining_rate:"سرعة التعدين", per_day:"يوميًا", pilot_rank:"رتبة الطيار", price_lbl:"السعر", contract_lbl:"العقد الرسمي", daily_badge:"يومي", settings_title:"الإعدادات", language_lbl:"اللغة", sound_lbl:"المؤثرات الصوتية", current_rank:"مستوى المحفظة", claimed_in_app:"رصيدك في التطبيق",
         streak_txt:"دورة 24 ساعة", streak_sub:"اجمع كل 24 ساعة ليستمر التعدين", turbo_btn:"تيربو ×2", turbo_sub:"شاهد إعلانًا",
-        collect_btn:"اجمع تعدين 24 ساعة", buy_btn:"شراء", levels_btn:"المستويات",
+        collect_btn:"اجمع تعدين 24 ساعة", act_btn:"فعّل التعدين", act_note:"رسوم لمرة واحدة من محفظة TON · بعدها التجميع مجاني", act_connect:"اربط محفظة TON لتفعيل التعدين", act_wait:"تم إرسال الدفع · في انتظار الشبكة…", act_checking:"جاري تأكيد الدفع…", act_slow:"لم يتأكد بعد · اضغط مرة أخرى بعد دقيقة", act_done:"تم تفعيل التعدين!", act_cancel:"تم إلغاء الدفع", mining_ended:"انتهى التعدين", st_ended:"انتهى", halving_next:"التنصيف القادم بعد", buy_btn:"شراء", levels_btn:"المستويات",
         watch_ads_title:"شاهد إعلانات الفيديو", ads_today:"شاهدت اليوم", watch_ad_btn:"شاهد الإعلان كاملًا",
         ch1_title:"القناة الرسمية", ch2_title:"قناة السحوبات والمجتمع",
         open_ch:"1. افتح القناة", open_grp:"1. افتح القناة", verify_btn:"2. تحقّق",
@@ -858,7 +879,7 @@
       ru: {
         mining_rate:"Скорость", per_day:"/день", pilot_rank:"Ранг пилота", price_lbl:"Цена", contract_lbl:"Контракт", daily_badge:"Бонус", settings_title:"Настройки", language_lbl:"Язык", sound_lbl:"Звуки", current_rank:"Уровень кошелька", claimed_in_app:"Собрано в приложении",
         streak_txt:"Смена 24ч", streak_sub:"Собирайте каждые 24ч, чтобы майнинг шёл", turbo_btn:"Турбо ×2", turbo_sub:"Смотреть рекламу",
-        collect_btn:"Собрать за 24ч", buy_btn:"Купить", levels_btn:"Уровни 1–100",
+        collect_btn:"Собрать за 24ч", act_btn:"Активировать", act_note:"Разовый платёж из TON-кошелька · дальше сбор бесплатно", act_connect:"Подключите TON-кошелёк для активации", act_wait:"Платёж отправлен · ждём сеть…", act_checking:"Проверяем платёж…", act_slow:"Пока не подтверждено · нажмите снова через минуту", act_done:"Майнинг активирован!", act_cancel:"Платёж отменён", mining_ended:"Майнинг завершён", st_ended:"Завершён", halving_next:"Халвинг через", buy_btn:"Купить", levels_btn:"Уровни 1–100",
         watch_ads_title:"Видеореклама", ads_today:"Просмотрено сегодня", watch_ad_btn:"Смотреть рекламу",
         ch1_title:"Официальный канал", ch2_title:"Выплаты и сообщество",
         open_ch:"1. Открыть канал", open_grp:"1. Открыть канал", verify_btn:"2. Проверить",
@@ -931,6 +952,12 @@
     try { localStorage.removeItem('vksec_turbo'); } catch (e) {}
     let isCollecting = false;
     let initialLoadDone = false;
+    let emission = { factor: 1, mined: 0, halving: 0, nextAt: 0, every: 0, cap: 0 };
+    let needsActivation = false, isActivating = false, actResumeTried = false;
+    const rewardF = () => (emission && Number.isFinite(Number(emission.factor)) ? Number(emission.factor) : 1);
+    const trx = (k) => ((I18N[currentLang] || I18N.en)[k] || I18N.en[k] || k);
+    const fmtR = (x) => Number(x || 0).toLocaleString('en-US', { maximumFractionDigits: 2 });
+    const fmtBig = (n) => n >= 1e6 ? +(n / 1e6).toFixed(n >= 1e7 ? 1 : 2) + 'M' : n >= 1e3 ? +(n / 1e3).toFixed(1) + 'K' : String(Math.floor(n));
     
     const DAILY_REWARDS = [10, 20, 30, 50, 70, 100, 200];
     let currentLevelPage = 1;
@@ -978,7 +1005,8 @@
     let LEVELS_DATA = [];
     function rebuildLevelsTable() {
       LEVELS_DATA = [];
-      const scale = (Number(config.lvl1PerDay) || 250) / 250;
+      const base = Number(config.lvl1PerDay);
+      const scale = (Number.isFinite(base) ? base : 250) / 250 * rewardF(); // halving lowers every level
       for (let i = 1; i <= 100; i++) {
         const g = i <= 30 ? "Cadet" : (i <= 70 ? "Pilot" : "Commander");
         let reqHold, perDay;
@@ -1031,7 +1059,7 @@
 
       container.innerHTML = DAILY_REWARDS.map((rew, idx) => {
         const dayNum = idx + 1;
-        let boxClass = "daily-box", statusText = `+${rew}`;
+        let boxClass = "daily-box", statusText = `+${fmtR(rew * rewardF())}`;
         if (dayNum <= dailyStreak) { boxClass += " claimed"; statusText = "✓"; }
         else if (dayNum === dailyStreak + 1 && !hasClaimedToday) { boxClass += " active"; }
         return `<div class="${boxClass}"><span class="day-num">${dayNum}</span>${statusText}</div>`;
@@ -1095,6 +1123,8 @@
       localStorage.removeItem('vk_banned_' + CURRENT_UID);
       document.getElementById('banned-screen').style.display = 'none';
       config = Object.assign({}, defaultConfig, j.settings || {});
+      if (j.emission) emission = j.emission;
+      needsActivation = !!d.needsActivation;
       rebuildLevelsTable();
       minedInApp = Number(d.mined) || 0;
       walletHold = Number(d.hold) || 0;
@@ -1115,6 +1145,7 @@
       renderWithdrawHistory();
       applyUI();
       finishBoot();
+      resumeActivation();
     }
 
     async function initCloudSync() {
@@ -1233,8 +1264,8 @@
 
       document.getElementById('ui-brand-title').innerText = config.brandTitle;
       document.querySelectorAll('.coin-sym').forEach(el => el.innerText = config.coinSym);
-      document.getElementById('ui-ad-rew').innerText = config.adReward;
-      document.querySelectorAll('.ui-task-rew').forEach(el => el.innerText = config.taskReward);
+      document.getElementById('ui-ad-rew').innerText = fmtR(config.adReward * rewardF());
+      document.querySelectorAll('.ui-task-rew').forEach(el => el.innerText = fmtR(config.taskReward * rewardF()));
 
       document.title = config.brandTitle || "PULSAR";
       document.getElementById('mine-ths').innerText = (cur.ths * mult).toFixed(2) + " TH/s" + (mult > 1 ? " · ×2" : "");
@@ -1299,6 +1330,108 @@
       document.getElementById('prof-hold-bal').innerText = Math.floor(walletHold).toLocaleString();
       document.getElementById('prof-mine-bal').innerText = Math.floor(minedInApp).toLocaleString();
       updateWdCalculation();
+      applyMiningState();
+    }
+
+    // collect button: activation price for new players, "ended" after the cap; halving progress under the tank
+    function applyMiningState() {
+      const lbl = document.getElementById('collect-label'), note = document.getElementById('act-note');
+      const f = rewardF(), fee = Number(config.activationFee) || 0;
+      if (!isActivating) lbl.textContent = needsActivation ? `${trx('act_btn')} · ${fmtR(fee)} TON` : (f <= 0 ? trx('mining_ended') : trx('collect_btn'));
+      note.textContent = trx('act_note');
+      note.hidden = !needsActivation;
+      document.getElementById('btn-collect-main').classList.toggle('act', needsActivation);
+      document.getElementById('btn-collect-main').classList.toggle('ended', !needsActivation && f <= 0);
+      const row = document.getElementById('halving-row');
+      const every = Number(emission.every) || 0, cap = Number(emission.cap) || 0, mined = Number(emission.mined) || 0;
+      if (!every && !cap) { row.hidden = true; return; }
+      row.hidden = false;
+      let txt, pct;
+      if (f <= 0) { txt = `${trx('mining_ended')} · ${fmtBig(mined)} ${config.coinSym}`; pct = 100; }
+      else if (every) {
+        const next = Number(emission.nextAt) || every;
+        txt = `${trx('halving_next')} ${fmtBig(Math.max(0, next - mined))} ${config.coinSym}`;
+        pct = Math.max(0, Math.min(100, (mined - (next - every)) / every * 100));
+      } else { txt = `${fmtBig(mined)} / ${fmtBig(cap)} ${config.coinSym}`; pct = Math.min(100, mined / cap * 100); }
+      document.getElementById('halving-txt').textContent = txt;
+      document.getElementById('halving-bar').style.width = pct.toFixed(1) + '%';
+    }
+
+    // ---- one-time mining activation: TON from the player's wallet to the official wallet, with a comment the server looks for ----
+    const CRC_T = (() => { const t = new Uint32Array(256); for (let i = 0; i < 256; i++) { let c = i; for (let k = 0; k < 8; k++) c = c & 1 ? (c >>> 1) ^ 0x82F63B78 : c >>> 1; t[i] = c >>> 0; } return t; })();
+    function crc32c(bytes) { let c = 0xFFFFFFFF; for (const b of bytes) c = CRC_T[(c ^ b) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+    function commentPayload(text) { // one cell: 32 zero bits + the text, as a base64 BOC with CRC32C
+      const data = [0, 0, 0, 0, ...new TextEncoder().encode(text)];
+      if (data.length > 127) throw new Error('Comment too long');
+      const cell = [0, data.length * 2, ...data];
+      const out = [0xb5, 0xee, 0x9c, 0x72, 0x41, 1, 1, 1, 0, cell.length, 0, ...cell];
+      const c = crc32c(out);
+      out.push(c & 255, (c >>> 8) & 255, (c >>> 16) & 255, (c >>> 24) & 255);
+      return btoa(String.fromCharCode(...out));
+    }
+    const actKey = () => 'pl_act_sent_' + CURRENT_UID;
+    const lsGet = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+    const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+    const lsDel = (k) => { try { localStorage.removeItem(k); } catch (e) {} };
+    async function waitActivation(tries) {
+      for (let i = 0; i < tries; i++) {
+        if (i) await new Promise(r => setTimeout(r, 4000));
+        try { const r = await api("activateCheck"); if (r.activated) return true; } catch (e) {}
+      }
+      return false;
+    }
+    async function onActivated() {
+      lsDel(actKey());
+      needsActivation = false;
+      SoundFX.buySuccess();
+      showToast("⚡ " + trx('act_done'), "#22c55e");
+      try {
+        const r = await api("collect");
+        lastCollectTime = Date.now();
+        if (r.added > 0) setTimeout(() => showToast(`⚡ +${Number(r.added).toFixed(4)} ${config.coinSym}!`), 1800);
+      } catch (e) {}
+      await refreshState().catch(() => {});
+    }
+    function setActBusy(on) {
+      document.getElementById('btn-collect-main').classList.toggle('busy', on);
+      if (on) document.getElementById('collect-label').textContent = trx('act_checking');
+    }
+    async function runActivation() {
+      if (isActivating) return;
+      isActivating = true;
+      try {
+        if (Date.now() - (Number(lsGet(actKey())) || 0) < 10 * 60000) { // paid a moment ago: look for it before asking to pay again
+          setActBusy(true);
+          if (await waitActivation(3)) return await onActivated();
+          return showToast(trx('act_slow'), "#d97706");
+        }
+        if (!tonConnectUI) initTonConnect();
+        if (!tonConnectUI) return showToast("⚠️ " + trx('act_connect'), "#ef4444");
+        if (!tonConnectUI.connected) {
+          userClickedConnect = true;
+          showToast(trx('act_connect'), "#0284c7");
+          try { await tonConnectUI.openModal(); } catch (e) {}
+          return;
+        }
+        const s = await api("activateStart");
+        if (s.activated) return await onActivated();
+        try {
+          await tonConnectUI.sendTransaction({ validUntil: Math.floor(Date.now() / 1000) + 360, messages: [{ address: s.to, amount: String(s.amount), payload: commentPayload(s.comment) }] });
+        } catch (err) { SoundFX.error(); return showToast("❌ " + trx('act_cancel'), "#ef4444"); }
+        lsSet(actKey(), String(Date.now()));
+        setActBusy(true);
+        showToast(trx('act_wait'), "#0284c7");
+        if (await waitActivation(25)) return await onActivated();
+        showToast(trx('act_slow'), "#d97706");
+      } catch (err) { SoundFX.error(); showToast("❌ " + err.message, "#ef4444"); }
+      finally { isActivating = false; setActBusy(false); applyMiningState(); }
+    }
+    // reopened the app right after paying: finish the activation by itself
+    function resumeActivation() {
+      if (actResumeTried || !needsActivation || isActivating) return;
+      actResumeTried = true;
+      if (Date.now() - (Number(lsGet(actKey())) || 0) > 30 * 60000) return;
+      waitActivation(1).then(ok => { if (ok && needsActivation) onActivated(); });
     }
 
     function updateWdCalculation() {
@@ -1344,10 +1477,13 @@
         statusDot.innerText = mult > 1 ? dict.st_turbo : dict.st_active;
         statusDot.style.color = "#34D399";
       }
+      if (rewardF() <= 0) { statusDot.innerText = dict.st_ended || I18N.en.st_ended; statusDot.style.color = "#F87171"; }
     }
 
     async function collectMining(e) {
       if (isCollecting || !isHumanClick(e)) return;
+      if (needsActivation) return runActivation();
+      if (rewardF() <= 0) { SoundFX.error(); return showToast("❌ " + trx('mining_ended'), "#ef4444"); }
       isCollecting = true;
       try {
         const r = await api("collect");
@@ -1355,7 +1491,10 @@
         SoundFX.collect();
         showToast(`⚡ +${Number(r.added).toFixed(4)} ${config.coinSym}!`);
         await refreshState();
-      } catch (err) { SoundFX.error(); showToast("❌ " + err.message, "#ef4444"); }
+      } catch (err) {
+        SoundFX.error(); showToast("❌ " + err.message, "#ef4444");
+        if (/activate/i.test(err.message)) { needsActivation = true; applyMiningState(); }
+      }
       finally { isCollecting = false; }
     }
 
@@ -1438,6 +1577,8 @@
       const j = await api("adminState");
       usersDB = j.players || []; allWithdrawalsDB = j.withdrawals || []; adminCfg = j.config || null;
       renderAdminUsersList(); renderAdminWithdrawals();
+      const st = j.stats, el = document.getElementById('adm-econ-stats');
+      if (el) el.textContent = st ? `✅ اتفعّل: ${Number(st.activations || 0).toLocaleString()} لاعب · ${fmtR(st.activationTon)} TON — ⛏️ اتعدّن: ${fmtBig(st.mined || 0)}${st.cap ? ' من ' + fmtBig(st.cap) : ''} — المكافآت ×${st.factor}` : '';
     }
 
     async function processPayout(w, isReject) {
@@ -1501,7 +1642,7 @@
       }));
     }
 
-    const ADMIN_FIELDS = { 'adm-title':'brandTitle','adm-sym':'coinSym','adm-lvl1-day':'lvl1PerDay','adm-ad-rew':'adReward','adm-ad-max':'maxAdsPerDay','adm-task-rew':'taskReward','adm-ref-pct':'refClaimPercent','adm-ref-minhold':'refMinHold','adm-minwd':'minWithdraw','adm-holdpct':'holdPercentReq','adm-wdfee-pct':'withdrawFeePercent','adm-payout-wallet':'payoutWallet','adm-adsgram-id':'adsgramBlockId','adm-payout-ch':'payoutChannel','adm-admin-chat':'adminChatId','adm-ch1':'channel1','adm-ch2':'channel2','adm-botuser':'botUsername','adm-news-url':'newsUrl','adm-payouts-url':'payoutsUrl' };
+    const ADMIN_FIELDS = { 'adm-title':'brandTitle','adm-sym':'coinSym','adm-lvl1-day':'lvl1PerDay','adm-ad-rew':'adReward','adm-ad-max':'maxAdsPerDay','adm-task-rew':'taskReward','adm-ref-pct':'refClaimPercent','adm-ref-minhold':'refMinHold','adm-minwd':'minWithdraw','adm-holdpct':'holdPercentReq','adm-wdfee-pct':'withdrawFeePercent','adm-payout-wallet':'payoutWallet','adm-adsgram-id':'adsgramBlockId','adm-payout-ch':'payoutChannel','adm-admin-chat':'adminChatId','adm-ch1':'channel1','adm-ch2':'channel2','adm-botuser':'botUsername','adm-news-url':'newsUrl','adm-payouts-url':'payoutsUrl','adm-act-fee':'activationFee','adm-halving':'halvingEvery','adm-cap':'miningCap' };
     async function openOwnerDashboard() {
       if (CURRENT_UID !== OWNER_UID) return showToast("❌ Access Denied! (Owner Only)", "#ef4444");
       try { await loadAdminData(); } catch (err) { return showToast("❌ " + err.message, "#ef4444"); }
