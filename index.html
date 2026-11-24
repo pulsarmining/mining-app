@@ -194,9 +194,171 @@
     @media (max-height:740px){.chip{display:none}}
     @media (max-height:680px){#page-mine.page.active{gap:7px}.pulsar-btn svg{width:96px;height:96px}.collect-btn{height:48px}.balance-num{font-size:30px}}
     @media (max-width:350px){.brand-logo-3d{font-size:15px;letter-spacing:.1em}.mini-pill{font-size:12px}}
+    /* ================= PULSAR v2: space HUD look ================= */
+    :root{--safe-top:var(--tg-safe-area-inset-top,0px);--safe-ctop:var(--tg-content-safe-area-inset-top,0px);--safe-bottom:var(--tg-safe-area-inset-bottom,0px);--glass:linear-gradient(180deg,rgba(26,35,82,.78),rgba(11,17,44,.86));--edge:linear-gradient(135deg,rgba(167,139,250,.6),rgba(34,211,238,.32) 55%,rgba(124,58,237,.25));--base:linear-gradient(#0A0F2C,#0A0F2C)}
+    html,body{background:#050816}
+    #space-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:radial-gradient(130% 60% at 50% -8%,#151E55 0%,#0A0F2C 46%,#050816 100%)}
+    #space-bg i{position:absolute;border-radius:50%;filter:blur(46px)}
+    #space-bg .sb1{width:90vw;height:50vh;left:-30vw;top:18vh;background:radial-gradient(closest-side,rgba(124,58,237,.32),transparent)}
+    #space-bg .sb2{width:80vw;height:45vh;right:-35vw;top:48vh;background:radial-gradient(closest-side,rgba(34,211,238,.16),transparent)}
+    #space-bg .sb3{width:70vw;height:35vh;right:-20vw;top:-6vh;background:radial-gradient(closest-side,rgba(192,38,211,.16),transparent)}
+    #space-bg b{position:absolute;left:0;top:0;width:1px;height:1px;border-radius:50%;animation:bl-tw 4.5s ease-in-out infinite alternate}
+    .app-shell{position:relative;z-index:1;padding:6px 14px calc(94px + var(--safe-bottom))}
+    body.fs .app-shell{padding-top:calc(var(--safe-top) + var(--safe-ctop) + 4px)}
+    /* logo: own row, or inside Telegram's top bar in full screen */
+    .app-logo{height:38px;flex:none;display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:6px;direction:ltr}
+    body.fs .app-logo{position:fixed;left:0;right:0;top:var(--safe-top);height:var(--safe-ctop);margin:0;z-index:60;pointer-events:none}
+    .app-logo svg{width:24px;height:24px;filter:drop-shadow(0 0 6px rgba(124,58,237,.8))}
+    .app-logo .brand-logo-3d{pointer-events:auto;font-size:21px;letter-spacing:.24em;margin-right:-.24em;color:transparent;
+      background:linear-gradient(100deg,#C4B5FD 0%,#fff 32%,#A5F3FC 50%,#fff 68%,#C4B5FD 100%);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;
+      filter:drop-shadow(0 0 10px rgba(124,58,237,.75));animation:bl-shine 6s ease-in-out infinite}
+    /* player card (all pages) */
+    .hud-profile{flex:none;display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:7px 8px 7px 7px;border-radius:20px;direction:ltr;
+      background:var(--glass) padding-box,var(--base) padding-box,linear-gradient(90deg,rgba(167,139,250,.6),rgba(34,211,238,.3) 60%,rgba(167,139,250,.12)) border-box;border:1px solid transparent;box-shadow:0 8px 22px rgba(0,0,0,.35)}
+    .hp-avatar{width:46px;height:46px;border-radius:50%;padding:2px;flex:none;background:conic-gradient(from 210deg,#22D3EE,#7C3AED,#C4B5FD,#22D3EE);box-shadow:0 0 14px rgba(124,58,237,.6)}
+    .hp-avatar img,.hp-avatar span{width:100%;height:100%;border-radius:50%;border:2px solid #0A0F2C;display:flex;align-items:center;justify-content:center;object-fit:cover;background:linear-gradient(135deg,#312E81,#1E1747);font:700 18px/1 var(--display);color:#EDE9FE}
+    .hp-id{flex:1;min-width:0}
+    .hp-name{display:flex;align-items:center;gap:5px;font:700 15.5px/1.15 var(--display);color:#fff;white-space:nowrap}
+    .hp-name span{overflow:hidden;text-overflow:ellipsis}
+    .hp-name svg{width:16px;height:16px;flex:none}
+    .hp-user{font-size:12px;color:var(--m);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .hp-bal{flex:none;display:flex;align-items:center;gap:7px;height:40px;padding:0 14px 0 5px;border-radius:999px;background:rgba(5,8,22,.62);border:1px solid rgba(252,211,77,.4);box-shadow:inset 0 0 14px rgba(252,211,77,.08),0 0 14px rgba(252,211,77,.12)}
+    .coin-ico{width:30px;height:30px;flex:none;filter:drop-shadow(0 0 6px rgba(252,211,77,.45))}
+    .hp-bal .balance-num{font-size:20px;line-height:1}
+    /* cards */
+    .card-3d{position:relative;background:var(--glass) padding-box,var(--base) padding-box,var(--edge) border-box;border:1px solid transparent;border-radius:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 10px 26px rgba(0,0,0,.32)}
+    .sub-3d{background:rgba(5,8,22,.55);border:1px solid rgba(124,58,237,.25);border-radius:14px}
+    .stat-label{font-size:10.5px;letter-spacing:.12em;color:#8F9BCB}
+    h2,h3,h4{color:#fff}
+    .card-3d h4,.card-3d h3{display:flex;align-items:center;gap:8px}
+    /* buttons */
+    .btn-3d-gold{position:relative;overflow:hidden;border:1px solid transparent;border-radius:14px;color:#fff;font-weight:700;letter-spacing:.03em;text-shadow:0 1px 2px rgba(0,0,0,.35);
+      background:linear-gradient(180deg,#8B5CF6,#6D28D9 55%,#5B21B6) padding-box,linear-gradient(135deg,#E9D5FF,#22D3EE 50%,#7C3AED) border-box;box-shadow:0 6px 18px rgba(124,58,237,.45),inset 0 1px 0 rgba(255,255,255,.3)}
+    .btn-3d-gold::after{content:"";position:absolute;left:0;right:0;top:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,0));pointer-events:none}
+    .btn-3d-bronze{border:1px solid transparent;border-radius:14px;color:#E0E7FF;font-weight:700;background:linear-gradient(180deg,rgba(32,43,98,.95),rgba(14,20,50,.96)) padding-box,linear-gradient(135deg,rgba(196,181,253,.75),rgba(34,211,238,.5)) border-box;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+    .btn-3d-dark{border:1px solid rgba(124,58,237,.3);background:rgba(8,12,32,.8);color:#C7D2FE;border-radius:12px}
+    .btn-3d-dark.tier-active{border-color:transparent;background:linear-gradient(180deg,rgba(124,58,237,.5),rgba(124,58,237,.15)) padding-box,linear-gradient(#0D1336,#0D1336) padding-box,linear-gradient(180deg,#A78BFA,#22D3EE) border-box;color:#fff;box-shadow:0 0 14px rgba(124,58,237,.4)}
+    .btn-3d-danger{border-radius:14px;border:1px solid rgba(248,113,113,.45);background:linear-gradient(180deg,rgba(69,10,25,.9),rgba(42,13,20,.95));color:#FCA5A5}
+    .input-3d{background:rgba(4,6,18,.75);border:1px solid rgba(124,58,237,.32);border-radius:12px;box-shadow:inset 0 2px 6px rgba(0,0,0,.5)}
+    .input-3d:focus{border-color:#A78BFA;box-shadow:inset 0 2px 6px rgba(0,0,0,.5),0 0 0 3px rgba(124,58,237,.25)}
+    .reward{color:#67E8F9;text-shadow:0 0 10px rgba(34,211,238,.45)}
+    .badge-tag{border-radius:999px;padding:4px 10px;box-shadow:inset 0 1px 0 rgba(255,255,255,.15)}
+    .prog-bg-3d{height:10px;background:rgba(4,6,18,.8);border:1px solid rgba(124,58,237,.3);box-shadow:inset 0 1px 3px rgba(0,0,0,.6)}
+    .prog-fill-3d{background:linear-gradient(90deg,#6D28D9,#8B5CF6 45%,#22D3EE);box-shadow:0 0 10px rgba(139,92,246,.75)}
+    .daily-box{background:rgba(5,8,22,.6);border:1px solid rgba(124,58,237,.25);border-radius:12px}
+    .daily-box.active{border-color:#A78BFA;background:linear-gradient(180deg,rgba(124,58,237,.4),rgba(124,58,237,.12));color:#fff;box-shadow:0 0 12px rgba(124,58,237,.45)}
+    .daily-box.claimed{border-color:rgba(52,211,153,.5);background:rgba(6,78,59,.35)}
+    .miner-card-3d{background:var(--glass) padding-box,var(--base) padding-box,var(--edge) border-box;border:1px solid transparent;border-radius:18px}
+    .miner-card-3d.active-lvl{background:linear-gradient(180deg,rgba(76,29,149,.6),rgba(12,18,46,.9)) padding-box,linear-gradient(180deg,#C4B5FD,#22D3EE) border-box;box-shadow:0 0 18px rgba(124,58,237,.45)}
+    .miner-art-3d{background:radial-gradient(circle at 50% 45%,rgba(124,58,237,.3),rgba(5,8,22,.9) 70%);border:1px solid rgba(124,58,237,.3)}
+    .avatar{border-radius:50%;background:linear-gradient(135deg,#312E81,#1E1747);border:2px solid rgba(167,139,250,.6);box-shadow:0 0 12px rgba(124,58,237,.45)}
+    /* bottom bar with drawn icons */
+    .bottom-nav-3d{left:10px;right:10px;bottom:calc(10px + var(--safe-bottom));height:72px;padding:6px;gap:4px;border-radius:24px;
+      background:linear-gradient(180deg,rgba(24,32,76,.96),rgba(8,12,32,.98)) padding-box,linear-gradient(90deg,rgba(124,58,237,.7),rgba(34,211,238,.5),rgba(124,58,237,.7)) border-box;border:1px solid transparent;box-shadow:0 -8px 30px rgba(0,0,0,.5)}
+    .nav-item{position:relative;height:58px;border:1px solid transparent;border-radius:18px;color:#7E89B8;font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;gap:4px}
+    .nav-item+.nav-item::before{content:"";position:absolute;left:-3px;top:14px;bottom:14px;width:1px;background:rgba(124,58,237,.22)}
+    .nav-item .ni{width:30px;height:30px;filter:grayscale(.7) brightness(.75);transition:transform .2s ease,filter .2s ease}
+    .nav-item.active{color:#fff;background:linear-gradient(180deg,rgba(124,58,237,.55),rgba(124,58,237,.14)) padding-box,linear-gradient(#0D1336,#0D1336) padding-box,linear-gradient(180deg,#C4B5FD,#22D3EE) border-box;box-shadow:0 0 18px rgba(124,58,237,.5),inset 0 1px 0 rgba(255,255,255,.12)}
+    .nav-item.active::before,.nav-item.active+.nav-item::before{display:none}
+    .nav-item.active .ni{filter:drop-shadow(0 0 6px rgba(167,139,250,.8));transform:translateY(-1px) scale(1.1)}
+    /* main screen */
+    #page-mine.page.active{gap:10px}
+    .hero{position:relative;flex:1 1 auto;min-height:170px;max-height:380px;border-radius:26px;
+      background:linear-gradient(180deg,rgba(14,21,62,.9),rgba(6,9,26,.94)) padding-box,linear-gradient(160deg,rgba(196,181,253,.8),rgba(34,211,238,.35) 40%,rgba(124,58,237,.15) 70%,rgba(167,139,250,.55)) border-box;
+      border:1.5px solid transparent;box-shadow:0 14px 34px rgba(0,0,0,.45),inset 0 0 50px rgba(124,58,237,.15)}
+    .hero-scene{position:absolute;inset:0;display:block;padding:0;border:none;border-radius:24px;overflow:hidden;background:radial-gradient(70% 60% at 50% 45%,rgba(91,33,182,.5),rgba(10,15,44,0) 70%);line-height:0}
+    .hero-scene:active .hs-c{transform:translate(-50%,-50%) scale(.97)}
+    .hero-scene .hs-stars{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 12% 18%,#fff,transparent),radial-gradient(1px 1px at 82% 12%,#fff,transparent),radial-gradient(1.5px 1.5px at 66% 78%,#C4B5FD,transparent),radial-gradient(1px 1px at 22% 72%,#A5F3FC,transparent),radial-gradient(1.5px 1.5px at 90% 56%,#fff,transparent),radial-gradient(1px 1px at 40% 8%,#fff,transparent),radial-gradient(1px 1px at 6% 46%,#fff,transparent),radial-gradient(1.2px 1.2px at 54% 92%,#fff,transparent),radial-gradient(1px 1px at 74% 36%,#A5F3FC,transparent),radial-gradient(1px 1px at 30% 40%,#fff,transparent);animation:bl-tw 3.4s ease-in-out infinite alternate}
+    .hs-c{position:absolute;left:50%;top:47%;width:min(78%,300px);aspect-ratio:1;transform:translate(-50%,-50%);transition:transform .15s ease}
+    .hs-beams{position:absolute;left:50%;top:50%;width:0;height:0;animation:bl-spin 10s linear infinite;will-change:transform}
+    .hs-beams i{position:absolute;left:-26px;bottom:0;width:52px;height:46vh;transform-origin:50% 100%;
+      background:linear-gradient(to top,rgba(236,254,255,.95),rgba(103,232,249,.6) 14%,rgba(34,211,238,.18) 55%,transparent 92%);clip-path:polygon(46% 100%,54% 100%,100% 0,0 0)}
+    .hs-beams i.soft{left:-70px;width:140px;opacity:.4;filter:blur(12px)}
+    .hs-beams .b2{transform:rotate(180deg)}
+    .hs-halo{position:absolute;inset:6%;border-radius:50%;animation:bl-pulse 2.8s ease-in-out infinite;
+      background:radial-gradient(circle,#fff 0 7%,rgba(237,233,254,.92) 11%,rgba(196,181,253,.55) 21%,rgba(124,58,237,.3) 38%,rgba(124,58,237,.08) 56%,transparent 70%)}
+    .hs-wave{position:absolute;left:50%;top:50%;width:34%;aspect-ratio:1;border-radius:50%;border:2px solid rgba(196,181,253,.7);box-shadow:0 0 16px rgba(124,58,237,.5);transform:translate(-50%,-50%) scale(.3);opacity:0;animation:bl-wave 2.8s cubic-bezier(.2,.6,.3,1) infinite}
+    .hs-wave.w2{animation-delay:1.4s}
+    .hs-orbits{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+    .hs-dots{transform-origin:0 0;animation:bl-spin 40s linear infinite}
+    .hs-cr{animation:bl-float 4.5s ease-in-out infinite}.hs-cr.c2{animation-duration:5.5s;animation-delay:-1.5s}.hs-cr.c3{animation-duration:6.5s;animation-delay:-3s}
+    .hs-core{position:absolute;left:50%;top:50%;width:15%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#fff 52%,#F5F3FF 70%,#C4B5FD);box-shadow:0 0 24px 9px rgba(237,233,254,.6),0 0 80px 30px rgba(124,58,237,.5)}
+    .hud-tl,.hud-tr{position:absolute;top:10px;z-index:5;display:flex;gap:6px}
+    .hud-tl{left:10px}.hud-tr{right:10px}
+    .hud-btn{min-width:38px;height:38px;border-radius:13px;background:rgba(5,8,24,.6);border:1px solid rgba(167,139,250,.4);color:#E0E7FF;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+    .hud-tr .lang-menu-popup{top:44px;right:0}
+    .daily-badge{position:absolute;right:10px;bottom:46px;z-index:5;width:62px;height:66px;padding:0;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+      background:radial-gradient(circle at 50% 32%,rgba(124,58,237,.6),rgba(8,12,34,.92) 72%) padding-box,linear-gradient(#0A0F2C,#0A0F2C) padding-box,linear-gradient(180deg,#C4B5FD,#22D3EE) border-box;border:1px solid transparent;
+      box-shadow:0 0 18px rgba(124,58,237,.55);color:#EDE9FE;font:800 9.5px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;animation:bl-float 3.6s ease-in-out infinite}
+    .daily-badge svg{width:32px;height:32px}
+    .daily-badge.ready::after{content:"";position:absolute;top:-4px;right:-4px;width:13px;height:13px;border-radius:50%;background:#22D3EE;border:2px solid #0A0F2C;box-shadow:0 0 10px #22D3EE;animation:bl-pulse 1.4s ease-in-out infinite}
+    .hero-live{position:absolute;left:0;right:0;bottom:10px;z-index:4;display:flex;align-items:center;justify-content:center;gap:10px;pointer-events:none;direction:ltr}
+    .hero-live .hl{flex:0 1 64px;height:1px;background:linear-gradient(90deg,transparent,rgba(103,232,249,.85))}
+    .hero-live .hl:last-child{transform:scaleX(-1)}
+    .live-counter{margin:0;font-size:23px;font-weight:700;color:#67E8F9;text-shadow:0 0 14px rgba(34,211,238,.7)}
+    .hud-stats{flex:none;display:grid;grid-template-columns:1.2fr 1fr;border-radius:22px;overflow:hidden;direction:ltr;
+      background:var(--glass) padding-box,var(--base) padding-box,linear-gradient(135deg,rgba(196,181,253,.7),rgba(34,211,238,.35) 50%,rgba(124,58,237,.25)) border-box;border:1px solid transparent;box-shadow:0 10px 26px rgba(0,0,0,.35)}
+    .hs-rate{display:flex;align-items:center;gap:10px;padding:12px 10px 12px 12px;min-width:0}
+    .hs-ico{width:50px;height:50px;flex:none;display:grid;place-items:center;border-radius:16px;background:radial-gradient(circle,rgba(34,211,238,.3),rgba(34,211,238,0) 70%),rgba(6,9,26,.85);border:1px solid rgba(103,232,249,.4);box-shadow:0 0 14px rgba(34,211,238,.2)}
+    .hs-ico svg{width:30px;height:30px}
+    .hs-txt{min-width:0}
+    .hs-big{display:flex;align-items:baseline;gap:3px;margin-top:5px;font:700 23px/1 var(--display);color:#fff;white-space:nowrap}
+    .hs-big small{font-size:12px;font-weight:600;color:#A78BFA}
+    .hs-sub{display:flex;align-items:center;gap:8px;margin-top:7px}
+    .hs-sub .status-line{margin:0;font-size:11.5px;font-weight:600}
+    .hs-timer{font:600 13px/1 var(--display);color:#E0E7FF;font-variant-numeric:tabular-nums}
+    .hs-rank{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:12px 8px;border:none;border-left:1px solid rgba(167,139,250,.25);color:inherit;
+      background:radial-gradient(80% 75% at 50% 45%,rgba(124,58,237,.28),transparent)}
+    .hs-rank:active{background:radial-gradient(80% 75% at 50% 45%,rgba(124,58,237,.45),transparent)}
+    .hs-lvl{display:flex;align-items:center;gap:6px}
+    .hs-lvl b{font:700 22px/1 var(--display);background:linear-gradient(180deg,#fff,#C4B5FD);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
+    .hs-lvl svg{width:13px;height:13px;flex:none;filter:drop-shadow(0 0 4px #A78BFA)}
+    .hs-title{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#67E8F9}
+    .hs-ths{font-size:10.5px;color:var(--m);font-variant-numeric:tabular-nums}
+    .tank{flex:none}
+    .tank .prog-row{margin-bottom:6px;font-size:11.5px}
+    .collect-btn{position:relative;flex:none;width:100%;height:64px;padding:0;border:none;border-radius:0;background:none;filter:drop-shadow(0 6px 16px rgba(124,58,237,.55))}
+    .collect-btn .cb-frame{position:absolute;inset:0;clip-path:polygon(20px 0,calc(100% - 20px) 0,100% 50%,calc(100% - 20px) 100%,20px 100%,0 50%);background:linear-gradient(180deg,#F5F3FF,#A78BFA 35%,#22D3EE 70%,#7C3AED)}
+    .collect-btn .cb-in{position:absolute;inset:3px;display:flex;align-items:center;justify-content:center;gap:10px;clip-path:polygon(18px 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,18px 100%,0 50%);
+      background:linear-gradient(180deg,#9F7AEA 0%,#7C3AED 40%,#5B21B6 75%,#4C1D95 100%);color:#fff;font:700 16px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+    .collect-btn .cb-in::before{content:"";position:absolute;left:0;right:0;top:0;height:48%;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,.02))}
+    .collect-btn .cb-in::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);animation:cb-shine 3.2s ease-in-out infinite}
+    .collect-btn .cb-in>*{position:relative;z-index:1}
+    .collect-btn.ready{animation:cb-glow 1.6s ease-in-out infinite}
+    .collect-btn:active{transform:scale(.98)}
+    @keyframes cb-shine{0%,55%{left:-60%}100%{left:130%}}
+    @keyframes cb-glow{0%,100%{filter:drop-shadow(0 6px 14px rgba(124,58,237,.55))}50%{filter:drop-shadow(0 0 26px rgba(34,211,238,.9))}}
+    .token-card{flex:none;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px 10px 10px 14px;border-radius:20px;direction:ltr;
+      background:var(--glass) padding-box,var(--base) padding-box,linear-gradient(90deg,rgba(252,211,77,.45),rgba(167,139,250,.35),rgba(252,211,77,.25)) border-box;border:1px solid transparent}
+    .tc-price strong{display:block;margin-top:4px;font:700 17px/1 var(--display);color:#fff}
+    .tc-contract{min-width:0;padding-left:12px;border-left:1px solid rgba(167,139,250,.22)}
+    .tc-contract .stat-label{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .tc-addr{display:flex;align-items:center;gap:6px;max-width:100%;margin-top:4px;padding:0;border:none;background:none;color:#E0E7FF;font:600 12.5px/1 var(--display);white-space:nowrap}
+    .tc-addr span{overflow:hidden;text-overflow:ellipsis}
+    .tc-addr svg{flex:none;color:#A78BFA}
+    .tc-buy{height:42px;padding:0 18px;border-radius:999px;border:1.5px solid #FCD34D;background:linear-gradient(180deg,rgba(252,211,77,.18),rgba(252,211,77,.04));color:#FDE68A;font:800 14px/1 var(--display);letter-spacing:.16em;text-transform:uppercase;box-shadow:0 0 14px rgba(252,211,77,.25),inset 0 1px 0 rgba(255,255,255,.15)}
+    .tc-buy:active{transform:scale(.96)}
+    body.rtl-mode .hs-rate,body.rtl-mode .token-card,body.rtl-mode .hud-profile{text-align:left}
+    @media (max-height:740px){.hud-btn{min-width:34px;height:34px;border-radius:11px}.hud-tl,.hud-tr{top:8px}.daily-badge{width:46px!important;height:46px!important;bottom:38px!important;border-radius:15px}.daily-badge span{display:none}.daily-badge svg{width:28px;height:28px}.hero{min-height:150px}.hud-profile{padding:5px 7px 5px 5px}.hp-avatar{width:40px;height:40px}.hs-ico{width:44px;height:44px}.collect-btn{height:56px}.hs-ths{display:none}}
+    @media (max-height:640px){.hero{min-height:130px}.token-card{padding:8px 10px}.tc-price strong{font-size:15px}}
+    @media (prefers-reduced-motion:reduce){.hero *,.app-logo *,.daily-badge,.collect-btn,.collect-btn *{animation:none!important}}
+    #space-bg .st1{box-shadow:92.5vw 94.9vh 0 0.0px #fff,59.2vw 42.4vh 0 0.3px #fff,72.6vw 26.7vh 0 0.0px #fff,62.0vw 90.2vh 0 0.0px #fff,98.1vw 49.8vh 0 0.0px #A5F3FC,62.8vw 43.1vh 0 0.0px #fff,78.3vw 58.9vh 0 0.0px #A5F3FC,21.6vw 73.5vh 0 0.3px #A5F3FC,28.1vw 97.5vh 0 0.0px #C4B5FD,17.8vw 48.3vh 0 0.6px #fff,18.2vw 17.9vh 0 0.3px #A5F3FC,19.6vw 11.4vh 0 0.0px #C4B5FD,3.9vw 27.6vh 0 0.3px #A5F3FC,33.1vw 37.0vh 0 0.3px #A5F3FC,30.5vw 77.8vh 0 0.0px #fff,15.0vw 62.0vh 0 0.0px #C4B5FD,23.8vw 54.5vh 0 0.0px #C4B5FD,16.7vw 97.5vh 0 0.0px #C4B5FD,39.3vw 16.3vh 0 0.0px #fff,97.4vw 80.5vh 0 0.0px #A5F3FC,94.5vw 44.5vh 0 0.0px #fff,1.6vw 78.8vh 0 0.6px #fff,3.7vw 26.4vh 0 0.0px #C4B5FD,95.0vw 21.6vh 0 0.0px #A5F3FC,52.9vw 17.0vh 0 0.0px #fff,10.0vw 16.5vh 0 0.0px #C4B5FD,76.2vw 65.7vh 0 0.6px #fff,89.5vw 68.8vh 0 0.6px #fff,69.3vw 83.0vh 0 0.0px #A5F3FC,29.5vw 41.0vh 0 0.0px #fff,10.8vw 63.1vh 0 0.3px #A5F3FC,72.9vw 43.0vh 0 0.0px #fff,33.8vw 68.9vh 0 0.0px #fff,88.7vw 95.8vh 0 0.6px #fff,0.4vw 37.7vh 0 0.0px #C4B5FD,20.4vw 68.1vh 0 0.0px #C4B5FD,74.6vw 95.5vh 0 0.6px #fff,48.0vw 68.9vh 0 0.0px #A5F3FC,53.2vw 26.5vh 0 0.0px #fff,87.7vw 86.3vh 0 0.6px #C4B5FD,77.7vw 67.3vh 0 0.6px #fff,68.1vw 40.7vh 0 0.3px #fff,96.0vw 34.1vh 0 0.6px #fff,42.0vw 81.6vh 0 0.6px #A5F3FC,88.3vw 53.9vh 0 0.0px #C4B5FD,21.7vw 26.4vh 0 0.0px #A5F3FC,37.1vw 62.0vh 0 0.0px #fff,56.6vw 44.2vh 0 0.0px #fff,78.3vw 11.1vh 0 0.6px #fff,40.7vw 8.0vh 0 0.0px #fff,56.5vw 62.2vh 0 0.0px #fff,73.8vw 39.6vh 0 0.3px #fff,98.6vw 62.5vh 0 0.0px #fff,97.6vw 91.2vh 0 0.0px #fff,13.6vw 68.3vh 0 0.3px #C4B5FD,89.7vw 29.5vh 0 0.0px #fff,60.3vw 59.1vh 0 0.3px #fff,13.4vw 9.2vh 0 0.0px #fff,96.7vw 99.2vh 0 0.0px #A5F3FC,58.7vw 93.9vh 0 0.3px #A5F3FC,65.1vw 74.5vh 0 0.3px #C4B5FD,88.6vw 98.1vh 0 0.0px #fff,38.0vw 77.4vh 0 0.0px #C4B5FD,39.5vw 72.4vh 0 0.0px #fff,31.6vw 42.3vh 0 0.0px #fff,73.6vw 47.3vh 0 0.0px #A5F3FC,93.1vw 36.7vh 0 0.3px #fff,67.1vw 44.5vh 0 0.0px #C4B5FD,82.2vw 57.6vh 0 0.0px #A5F3FC,89.9vw 63.1vh 0 0.0px #C4B5FD}
+    #space-bg .st2{width:1.6px;height:1.6px;box-shadow:98.1vw 66.1vh 0 0.6px #fff,45.6vw 0.3vh 0 0.6px #fff,5.7vw 3.4vh 0 0.6px #fff,97.5vw 74.1vh 0 0.3px #fff,14.4vw 98.4vh 0 0.6px #A5F3FC,75.1vw 92.8vh 0 0.6px #C4B5FD,68.6vw 97.9vh 0 0.3px #fff,62.1vw 75.0vh 0 0.0px #A5F3FC,64.6vw 85.2vh 0 0.3px #fff,70.4vw 43.0vh 0 0.3px #fff,96.3vw 2.2vh 0 0.0px #fff,68.9vw 94.7vh 0 0.0px #fff,97.0vw 11.1vh 0 0.0px #fff,96.2vw 3.4vh 0 0.6px #fff,51.2vw 27.2vh 0 0.6px #fff,87.6vw 19.7vh 0 0.0px #fff,17.6vw 21.7vh 0 0.0px #fff,26.0vw 92.7vh 0 0.6px #fff,56.9vw 57.2vh 0 0.0px #fff,13.9vw 79.7vh 0 0.3px #A5F3FC,94.1vw 55.8vh 0 0.6px #fff,85.3vw 8.2vh 0 0.3px #fff,67.1vw 61.2vh 0 0.0px #fff,30.7vw 84.1vh 0 0.0px #fff,15.7vw 82.0vh 0 0.0px #A5F3FC,83.9vw 75.2vh 0 0.0px #fff,52.2vw 53.7vh 0 0.0px #fff,26.6vw 60.0vh 0 0.0px #fff,50.8vw 35.8vh 0 0.0px #A5F3FC,37.8vw 33.4vh 0 0.0px #fff;animation-duration:6s;animation-direction:alternate-reverse}
   </style>
 </head>
 <body oncontextmenu="return false;">
+
+  <div id="space-bg" aria-hidden="true"><i class="sb1"></i><i class="sb2"></i><i class="sb3"></i><b class="st1"></b><b class="st2"></b></div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <linearGradient id="pg-c1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ECFEFF"/><stop offset=".45" stop-color="#67E8F9"/><stop offset="1" stop-color="#0891B2"/></linearGradient>
+    <linearGradient id="pg-c2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#67E8F9"/><stop offset="1" stop-color="#155E75"/></linearGradient>
+    <linearGradient id="pg-v1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#DDD6FE"/><stop offset=".5" stop-color="#8B5CF6"/><stop offset="1" stop-color="#5B21B6"/></linearGradient>
+    <linearGradient id="pg-v2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#3B0764"/></linearGradient>
+    <linearGradient id="pg-visor" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#312E81"/><stop offset=".6" stop-color="#1E1B4B"/><stop offset="1" stop-color="#0B1236"/></linearGradient>
+    <linearGradient id="pg-flame" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#FDE68A"/><stop offset=".7" stop-color="#FB923C"/><stop offset="1" stop-color="#DB2777" stop-opacity="0"/></linearGradient>
+    <linearGradient id="pg-handle" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#4C1D95"/><stop offset="1" stop-color="#A78BFA"/></linearGradient>
+    <linearGradient id="pg-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FEF3C7"/><stop offset=".35" stop-color="#FCD34D"/><stop offset=".75" stop-color="#F59E0B"/><stop offset="1" stop-color="#B45309"/></linearGradient>
+  </defs></svg>
 
   <div id="boot-loader" role="status" aria-label="Loading PULSAR">
     <div class="bl-neb n1"></div><div class="bl-neb n2"></div><div class="bl-neb n3"></div>
@@ -215,86 +377,62 @@
   <div id="toast" role="status" aria-live="polite">Notification</div>
 
   <div class="app-shell" id="main-app-shell">
-    <div class="top-bar">
-      <button type="button" class="icon-3d" id="sound-toggle-btn" aria-label="Sound"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h3l4-3v12l-4-3H4z"/><path d="M15 9.5a3.5 3.5 0 0 1 0 5"/><path d="M17.5 7a7 7 0 0 1 0 10"/></svg></button>
-      <div class="brand"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="#7C3AED" stroke-width="1.5"/><path d="M4 4l4.5 4.5M15.5 15.5L20 20" stroke="#22D3EE" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" fill="#EDE9FE"/></svg><div class="brand-logo-3d" id="ui-brand-title">PULSAR</div></div>
-      <div style="display:flex;gap:8px;position:relative;">
-        <button type="button" class="icon-3d" id="lang-menu-btn" aria-label="Language"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/></svg><span id="cur-lang-label">EN</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6l6-6"/></svg></button>
-        <button type="button" class="icon-3d" id="top-wallet-shortcut" aria-label="Wallet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 7V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/><path d="M21 10h-5a2 2 0 0 0 0 4h5z"/></svg></button>
-        <div class="lang-menu-popup" id="lang-dropdown">
-          <div class="lang-opt" data-lang="en"><span>English</span><span id="chk-en">✓</span></div>
-          <div class="lang-opt" data-lang="ar"><span>العربية</span><span id="chk-ar"></span></div>
-          <div class="lang-opt" data-lang="ru"><span>Русский</span><span id="chk-ru"></span></div>
-        </div>
-      </div>
+    <div class="app-logo"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="#7C3AED" stroke-width="1.5"/><path d="M4 4l4.5 4.5M15.5 15.5L20 20" stroke="#22D3EE" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" fill="#EDE9FE"/></svg><div class="brand-logo-3d" id="ui-brand-title">PULSAR</div></div>
+    <div class="hud-profile">
+      <div class="hp-avatar" id="hud-avatar"><span>P</span></div>
+      <div class="hp-id"><div class="hp-name"><span id="hud-name">Player</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0Q9 7 16 8Q9 9 8 16Q7 9 0 8Q7 7 8 0z" fill="#C4B5FD"/></svg></div><div class="hp-user" id="hud-user">@user</div></div>
+      <div class="hp-bal"><svg class="coin-ico" viewBox="0 0 32 32" aria-hidden="true"><circle cx="17" cy="16.6" r="13" fill="#B45309"/><circle cx="16" cy="16" r="13" fill="url(#pg-gold)" stroke="#FEF3C7" stroke-width="1"/><circle cx="16" cy="16" r="9.6" fill="none" stroke="#B45309" stroke-width="1" opacity=".7"/><path d="M14 9.4h4l-1.6 6.6h-.8z" fill="#7C3AED"/><path d="M14 22.6h4l-1.6-6.6h-.8z" fill="#7C3AED"/><ellipse cx="16" cy="16" rx="7" ry="2.5" fill="none" stroke="#7C3AED" stroke-width="1.3" transform="rotate(-20 16 16)"/><circle cx="16" cy="16" r="2.6" fill="#fff" stroke="#7C3AED" stroke-width=".6"/></svg><span class="balance-num" id="mine-claimed-total">0</span></div>
     </div>
 
     <!-- 1. MINE PAGE -->
     <div id="page-mine" class="page active">
-      <div class="grid-2" style="flex:none;">
-        <div class="card-3d stat-card">
-          <span class="stat-label" data-i18n="mining_rate">Mining rate</span>
-          <div class="stat-value" id="mine-ths">0.00 TH/s</div>
-          <div class="status-line" id="mine-status-dot" style="color:#34D399;">Active</div>
+      <div class="hero">
+        <button type="button" class="hero-scene" id="coin-3d-trigger" aria-label="Collect mining">
+          <span class="hs-stars"></span>
+          <span class="hs-c"><span class="hs-beams"><i class="soft"></i><i></i><i class="soft b2"></i><i class="b2"></i></span><span class="hs-halo"></span><i class="hs-wave"></i><i class="hs-wave w2"></i><svg class="hs-orbits" viewBox="-200 -200 400 400" aria-hidden="true"><g class="hs-dots"><circle r="132" fill="none" stroke="#A78BFA" stroke-opacity=".32" stroke-width="2" stroke-dasharray="1.5 10" stroke-linecap="round"/></g><g transform="rotate(-18)"><ellipse rx="176" ry="56" fill="none" stroke="#7C3AED" stroke-width="9" opacity=".22"/><ellipse rx="176" ry="56" fill="none" stroke="#8B5CF6" stroke-width="2.4"/><g><circle r="13" fill="#22D3EE" opacity=".35"/><circle r="8" fill="#22D3EE" stroke="#ECFEFF" stroke-width="2"/><animateMotion dur="9s" repeatCount="indefinite" path="M176 0A176 56 0 1 1-176 0A176 56 0 1 1 176 0"/></g></g><g transform="rotate(14)"><ellipse rx="108" ry="35" fill="none" stroke="#A78BFA" stroke-width="10" opacity=".22"/><ellipse rx="108" ry="35" fill="none" stroke="#C4B5FD" stroke-width="3"/><circle r="5" fill="#F0ABFC"><animateMotion dur="5.5s" repeatCount="indefinite" path="M-108 0A108 35 0 1 1 108 0A108 35 0 1 1-108 0"/></circle></g><g transform="translate(150 92) rotate(18)"><g class="hs-cr c1"><polygon points="0,-20 -8.4,-10.0 -8.4,11.0 0,20" fill="url(#pg-c1)"/><polygon points="0,-20 8.4,-10.0 8.4,11.0 0,20" fill="url(#pg-c2)"/><polygon points="0,-20 -8.4,-10.0 0,-6.4 8.4,-10.0" fill="#fff" opacity=".6"/></g></g><g transform="translate(-158 60) rotate(-22)"><g class="hs-cr c2"><polygon points="0,-15 -6.3,-7.5 -6.3,8.2 0,15" fill="url(#pg-v1)"/><polygon points="0,-15 6.3,-7.5 6.3,8.2 0,15" fill="url(#pg-v2)"/><polygon points="0,-15 -6.3,-7.5 0,-4.8 6.3,-7.5" fill="#fff" opacity=".6"/></g></g><g transform="translate(118 -138) rotate(28)"><g class="hs-cr c3"><polygon points="0,-10 -4.2,-5.0 -4.2,5.5 0,10" fill="url(#pg-v1)"/><polygon points="0,-10 4.2,-5.0 4.2,5.5 0,10" fill="url(#pg-v2)"/><polygon points="0,-10 -4.2,-5.0 0,-3.2 4.2,-5.0" fill="#fff" opacity=".6"/></g></g><g transform="translate(-112 -118) rotate(-14)"><g class="hs-cr c1"><polygon points="0,-8 -3.4,-4.0 -3.4,4.4 0,8" fill="url(#pg-c1)"/><polygon points="0,-8 3.4,-4.0 3.4,4.4 0,8" fill="url(#pg-c2)"/><polygon points="0,-8 -3.4,-4.0 0,-2.6 3.4,-4.0" fill="#fff" opacity=".6"/></g></g></svg><span class="hs-core"></span></span>
+        </button>
+        <div class="hud-tl"><button type="button" class="icon-3d hud-btn" id="sound-toggle-btn" aria-label="Sound"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h3l4-3v12l-4-3H4z"/><path d="M15 9.5a3.5 3.5 0 0 1 0 5"/><path d="M17.5 7a7 7 0 0 1 0 10"/></svg></button></div>
+        <div class="hud-tr">
+          <button type="button" class="icon-3d hud-btn" id="lang-menu-btn" aria-label="Language"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/></svg><span id="cur-lang-label">EN</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6l6-6"/></svg></button>
+          <button type="button" class="icon-3d hud-btn" id="top-wallet-shortcut" aria-label="Wallet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 7V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/><path d="M21 10h-5a2 2 0 0 0 0 4h5z"/></svg></button>
+          <div class="lang-menu-popup" id="lang-dropdown">
+          <div class="lang-opt" data-lang="en"><span>English</span><span id="chk-en">✓</span></div>
+          <div class="lang-opt" data-lang="ar"><span>العربية</span><span id="chk-ar"></span></div>
+          <div class="lang-opt" data-lang="ru"><span>Русский</span><span id="chk-ru"></span></div>
         </div>
-        <div class="card-3d stat-card">
-          <span class="stat-label" data-i18n="current_rank">Wallet level</span>
-          <div class="stat-value" id="mine-lvl-txt">Level 1</div>
-          <div class="status-line" id="mine-rank-title" style="color:var(--m);">Cadet 1</div>
         </div>
+        <button type="button" class="daily-badge" id="btn-daily-badge" aria-label="Daily reward"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="13" width="22" height="15" rx="3" fill="url(#pg-v1)" stroke="#EDE9FE" stroke-width="1"/><rect x="3.5" y="9" width="25" height="6" rx="2" fill="url(#pg-v2)" stroke="#EDE9FE" stroke-width="1"/><rect x="14" y="9" width="4" height="19" fill="url(#pg-c1)"/><path d="M16 9C13 3 7.5 4.5 9.5 8c1 1.5 4.5 1 6.5 1s5.5.5 6.5-1C24.5 4.5 19 3 16 9z" fill="url(#pg-c1)" stroke="#ECFEFF" stroke-width=".8"/></svg><span data-i18n="daily_badge">Daily</span></button>
+        <div class="hero-live"><span class="hl"></span><span class="live-counter">+<span id="live-mined-num">0.000000</span></span><span class="hl"></span></div>
       </div>
 
-      <div class="balance-wrap">
-        <div class="balance-row"><span class="balance-num" id="mine-claimed-total">0</span><span class="balance-sym coin-sym">$VIKING</span></div>
-        <span class="chip" data-i18n="claimed_in_app">Claimed in the app</span>
+      <div class="hud-stats">
+        <div class="hs-rate">
+          <div class="hs-ico"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M18.5 2L7 18h7.5L12 30l13-18h-7.5L21 2z" fill="url(#pg-c1)" stroke="#5B21B6" stroke-width="1.6" stroke-linejoin="round"/><path d="M18.6 4.5L10.5 16" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".8"/></svg></div>
+          <div class="hs-txt">
+            <span class="stat-label" data-i18n="mining_rate">Mining rate</span>
+            <div class="hs-big"><span id="mine-day-rate">0</span><small data-i18n="per_day">/day</small></div>
+            <div class="hs-sub"><span class="status-line" id="mine-status-dot" style="color:#34D399;">Active</span><span class="hs-timer" id="shift-timer">24:00:00</span></div>
+          </div>
+        </div>
+        <button type="button" class="hs-rank" id="btn-goto-boost">
+          <span class="stat-label" data-i18n="pilot_rank">Pilot rank</span>
+          <span class="hs-lvl"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0Q9 7 16 8Q9 9 8 16Q7 9 0 8Q7 7 8 0z" fill="#C4B5FD"/></svg><b id="mine-lvl-txt">Level 1</b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0Q9 7 16 8Q9 9 8 16Q7 9 0 8Q7 7 8 0z" fill="#C4B5FD"/></svg></span>
+          <span class="hs-title" id="mine-rank-title">Cadet 1</span>
+          <span class="hs-ths" id="mine-ths">0.00 TH/s</span>
+        </button>
       </div>
 
-      <div class="visual-wrap">
-        <button type="button" class="pulsar-btn" id="coin-3d-trigger" aria-label="Collect mining"><svg viewBox="0 0 220 220" aria-hidden="true">
-<defs>
-<radialGradient id="pl-glow-g" cx="110" cy="110" r="70" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A78BFA" stop-opacity=".75"/><stop offset="1" stop-color="#7C3AED" stop-opacity="0"/></radialGradient>
-<linearGradient id="pl-beam-a" x1="110" y1="110" x2="34" y2="18" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#67E8F9" stop-opacity=".95"/><stop offset="1" stop-color="#22D3EE" stop-opacity="0"/></linearGradient>
-<linearGradient id="pl-beam-b" x1="110" y1="110" x2="186" y2="202" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#67E8F9" stop-opacity=".95"/><stop offset="1" stop-color="#22D3EE" stop-opacity="0"/></linearGradient>
-</defs>
-<g fill="#8C9AC4"><circle cx="24" cy="62" r="1.5"/><circle cx="196" cy="40" r="1.2"/><circle cx="42" cy="182" r="1.3"/><circle cx="184" cy="152" r="1"/><circle cx="150" cy="22" r="1"/><circle cx="72" cy="204" r="1"/></g>
-<circle cx="110" cy="110" r="78" fill="none" stroke="#1C2750" stroke-width="1" stroke-dasharray="2 6"/>
-<g class="pl-beams"><path d="M110 110L40.9 12.3L27.1 23.7Z" fill="url(#pl-beam-a)"/><path d="M110 110L179.1 207.7L192.9 196.3Z" fill="url(#pl-beam-b)"/></g>
-<circle class="pl-glow" cx="110" cy="110" r="70" fill="url(#pl-glow-g)"/>
-<g transform="rotate(-18 110 110)">
-<path id="pl-orbit" d="M6 110a104 36 0 1 0 208 0a104 36 0 1 0-208 0" fill="none" stroke="#2B3A70" stroke-width="1.5"/>
-<circle class="pl-probe-anim" r="4.5" fill="#22D3EE"><animateMotion dur="18s" repeatCount="indefinite"><mpath href="#pl-orbit"/></animateMotion></circle>
-<circle class="pl-probe-static" cx="207.7" cy="97.7" r="4.5" fill="#22D3EE"/>
-</g>
-<ellipse cx="110" cy="110" rx="58" ry="18" fill="none" stroke="#7C3AED" stroke-opacity=".8" stroke-width="1.5" transform="rotate(24 110 110)"/>
-<circle cx="110" cy="110" r="20" fill="#EDE9FE"/>
-<circle cx="110" cy="110" r="11" fill="#FFFFFF"/>
-</svg></button>
-        <div class="live-counter">+<span id="live-mined-num">0.000000</span></div>
-      </div>
-
-      <div style="flex:none;">
+      <div class="tank">
         <div class="prog-row"><span id="mine-cycle-label">24h tank · 0%</span><strong id="mine-to-go" style="color:var(--text);direction:ltr;">Hold: 0</strong></div>
         <div class="prog-bg-3d"><div class="prog-fill-3d" id="mine-prog-bar"></div></div>
       </div>
 
-      <div class="card-3d shift-card" style="flex:none;display:flex;align-items:center;gap:12px;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>
-        <div style="min-width:0;">
-          <div style="font-size:13px;font-weight:600;" data-i18n="streak_txt">24h shift</div>
-          <div style="font-size:11px;color:var(--m);line-height:1.35;margin-top:2px;" data-i18n="streak_sub">Collect every 24h to keep mining</div>
-        </div>
-      </div>
+      <button type="button" class="collect-btn" id="btn-collect-main"><span class="cb-frame"></span><span class="cb-in"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l9-9"/><path d="M9 5.5c4-2 8.5-1 11.5 2.5"/><path d="M18.5 6.5c1.5 3.5 1 7.5-1.5 10.5"/></svg><span data-i18n="collect_btn">Collect 24h mining</span></span></button>
 
-      <div class="grid-2" style="flex:none;">
-        <div class="mini-pill"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3L5 14h6l-1 7l8-11h-6z"/></svg><span id="mine-day-rate">0 /d</span></div>
-        <div class="mini-pill"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="shift-timer" style="font-family:var(--display);font-variant-numeric:tabular-nums;">24:00:00</span></div>
-      </div>
-
-      <button type="button" class="collect-btn" id="btn-collect-main"><span style="display:flex;align-items:center;gap:10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l9-9"/><path d="M9 5.5c4-2 8.5-1 11.5 2.5"/><path d="M18.5 6.5c1.5 3.5 1 7.5-1.5 10.5"/></svg><span data-i18n="collect_btn">Collect 24h mining</span></span><svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6l-6 6"/></svg></button>
-
-      <div class="grid-2" style="flex:none;">
-        <button type="button" class="btn-3d-bronze btn-stonfi-buy" style="color:var(--text);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v8M8 12h8"/></svg><span><span data-i18n="buy_btn">Buy</span> <span class="coin-sym">$VIKING</span></span></button>
-        <button type="button" class="btn-3d-bronze" id="btn-goto-boost"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19h4v-4h4v-4h4V7h4"/></svg><span data-i18n="levels_btn">Levels 1–100</span></button>
+      <div class="token-card">
+        <div class="tc-price"><span class="stat-label" data-i18n="price_lbl">Price</span><strong id="token-price">—</strong></div>
+        <div class="tc-contract"><span class="stat-label" data-i18n="contract_lbl">Official contract</span><button type="button" class="tc-addr" id="btn-copy-contract"><span>EQBah2…3PLpg</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg></button></div>
+        <button type="button" class="tc-buy btn-stonfi-buy" data-i18n="buy_btn">Buy</button>
       </div>
     </div>
 
@@ -530,11 +668,11 @@
   </div>
 
   <nav class="bottom-nav-3d" aria-label="Main">
-    <button type="button" class="nav-item active" data-tab="mine"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l9-9"/><path d="M9 5.5c4-2 8.5-1 11.5 2.5"/><path d="M18.5 6.5c1.5 3.5 1 7.5-1.5 10.5"/></svg><span data-i18n="nav_mine">Mine</span></button>
-    <button type="button" class="nav-item" data-tab="tasks"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8 12l3 3l5-6"/></svg><span data-i18n="nav_tasks">Tasks</span></button>
-    <button type="button" class="nav-item" data-tab="boost"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3L5 14h6l-1 7l8-11h-6z"/></svg><span data-i18n="nav_boost">Boost</span></button>
-    <button type="button" class="nav-item" data-tab="friends"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9" r="3.2"/><path d="M3.5 19c.8-3 3-4.5 5.5-4.5s4.7 1.5 5.5 4.5"/><circle cx="17" cy="9.5" r="2.5"/><path d="M15.5 14.6c2.3-.4 4.3.9 5 3.4"/></svg><span data-i18n="nav_friends">Friends</span></button>
-    <button type="button" class="nav-item" data-tab="profile"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1-3.6 3.8-5.5 7-5.5s6 1.9 7 5.5"/></svg><span data-i18n="nav_profile">Profile</span></button>
+    <button type="button" class="nav-item active" data-tab="mine"><svg class="ni" viewBox="0 0 32 32" aria-hidden="true"><path d="M7.5 26.5L19 15" stroke="url(#pg-handle)" stroke-width="3.4" stroke-linecap="round"/><path d="M9.5 9.2C14.6 4.6 22.6 4.4 28 8.6l-2.8 3C21.2 8.9 16 9 12.4 11.8z" fill="url(#pg-c1)" stroke="#ECFEFF" stroke-width=".9" stroke-linejoin="round"/><rect x="16.3" y="9.6" width="5" height="5" rx="1.2" transform="rotate(45 18.8 12.1)" fill="#7C3AED" stroke="#EDE9FE" stroke-width=".8"/><path d="M24.5 17.5l3 3-3 6.5-3-6.5z" fill="url(#pg-c1)" stroke="#ECFEFF" stroke-width=".8" stroke-linejoin="round"/></svg><span data-i18n="nav_mine">Mine</span></button>
+    <button type="button" class="nav-item" data-tab="tasks"><svg class="ni" viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="6" width="20" height="23" rx="4" fill="url(#pg-v1)" stroke="#EDE9FE" stroke-width="1"/><rect x="11" y="3.5" width="10" height="5" rx="2" fill="url(#pg-c1)" stroke="#ECFEFF" stroke-width=".8"/><path d="M10.5 17l4 4L22 12.5" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.5 25h11" stroke="#C4B5FD" stroke-width="1.6" stroke-linecap="round" opacity=".85"/></svg><span data-i18n="nav_tasks">Tasks</span></button>
+    <button type="button" class="nav-item" data-tab="boost"><svg class="ni" viewBox="0 0 32 32" aria-hidden="true"><g transform="rotate(45 16 16)"><path d="M13.6 24Q16 31 18.4 24z" fill="url(#pg-flame)"/><path d="M11.5 19L8 24l4.5-1z" fill="#7C3AED"/><path d="M20.5 19L24 24l-4.5-1z" fill="#7C3AED"/><path d="M16 3c5 4.5 5 14 3.8 21h-7.6C11 17 11 7.5 16 3z" fill="#F8FAFF" stroke="#7C3AED" stroke-width="1.2"/><path d="M16 3c2.3 2 3.8 4.6 4.3 7h-8.6c.5-2.4 2-5 4.3-7z" fill="#8B5CF6"/><circle cx="16" cy="14.5" r="2.6" fill="#0B1236" stroke="#22D3EE" stroke-width="1.4"/></g></svg><span data-i18n="nav_boost">Boost</span></button>
+    <button type="button" class="nav-item" data-tab="friends"><svg class="ni" viewBox="0 0 32 32" aria-hidden="true"><circle cx="21.5" cy="12.5" r="7" fill="#DDD6FE" stroke="#8B5CF6" stroke-width="1.2"/><rect x="17" y="9.5" width="9" height="6" rx="3" fill="url(#pg-visor)"/><circle cx="12" cy="17" r="8.5" fill="#F8FAFF" stroke="#7C3AED" stroke-width="1.4"/><rect x="6.6" y="13.2" width="10.8" height="7.4" rx="3.7" fill="url(#pg-visor)" stroke="#7C3AED" stroke-width=".8"/><circle cx="14.6" cy="15.6" r="1" fill="#A5F3FC"/><rect x="7.5" y="25.5" width="9" height="3.5" rx="1.75" fill="#C4B5FD"/></svg><span data-i18n="nav_friends">Friends</span></button>
+    <button type="button" class="nav-item" data-tab="profile"><svg class="ni" viewBox="0 0 32 32" aria-hidden="true"><rect x="9.5" y="25" width="13" height="4.5" rx="2.25" fill="#C4B5FD" stroke="#7C3AED" stroke-width=".8"/><circle cx="16" cy="14.5" r="11" fill="#F8FAFF" stroke="#7C3AED" stroke-width="1.4"/><rect x="8.6" y="9.5" width="14.8" height="10" rx="5" fill="url(#pg-visor)" stroke="#7C3AED" stroke-width=".9"/><path d="M18.5 11.2h2l-3.2 6.2h-2z" fill="#fff" opacity=".55"/><circle cx="16" cy="3.6" r="1.6" fill="#22D3EE"/></svg><span data-i18n="nav_profile">Profile</span></button>
   </nav>
 
   <script>
@@ -543,7 +681,14 @@
     const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
     const safeOpen = u => { try { const x = new URL(String(u)); if (x.protocol === "https:") window.open(x.href, "_blank"); } catch (e) {} };
     const tg = window.Telegram?.WebApp;
-    if (tg) { tg.expand(); tg.ready(); try { tg.setHeaderColor('#070B1A'); tg.setBackgroundColor('#070B1A'); } catch (e) {} }
+    if (tg) { tg.expand(); tg.ready(); try { tg.setHeaderColor('#070B1A'); tg.setBackgroundColor('#050816'); tg.setBottomBarColor && tg.setBottomBarColor('#050816'); } catch (e) {} }
+    // phones: full screen like a game, logo sits in Telegram's top bar (safe areas come from Telegram's CSS variables)
+    const syncFullscreen = () => document.body.classList.toggle('fs', !!(tg && tg.isFullscreen));
+    if (tg && tg.isVersionAtLeast && tg.isVersionAtLeast('8.0') && ['android', 'ios'].includes(tg.platform)) {
+      try { tg.onEvent('fullscreenChanged', syncFullscreen); tg.onEvent('fullscreenFailed', syncFullscreen); tg.requestFullscreen(); } catch (e) {}
+    }
+    if (tg && tg.isVersionAtLeast && tg.isVersionAtLeast('7.7')) { try { tg.disableVerticalSwipes(); } catch (e) {} }
+    syncFullscreen();
     const EMOJI_RE = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{23E9}-\u{23FA}\u{FE0F}\u{20E3}]/gu;
     const stripEmoji = v => String(v ?? '').replace(EMOJI_RE, '').replace(/\s{2,}/g, ' ').trim();
 
@@ -615,7 +760,7 @@
 
     const I18N = {
       en: {
-        mining_rate:"Mining rate", current_rank:"Wallet level", claimed_in_app:"Claimed in the app",
+        mining_rate:"Mining rate", per_day:"/day", pilot_rank:"Pilot rank", price_lbl:"Price", contract_lbl:"Official contract", daily_badge:"Daily", current_rank:"Wallet level", claimed_in_app:"Claimed in the app",
         streak_txt:"24h shift", streak_sub:"Collect every 24h to keep mining", turbo_btn:"Turbo ×2", turbo_sub:"Watch an ad",
         collect_btn:"Collect 24h mining", buy_btn:"Buy", levels_btn:"Levels 1–100",
         watch_ads_title:"Watch video ads", ads_today:"Watched today", watch_ad_btn:"Watch full ad",
@@ -639,7 +784,7 @@
         day:"Day", claimed:"Claimed", no_refs_yet:"No invited friends yet."
       },
       ar: {
-        mining_rate:"سرعة التعدين", current_rank:"مستوى المحفظة", claimed_in_app:"رصيدك في التطبيق",
+        mining_rate:"سرعة التعدين", per_day:"يوميًا", pilot_rank:"رتبة الطيار", price_lbl:"السعر", contract_lbl:"العقد الرسمي", daily_badge:"يومي", current_rank:"مستوى المحفظة", claimed_in_app:"رصيدك في التطبيق",
         streak_txt:"دورة 24 ساعة", streak_sub:"اجمع كل 24 ساعة ليستمر التعدين", turbo_btn:"تيربو ×2", turbo_sub:"شاهد إعلانًا",
         collect_btn:"اجمع تعدين 24 ساعة", buy_btn:"شراء", levels_btn:"المستويات",
         watch_ads_title:"شاهد إعلانات الفيديو", ads_today:"شاهدت اليوم", watch_ad_btn:"شاهد الإعلان كاملًا",
@@ -663,7 +808,7 @@
         day:"يوم", claimed:"تم الاستلام", no_refs_yet:"لا يوجد أصدقاء مدعوون حتى الآن."
       },
       ru: {
-        mining_rate:"Скорость", current_rank:"Уровень кошелька", claimed_in_app:"Собрано в приложении",
+        mining_rate:"Скорость", per_day:"/день", pilot_rank:"Ранг пилота", price_lbl:"Цена", contract_lbl:"Контракт", daily_badge:"Бонус", current_rank:"Уровень кошелька", claimed_in_app:"Собрано в приложении",
         streak_txt:"Смена 24ч", streak_sub:"Собирайте каждые 24ч, чтобы майнинг шёл", turbo_btn:"Турбо ×2", turbo_sub:"Смотреть рекламу",
         collect_btn:"Собрать за 24ч", buy_btn:"Купить", levels_btn:"Уровни 1–100",
         watch_ads_title:"Видеореклама", ads_today:"Просмотрено сегодня", watch_ad_btn:"Смотреть рекламу",
@@ -1048,7 +1193,18 @@
       document.getElementById('mine-lvl-txt').innerText = "Level " + cur.level;
       document.getElementById('mine-rank-title').innerText = cur.name;
       document.getElementById('mine-claimed-total').innerText = Math.floor(minedInApp).toLocaleString();
-      document.getElementById('mine-day-rate').innerText = `${(cur.perDay * mult).toFixed(2)} ${config.coinSym}/d`;
+      document.getElementById('mine-day-rate').innerText = (cur.perDay * mult).toLocaleString('en-US', { maximumFractionDigits: 2 });
+      document.getElementById('hud-name').innerText = tgUser.first_name || "Player";
+      document.getElementById('hud-user').innerText = tgUser.username ? "@" + tgUser.username : "ID " + CURRENT_UID;
+      const av = document.getElementById('hud-avatar');
+      if (!av.dataset.done) {
+        av.dataset.done = "1";
+        const photo = String(tgUser.photo_url || "");
+        const initial = document.createElement('span'); initial.textContent = (tgUser.first_name || "P").trim().charAt(0).toUpperCase() || "P";
+        av.replaceChildren(initial);
+        if (/^https:\/\//.test(photo)) { const img = new Image(); img.alt = ""; img.referrerPolicy = "no-referrer"; img.onload = () => av.replaceChildren(img); img.src = photo; }
+      }
+      document.getElementById('btn-daily-badge').classList.toggle('ready', getUtcDay(lastDailyCheckIn) !== getUtcDay(Date.now()));
       document.getElementById('mine-to-go').innerText = `Hold: ${Math.floor(walletHold).toLocaleString()} ${config.coinSym}`;
 
       document.getElementById('ads-watched-txt').innerText = `${adsWatched}/${config.maxAdsPerDay}`;
@@ -1129,6 +1285,7 @@
       const rem = Math.max(0, 86400 - Math.floor(cappedElapsed));
       document.getElementById('shift-timer').innerText = `${String(Math.floor(rem/3600)).padStart(2,'0')}:${String(Math.floor((rem%3600)/60)).padStart(2,'0')}:${String(rem%60).padStart(2,'0')}`;
 
+      document.getElementById('btn-collect-main').classList.toggle('ready', pct24h >= 90);
       const statusDot = document.getElementById('mine-status-dot');
       if (rawElapsed >= 86400) {
         document.getElementById('mine-cycle-label').innerText = dict.tank_full;
@@ -1148,7 +1305,7 @@
         const r = await api("collect");
         lastCollectTime = Date.now();
         SoundFX.collect();
-        showToast(`⚔️ +${Number(r.added).toFixed(4)} ${config.coinSym}!`);
+        showToast(`⚡ +${Number(r.added).toFixed(4)} ${config.coinSym}!`);
         await refreshState();
       } catch (err) { SoundFX.error(); showToast("❌ " + err.message, "#ef4444"); }
       finally { isCollecting = false; }
@@ -1334,6 +1491,23 @@
     document.getElementById('coin-3d-trigger').addEventListener('click', collectMining);
     document.getElementById('btn-collect-main').addEventListener('click', collectMining);
     document.getElementById('btn-goto-boost').addEventListener('click', () => switchTab('boost'));
+    document.getElementById('btn-daily-badge').addEventListener('click', () => switchTab('tasks'));
+    document.getElementById('btn-copy-contract').addEventListener('click', () => {
+      try { navigator.clipboard.writeText(OFFICIAL_JETTON); showToast("📋 Contract copied!"); } catch (e) { showToast(OFFICIAL_JETTON); }
+    });
+    // coin price from TonAPI (public data), remembered for 5 minutes
+    (async function loadPrice() {
+      const el = document.getElementById('token-price');
+      const show = (v) => { el.innerText = '$' + (v >= 1 ? v.toFixed(2) : v >= 0.01 ? v.toFixed(4) : Number(v.toPrecision(3)).toString()); };
+      try { const c = JSON.parse(localStorage.getItem('pl_price') || 'null'); if (c && Date.now() - c.t < 300000 && c.v > 0) return show(c.v); } catch (e) {}
+      try {
+        const ctl = new AbortController(); setTimeout(() => ctl.abort(), 7000);
+        const r = await fetch('https://tonapi.io/v2/rates?tokens=' + OFFICIAL_JETTON + '&currencies=usd', { signal: ctl.signal });
+        const j = await r.json(); const first = j && j.rates && Object.values(j.rates)[0];
+        const v = Number(first && first.prices && (first.prices.USD || first.prices.usd));
+        if (v > 0) { show(v); try { localStorage.setItem('pl_price', JSON.stringify({ t: Date.now(), v })); } catch (e) {} }
+      } catch (e) {}
+    })();
     document.getElementById('btn-collect-ref').addEventListener('click', collectReferralProfits);
     document.getElementById('btn-claim-daily').addEventListener('click', claimDailyLogin);
 
