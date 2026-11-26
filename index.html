@@ -395,6 +395,29 @@
     .hv-bar{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
     .hv-bar i{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,#F59E0B,#F0ABFC)}
     body.rtl-mode .hv-bar i{margin-left:auto}
+
+    /* creator bounty */
+    .bounty-card{background:linear-gradient(180deg,rgba(26,19,64,.92),rgba(13,10,38,.92)) padding-box,linear-gradient(140deg,#F0ABFC,#7C3AED 45%,#F59E0B) border-box;border:1px solid transparent}
+    .bounty-desc{font-size:12.5px;line-height:1.5;color:var(--m);margin:8px 0 6px}
+    .bounty-rules{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:4px}
+    .bounty-rules li{position:relative;font-size:11.5px;line-height:1.4;color:var(--t);padding-inline-start:16px}
+    .bounty-rules li::before{content:"";position:absolute;inset-inline-start:2px;top:6px;width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#F0ABFC,#F59E0B)}
+    .bounty-kinds{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+    .bk-opt{border:1px solid var(--line2);background:var(--card2);color:var(--m);border-radius:10px;padding:8px 6px;font-family:inherit;font-size:12.5px;font-weight:600;line-height:1.2;cursor:pointer}
+    .bk-opt.active{color:#fff;border-color:#A78BFA;background:linear-gradient(180deg,rgba(124,58,237,.45),rgba(76,29,149,.45))}
+    .bounty-card .input-3d{margin-bottom:8px}
+    .bounty-list{margin-top:10px;display:grid;gap:6px}
+    .bounty-list:empty{display:none}
+    .bl-head{font-size:11px;color:var(--m);margin-top:2px}
+    .bl-item{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;background:rgba(10,8,30,.55);border:1px solid var(--line);border-radius:10px;padding:7px 9px;font-size:11.5px}
+    .bl-url{direction:ltr;text-align:start;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--t)}
+    .bl-st{white-space:nowrap;font-weight:700;font-size:11px;border-radius:999px;padding:3px 8px;background:rgba(245,158,11,.14);color:#FBBF24}
+    .bl-st.ok{background:rgba(34,197,94,.14);color:#4ADE80}
+    .bl-st.no{background:rgba(239,68,68,.14);color:#F87171}
+    .bl-why{grid-column:2/-1;color:#F87171;font-size:10.5px;line-height:1.35}
+    .adm-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+    .adm-tabs .adm-tab{font-size:11px;padding:9px 2px;white-space:nowrap}
+    .adm-b-open{display:block;width:100%;text-align:start;direction:ltr;background:none;border:0;padding:0;margin:2px 0 4px;color:#93C5FD;font-size:11px;text-decoration:underline;word-break:break-all;cursor:pointer}
   </style>
 </head>
 <body oncontextmenu="return false;">
@@ -503,6 +526,27 @@
           <button type="button" class="btn-3d-dark" id="btn-open-ch2" data-i18n="open_grp">1. Open channel</button>
           <button type="button" class="btn-3d-gold" id="ch-task-2-btn" data-i18n="verify_btn">2. Verify</button>
         </div>
+      </div>
+
+      <div class="card-3d bounty-card" id="bounty-card">
+        <div class="sec-head"><h4 data-i18n="bounty_title">Creator bounty</h4><span class="reward">+<span id="bounty-range">500–10,000</span> <span class="coin-sym">$VIKING</span></span></div>
+        <p class="bounty-desc" data-i18n="bounty_desc">Post about us in your channel or make a video with your invite link. After review, you get paid.</p>
+        <ul class="bounty-rules">
+          <li data-i18n="bounty_r1">Your invite link must be in the post or video</li>
+          <li data-i18n="bounty_r2">Public posts only · no bought views</li>
+          <li data-i18n="bounty_r3">Bigger reach and better videos earn more</li>
+        </ul>
+        <div class="bounty-kinds" role="radiogroup">
+          <button type="button" class="bk-opt active" role="radio" aria-checked="true" data-kind="post" data-i18n="bounty_post">Channel post</button>
+          <button type="button" class="bk-opt" role="radio" aria-checked="false" data-kind="video" data-i18n="bounty_video">Video</button>
+        </div>
+        <input type="url" id="bounty-url" class="input-3d" inputmode="url" autocomplete="off" maxlength="300" placeholder="https://t.me/yourchannel/123" style="direction:ltr;" aria-label="Post or video link">
+        <input type="text" id="bounty-note" class="input-3d" maxlength="200" placeholder="Channel name · subscribers (optional)" aria-label="Note">
+        <div class="grid-2">
+          <button type="button" class="btn-3d-dark" id="btn-bounty-ref" data-i18n="bounty_copy_ref">Copy invite link</button>
+          <button type="button" class="btn-3d-gold" id="btn-bounty-send" data-i18n="bounty_send">Send for review</button>
+        </div>
+        <div class="bounty-list" id="bounty-list"></div>
       </div>
     </div>
 
@@ -628,9 +672,10 @@
           <h3 style="color:var(--gb);font-size:15px;">🛡️ Owner Admin Panel</h3>
           <button class="btn-3d-dark" id="btn-close-admin" style="width:auto;padding:4px 10px;">Close ✕</button>
         </div>
-        <div class="grid-3" style="margin-bottom:10px;">
+        <div class="adm-tabs" style="margin-bottom:10px;">
           <div class="adm-tab active" id="atab-btn-users">👥 Users</div>
-          <div class="adm-tab" id="atab-btn-wd">💸 Withdrawals</div>
+          <div class="adm-tab" id="atab-btn-wd">💸 Payouts</div>
+          <div class="adm-tab" id="atab-btn-bounty">📣 Bounty</div>
           <div class="adm-tab" id="atab-btn-set">⚙️ Settings</div>
         </div>
 
@@ -668,6 +713,11 @@
             <div><label style="color:#f59e0b;">Activation fee (TON):</label><input type="number" step="0.01" min="0" id="adm-act-fee" class="input-3d"></div>
             <div><label style="color:#f59e0b;">Halving every:</label><input type="number" min="0" id="adm-halving" class="input-3d" style="font-size:13px;padding-left:8px;padding-right:8px;"></div>
             <div><label style="color:#f59e0b;">Mining cap:</label><input type="number" min="0" id="adm-cap" class="input-3d" style="font-size:13px;padding-left:8px;padding-right:8px;"></div>
+          </div>
+          <div class="grid-3">
+            <div><label style="color:#f0abfc;">Bounty min:</label><input type="number" min="0" id="adm-bounty-min" class="input-3d"></div>
+            <div><label style="color:#f0abfc;">Bounty max:</label><input type="number" min="0" id="adm-bounty-max" class="input-3d"></div>
+            <div><label style="color:#f0abfc;">Bounty budget:</label><input type="number" min="0" id="adm-bounty-budget" class="input-3d" style="font-size:13px;padding-left:8px;padding-right:8px;"></div>
           </div>
           <div id="adm-econ-stats" style="font-size:11px;line-height:1.5;color:var(--m);margin:-2px 0 8px;direction:rtl;text-align:right;"></div>
           <div class="grid-3">
@@ -710,6 +760,11 @@
           </div>
           <button class="btn-3d-gold" id="btn-save-admin">💾 Save & Apply to All Users</button>
           <button class="btn-3d-dark" id="btn-adm-emoji" style="margin-top:10px;width:100%;">✨ Create PULSAR emoji (needs Telegram Premium)</button>
+        </div>
+
+        <div id="adm-sub-bounty" style="display:none;">
+          <div class="sub-3d" id="adm-bounty-stats" style="font-size:11.5px;margin-bottom:8px;"></div>
+          <div id="adm-bounty-list" style="max-height:520px;overflow-y:auto;"></div>
         </div>
       </div>
     </div>
@@ -831,7 +886,7 @@
       en: {
         mining_rate:"Mining rate", per_day:"/day", pilot_rank:"Pilot rank", price_lbl:"Price", contract_lbl:"Official contract", daily_badge:"Daily", settings_title:"Settings", language_lbl:"Language", sound_lbl:"Sound effects", current_rank:"Wallet level", claimed_in_app:"Claimed in the app",
         streak_txt:"24h shift", streak_sub:"Collect every 24h to keep mining", turbo_btn:"Turbo ×2", turbo_sub:"Watch an ad",
-        collect_btn:"Collect 24h mining", act_btn:"Activate mining", act_note:"One-time fee from your TON wallet · after that, collecting is free", act_connect:"Connect your TON wallet to activate mining", act_wait:"Payment sent · waiting for the network…", act_checking:"Confirming payment…", act_slow:"Not confirmed yet · tap again in a minute", act_done:"Mining activated!", act_cancel:"Payment cancelled", mining_ended:"Mining has ended", st_ended:"Ended", halving_next:"Next halving in", buy_btn:"Buy", levels_btn:"Levels 1–100",
+        collect_btn:"Collect 24h mining", act_btn:"Activate mining", act_note:"One-time fee from your TON wallet · after that, collecting is free", act_connect:"Connect your TON wallet to activate mining", act_wait:"Payment sent · waiting for the network…", act_checking:"Confirming payment…", act_slow:"Not confirmed yet · tap again in a minute", act_done:"Mining activated!", act_cancel:"Payment cancelled", mining_ended:"Mining has ended", st_ended:"Ended", halving_next:"Next halving in", bounty_title:"Creator bounty", bounty_desc:"Post about us in your channel or make a video with your invite link. After review, you get paid.", bounty_r1:"Your invite link must be in the post or video", bounty_r2:"Public posts only · no bought views", bounty_r3:"Bigger reach and better videos earn more", bounty_post:"Channel post", bounty_video:"Video", bounty_note_ph:"Channel name · subscribers (optional)", bounty_copy_ref:"Copy invite link", bounty_send:"Send for review", bounty_sent:"Sent! We will review it soon", bounty_bad_url:"Paste the full link (https://…)", bounty_review:"Under review", bounty_no:"Not approved", bounty_mine:"Your links", bounty_copied:"Invite link copied", buy_btn:"Buy", levels_btn:"Levels 1–100",
         watch_ads_title:"Watch video ads", ads_today:"Watched today", watch_ad_btn:"Watch full ad",
         ch1_title:"Official channel", ch2_title:"Payouts & community",
         open_ch:"1. Open channel", open_grp:"1. Open channel", verify_btn:"2. Verify",
@@ -855,7 +910,7 @@
       ar: {
         mining_rate:"سرعة التعدين", per_day:"يوميًا", pilot_rank:"رتبة الطيار", price_lbl:"السعر", contract_lbl:"العقد الرسمي", daily_badge:"يومي", settings_title:"الإعدادات", language_lbl:"اللغة", sound_lbl:"المؤثرات الصوتية", current_rank:"مستوى المحفظة", claimed_in_app:"رصيدك في التطبيق",
         streak_txt:"دورة 24 ساعة", streak_sub:"اجمع كل 24 ساعة ليستمر التعدين", turbo_btn:"تيربو ×2", turbo_sub:"شاهد إعلانًا",
-        collect_btn:"اجمع تعدين 24 ساعة", act_btn:"فعّل التعدين", act_note:"رسوم لمرة واحدة من محفظة TON · بعدها التجميع مجاني", act_connect:"اربط محفظة TON لتفعيل التعدين", act_wait:"تم إرسال الدفع · في انتظار الشبكة…", act_checking:"جاري تأكيد الدفع…", act_slow:"لم يتأكد بعد · اضغط مرة أخرى بعد دقيقة", act_done:"تم تفعيل التعدين!", act_cancel:"تم إلغاء الدفع", mining_ended:"انتهى التعدين", st_ended:"انتهى", halving_next:"التنصيف القادم بعد", buy_btn:"شراء", levels_btn:"المستويات",
+        collect_btn:"اجمع تعدين 24 ساعة", act_btn:"فعّل التعدين", act_note:"رسوم لمرة واحدة من محفظة TON · بعدها التجميع مجاني", act_connect:"اربط محفظة TON لتفعيل التعدين", act_wait:"تم إرسال الدفع · في انتظار الشبكة…", act_checking:"جاري تأكيد الدفع…", act_slow:"لم يتأكد بعد · اضغط مرة أخرى بعد دقيقة", act_done:"تم تفعيل التعدين!", act_cancel:"تم إلغاء الدفع", mining_ended:"انتهى التعدين", st_ended:"انتهى", halving_next:"التنصيف القادم بعد", bounty_title:"مكافأة صُنّاع المحتوى", bounty_desc:"انشر عن البوت في قناتك أو اصنع فيديو فيه رابط دعوتك، وبعد المراجعة تحصل على مكافأتك.", bounty_r1:"يجب أن يحتوي المنشور أو الفيديو على رابط دعوتك", bounty_r2:"منشورات عامة فقط · بدون مشاهدات مشتراة", bounty_r3:"كلما زاد الوصول وجودة الفيديو زادت المكافأة", bounty_post:"منشور في قناة", bounty_video:"فيديو", bounty_note_ph:"اسم القناة · عدد المشتركين (اختياري)", bounty_copy_ref:"نسخ رابط الدعوة", bounty_send:"إرسال للمراجعة", bounty_sent:"تم الإرسال! ستتم المراجعة قريبًا", bounty_bad_url:"الصق الرابط كاملًا (https://…)", bounty_review:"قيد المراجعة", bounty_no:"لم تتم الموافقة", bounty_mine:"روابطك", bounty_copied:"تم نسخ رابط الدعوة", buy_btn:"شراء", levels_btn:"المستويات",
         watch_ads_title:"شاهد إعلانات الفيديو", ads_today:"شاهدت اليوم", watch_ad_btn:"شاهد الإعلان كاملًا",
         ch1_title:"القناة الرسمية", ch2_title:"قناة السحوبات والمجتمع",
         open_ch:"1. افتح القناة", open_grp:"1. افتح القناة", verify_btn:"2. تحقّق",
@@ -879,7 +934,7 @@
       ru: {
         mining_rate:"Скорость", per_day:"/день", pilot_rank:"Ранг пилота", price_lbl:"Цена", contract_lbl:"Контракт", daily_badge:"Бонус", settings_title:"Настройки", language_lbl:"Язык", sound_lbl:"Звуки", current_rank:"Уровень кошелька", claimed_in_app:"Собрано в приложении",
         streak_txt:"Смена 24ч", streak_sub:"Собирайте каждые 24ч, чтобы майнинг шёл", turbo_btn:"Турбо ×2", turbo_sub:"Смотреть рекламу",
-        collect_btn:"Собрать за 24ч", act_btn:"Активировать", act_note:"Разовый платёж из TON-кошелька · дальше сбор бесплатно", act_connect:"Подключите TON-кошелёк для активации", act_wait:"Платёж отправлен · ждём сеть…", act_checking:"Проверяем платёж…", act_slow:"Пока не подтверждено · нажмите снова через минуту", act_done:"Майнинг активирован!", act_cancel:"Платёж отменён", mining_ended:"Майнинг завершён", st_ended:"Завершён", halving_next:"Халвинг через", buy_btn:"Купить", levels_btn:"Уровни 1–100",
+        collect_btn:"Собрать за 24ч", act_btn:"Активировать", act_note:"Разовый платёж из TON-кошелька · дальше сбор бесплатно", act_connect:"Подключите TON-кошелёк для активации", act_wait:"Платёж отправлен · ждём сеть…", act_checking:"Проверяем платёж…", act_slow:"Пока не подтверждено · нажмите снова через минуту", act_done:"Майнинг активирован!", act_cancel:"Платёж отменён", mining_ended:"Майнинг завершён", st_ended:"Завершён", halving_next:"Халвинг через", bounty_title:"Бонус для авторов", bounty_desc:"Опубликуйте пост о боте в своём канале или снимите видео с вашей ссылкой-приглашением. После проверки получите награду.", bounty_r1:"В посте или видео должна быть ваша ссылка-приглашение", bounty_r2:"Только публичные посты · без накрутки просмотров", bounty_r3:"Больше охват и лучше видео — выше награда", bounty_post:"Пост в канале", bounty_video:"Видео", bounty_note_ph:"Канал · подписчики (необязательно)", bounty_copy_ref:"Копировать ссылку", bounty_send:"Отправить на проверку", bounty_sent:"Отправлено! Скоро проверим", bounty_bad_url:"Вставьте полную ссылку (https://…)", bounty_review:"На проверке", bounty_no:"Не одобрено", bounty_mine:"Ваши ссылки", bounty_copied:"Ссылка скопирована", buy_btn:"Купить", levels_btn:"Уровни 1–100",
         watch_ads_title:"Видеореклама", ads_today:"Просмотрено сегодня", watch_ad_btn:"Смотреть рекламу",
         ch1_title:"Официальный канал", ch2_title:"Выплаты и сообщество",
         open_ch:"1. Открыть канал", open_grp:"1. Открыть канал", verify_btn:"2. Проверить",
@@ -1331,6 +1386,45 @@
       document.getElementById('prof-mine-bal').innerText = Math.floor(minedInApp).toLocaleString();
       updateWdCalculation();
       applyMiningState();
+      applyBountyUI();
+    }
+
+    // ---- creator bounty (Tasks page) ----
+    let bountyKind = 'post', bountyBusy = false, bountyLoadedAt = 0;
+    function applyBountyUI() {
+      const max = Number(config.bountyMax) || 0, min = Number(config.bountyMin) || 0;
+      document.getElementById('bounty-card').hidden = max <= 0;
+      document.getElementById('bounty-range').textContent = `${fmtR(min)}–${fmtR(max)}`;
+      document.getElementById('bounty-note').placeholder = trx('bounty_note_ph');
+    }
+    function renderBounties(items) {
+      const box = document.getElementById('bounty-list');
+      if (!items.length) { box.innerHTML = ''; return; }
+      box.innerHTML = `<div class="bl-head">${esc(trx('bounty_mine'))}</div>` + items.map(x => {
+        const st = x.status === 'approved' ? `<span class="bl-st ok">✅ <bdi dir="ltr">+${esc(fmtR(x.amount))}</bdi></span>`
+          : x.status === 'rejected' ? `<span class="bl-st no">❌ ${esc(trx('bounty_no'))}</span>`
+          : `<span class="bl-st">⏳ ${esc(trx('bounty_review'))}</span>`;
+        return `<div class="bl-item"><span aria-hidden="true">${x.kind === 'video' ? '🎬' : '📝'}</span><span class="bl-url">${esc(String(x.url || '').replace(/^https:\/\//, ''))}</span>${st}${x.status === 'rejected' && x.reason ? `<div class="bl-why">${esc(x.reason)}</div>` : ''}</div>`;
+      }).join('');
+    }
+    async function loadBounties(force) {
+      if (!force && Date.now() - bountyLoadedAt < 30000) return;
+      bountyLoadedAt = Date.now();
+      try { const r = await api("bountyList"); renderBounties(r.items || []); } catch (e) { bountyLoadedAt = 0; }
+    }
+    async function sendBounty(e) {
+      if (bountyBusy || !isHumanClick(e)) return;
+      const urlEl = document.getElementById('bounty-url'), noteEl = document.getElementById('bounty-note');
+      const url = urlEl.value.trim();
+      if (!/^https?:\/\/[^\s/]+\.[^\s]+$/i.test(url)) { SoundFX.error(); return showToast("❌ " + trx('bounty_bad_url'), "#ef4444"); }
+      bountyBusy = true;
+      try {
+        await api("bountySubmit", { url, kind: bountyKind, note: noteEl.value.trim() });
+        SoundFX.buySuccess(); showToast("📣 " + trx('bounty_sent'), "#22c55e");
+        urlEl.value = ''; noteEl.value = '';
+        await loadBounties(true);
+      } catch (err) { SoundFX.error(); showToast("❌ " + err.message, "#ef4444"); }
+      finally { bountyBusy = false; }
     }
 
     // collect button: activation price for new players, "ended" after the cap; halving progress under the tank
@@ -1578,7 +1672,49 @@
       usersDB = j.players || []; allWithdrawalsDB = j.withdrawals || []; adminCfg = j.config || null;
       renderAdminUsersList(); renderAdminWithdrawals();
       const st = j.stats, el = document.getElementById('adm-econ-stats');
-      if (el) el.textContent = st ? `✅ اتفعّل: ${Number(st.activations || 0).toLocaleString()} لاعب · ${fmtR(st.activationTon)} TON — ⛏️ اتعدّن: ${fmtBig(st.mined || 0)}${st.cap ? ' من ' + fmtBig(st.cap) : ''} — المكافآت ×${st.factor}` : '';
+      if (el) el.textContent = st ? `✅ اتفعّل: ${Number(st.activations || 0).toLocaleString()} لاعب · ${fmtR(st.activationTon)} TON — ⛏️ اتعدّن: ${fmtBig(st.mined || 0)}${st.cap ? ' من ' + fmtBig(st.cap) : ''} — المكافآت ×${st.factor} — 📣 بونتي: ${fmtR(st.bountyPaid || 0)}` : '';
+    }
+
+    // owner: review bounty links (approve with an amount, or reject with a reason)
+    async function loadAdminBounties() {
+      const box = document.getElementById('adm-bounty-list'), st = document.getElementById('adm-bounty-stats');
+      box.textContent = 'Loading…';
+      try {
+        const r = await api("adminBounties"), s = r.stats;
+        st.textContent = s ? `💰 Paid: ${fmtR(s.paid)}${s.budget ? ' / ' + fmtBig(s.budget) : ''} ${config.coinSym} · ✅ ${s.count} approved · ⏳ ${r.items.length} waiting` : '';
+        if (!r.items.length) { box.textContent = 'No links to review.'; return; }
+        const min = Number(config.bountyMin) || 0, max = Number(config.bountyMax) || 0;
+        box.innerHTML = r.items.map(x => `
+          <div class="user-row-card">
+            <div style="display:flex;justify-content:space-between;gap:6px;margin-bottom:2px;font-size:12px;">
+              <strong>${x.kind === 'video' ? '🎬' : '📝'} ${esc(x.userName)} <span style="color:var(--m);font-weight:500;">${x.username ? '@' + esc(x.username) + ' · ' : ''}${esc(x.userId)}</span></strong>
+              <span style="color:var(--m);font-size:10px;white-space:nowrap;">${esc(new Date(x.createdAt).toLocaleDateString())}</span>
+            </div>
+            <button type="button" class="adm-b-open" data-url="${esc(x.url)}">${esc(x.url)}</button>
+            ${x.note ? `<div style="font-size:11px;margin-bottom:4px;">💬 ${esc(x.note)}</div>` : ''}
+            <div style="font-size:10.5px;color:var(--m);margin-bottom:6px;">👥 Referrals: ${Number(x.refs) || 0} · 📣 Bounties before: ${fmtR(x.earned || 0)}${x.banned ? ' · 🚫 banned' : ''}</div>
+            <div class="grid-2" style="margin-bottom:6px;">
+              <input type="number" class="input-3d adm-b-amt" data-id="${esc(x.id)}" min="${min}" max="${max}" step="100" value="${min}" style="margin:0;" aria-label="Amount">
+              <input type="text" class="input-3d adm-b-why" data-id="${esc(x.id)}" maxlength="200" placeholder="Reason if rejecting" style="margin:0;" aria-label="Reason">
+            </div>
+            <div class="grid-2">
+              <button type="button" class="btn-3d-gold adm-b-ok" data-id="${esc(x.id)}" style="padding:8px;font-size:11px;">✅ Approve</button>
+              <button type="button" class="btn-3d-danger adm-b-no" data-id="${esc(x.id)}" style="padding:8px;font-size:11px;">❌ Reject</button>
+            </div>
+          </div>`).join('');
+        box.querySelectorAll('.adm-b-open').forEach(b => b.addEventListener('click', () => {
+          const u = b.getAttribute('data-url');
+          if (/^https:\/\/t\.me\//i.test(u) && tg.openTelegramLink) tg.openTelegramLink(u); else if (tg.openLink) tg.openLink(u); else window.open(u, '_blank');
+        }));
+        const review = async (id, approve) => {
+          const amount = Number(box.querySelector(`.adm-b-amt[data-id="${id}"]`).value);
+          const reason = box.querySelector(`.adm-b-why[data-id="${id}"]`).value.trim();
+          try { await api("adminBounty", { id, approve, amount, reason }); showToast(approve ? `✅ +${fmtR(amount)} sent` : '❌ Rejected'); await loadAdminBounties(); }
+          catch (err) { showToast('❌ ' + err.message, '#ef4444'); }
+        };
+        box.querySelectorAll('.adm-b-ok').forEach(b => b.addEventListener('click', () => review(b.getAttribute('data-id'), true)));
+        box.querySelectorAll('.adm-b-no').forEach(b => b.addEventListener('click', () => review(b.getAttribute('data-id'), false)));
+      } catch (err) { box.textContent = '❌ ' + err.message; }
     }
 
     async function processPayout(w, isReject) {
@@ -1642,7 +1778,7 @@
       }));
     }
 
-    const ADMIN_FIELDS = { 'adm-title':'brandTitle','adm-sym':'coinSym','adm-lvl1-day':'lvl1PerDay','adm-ad-rew':'adReward','adm-ad-max':'maxAdsPerDay','adm-task-rew':'taskReward','adm-ref-pct':'refClaimPercent','adm-ref-minhold':'refMinHold','adm-minwd':'minWithdraw','adm-holdpct':'holdPercentReq','adm-wdfee-pct':'withdrawFeePercent','adm-payout-wallet':'payoutWallet','adm-adsgram-id':'adsgramBlockId','adm-payout-ch':'payoutChannel','adm-admin-chat':'adminChatId','adm-ch1':'channel1','adm-ch2':'channel2','adm-botuser':'botUsername','adm-news-url':'newsUrl','adm-payouts-url':'payoutsUrl','adm-act-fee':'activationFee','adm-halving':'halvingEvery','adm-cap':'miningCap' };
+    const ADMIN_FIELDS = { 'adm-title':'brandTitle','adm-sym':'coinSym','adm-lvl1-day':'lvl1PerDay','adm-ad-rew':'adReward','adm-ad-max':'maxAdsPerDay','adm-task-rew':'taskReward','adm-ref-pct':'refClaimPercent','adm-ref-minhold':'refMinHold','adm-minwd':'minWithdraw','adm-holdpct':'holdPercentReq','adm-wdfee-pct':'withdrawFeePercent','adm-payout-wallet':'payoutWallet','adm-adsgram-id':'adsgramBlockId','adm-payout-ch':'payoutChannel','adm-admin-chat':'adminChatId','adm-ch1':'channel1','adm-ch2':'channel2','adm-botuser':'botUsername','adm-news-url':'newsUrl','adm-payouts-url':'payoutsUrl','adm-act-fee':'activationFee','adm-halving':'halvingEvery','adm-cap':'miningCap','adm-bounty-min':'bountyMin','adm-bounty-max':'bountyMax','adm-bounty-budget':'bountyBudget' };
     async function openOwnerDashboard() {
       if (CURRENT_UID !== OWNER_UID) return showToast("❌ Access Denied! (Owner Only)", "#ef4444");
       try { await loadAdminData(); } catch (err) { return showToast("❌ " + err.message, "#ef4444"); }
@@ -1661,6 +1797,7 @@
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById('page-' + id)?.classList.add('active');
       document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.getAttribute('data-tab') === id));
+      if (id === 'tasks') loadBounties();
     }
 
     function setActiveTierBtn(activeNum) {
@@ -1745,12 +1882,24 @@
     document.getElementById('btn-lvl-next').addEventListener('click', () => { currentLevelPage = Math.min(10, currentLevelPage + 1); renderLevelsGrid(); });
 
     document.getElementById('btn-copy-ref').addEventListener('click', () => { navigator.clipboard.writeText(document.getElementById('ref-link-box').value); showToast("📋 Link Copied!"); });
+    document.getElementById('btn-bounty-ref').addEventListener('click', () => {
+      const v = document.getElementById('ref-link-box').value;
+      if (navigator.clipboard) navigator.clipboard.writeText(v).then(() => showToast("📋 " + trx('bounty_copied')), () => showToast(v));
+      else showToast(v);
+    });
+    document.getElementById('btn-bounty-send').addEventListener('click', sendBounty);
+    document.querySelectorAll('.bk-opt').forEach(b => b.addEventListener('click', () => {
+      bountyKind = b.getAttribute('data-kind');
+      document.querySelectorAll('.bk-opt').forEach(x => { const on = x === b; x.classList.toggle('active', on); x.setAttribute('aria-checked', on ? 'true' : 'false'); });
+      document.getElementById('bounty-url').placeholder = bountyKind === 'video' ? 'https://youtube.com/watch?v=…' : 'https://t.me/yourchannel/123';
+    }));
     document.getElementById('btn-share-ref').addEventListener('click', () => window.open(`https://t.me/share/url?url=${encodeURIComponent(document.getElementById('ref-link-box').value)}`, '_blank'));
     document.querySelectorAll('.nav-item').forEach(i => i.addEventListener('click', () => switchTab(i.getAttribute('data-tab'))));
     document.getElementById('btn-close-admin').addEventListener('click', () => switchTab('mine'));
 
-    ['users', 'wd', 'set'].forEach(t => document.getElementById('atab-btn-' + t).addEventListener('click', () => {
-      ['users', 'wd', 'set'].forEach(x => { document.getElementById('adm-sub-' + x).style.display = x === t ? 'block' : 'none'; document.getElementById('atab-btn-' + x).classList.toggle('active', x === t); });
+    ['users', 'wd', 'bounty', 'set'].forEach(t => document.getElementById('atab-btn-' + t).addEventListener('click', () => {
+      ['users', 'wd', 'bounty', 'set'].forEach(x => { document.getElementById('adm-sub-' + x).style.display = x === t ? 'block' : 'none'; document.getElementById('atab-btn-' + x).classList.toggle('active', x === t); });
+      if (t === 'bounty') loadAdminBounties();
     }));
     document.getElementById('adm-user-search').addEventListener('input', renderAdminUsersList);
     document.querySelectorAll('.adm-filter-btn').forEach(b => b.addEventListener('click', () => { currentUserFilter = b.getAttribute('data-filter'); renderAdminUsersList(); }));
