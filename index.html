@@ -517,9 +517,12 @@
     .strip b{font:600 18px/1 var(--display);color:#fff;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .strip-card{background:var(--glass) padding-box,var(--base) padding-box,var(--edge) border-box;border:1px solid transparent;border-radius:18px;box-shadow:0 10px 26px rgba(0,0,0,.3)}
     .strip-card>div{align-items:center;text-align:center}
-    .tiers{margin-top:4px}
-    .tiers>button{direction:ltr;unicode-bidi:isolate}
-    .lvl-nav{margin-bottom:12px}
+    .lvl-head{margin:18px 2px 10px}
+    .lvl-head h3{font:600 16px/1.2 var(--display);color:#fff;margin:0 0 5px}
+    .lvl-head p{font-size:12px;line-height:1.45;color:var(--m);margin:0}
+    .bh-wallet{margin:0 0 10px}
+    .bh-wallet[hidden]{display:none}
+    .lc-st.soon{background:rgba(34,211,238,.14);color:#67E8F9}
     .nav-arrow{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(124,58,237,.12);border:1px solid rgba(167,139,250,.3);color:#DDD6FE}
     .nav-arrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
     .ln-mid{display:flex;flex-direction:column;align-items:center;gap:4px}
@@ -765,19 +768,13 @@
           <div><span data-i18n="wallet_hold">Wallet hold</span><b id="boost-wallet-bal">0</b></div>
           <div><span data-i18n="mined_app">Mined in app</span><b id="boost-app-bal">0</b></div>
         </div>
+        <button type="button" class="pill primary wide bh-wallet" id="btn-boost-wallet" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10c-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2l4-4"/></svg><span id="btn-boost-wallet-lbl">Verify wallet</span></button>
         <button type="button" class="btn-3d-gold btn-stonfi-buy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v8M8 12h8"/></svg><span data-i18n="buy_upgrade_btn">Buy on STON.fi to level up</span></button>
       </div>
 
-      <div class="seg tiers" role="tablist">
-        <button type="button" class="btn-3d-dark tier-active" id="tier-btn-1" role="tab">1–30</button>
-        <button type="button" class="btn-3d-dark" id="tier-btn-2" role="tab">31–70</button>
-        <button type="button" class="btn-3d-dark" id="tier-btn-3" role="tab">71–100</button>
-      </div>
-
-      <div class="lvl-nav">
-        <button type="button" class="nav-arrow" id="btn-lvl-prev" aria-label="Previous levels"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6l6 6"/></svg></button>
-        <div class="ln-mid"><strong id="lvl-page-title">Cadets</strong><span id="lvl-page-range">Level 1–10</span></div>
-        <button type="button" class="nav-arrow" id="btn-lvl-next" aria-label="Next levels"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg></button>
+      <div class="lvl-head">
+        <h3 data-i18n="levels_title">Levels</h3>
+        <p data-i18n="lvl_rule">Your speed counts the smaller of your wallet hold at the last collect and now.</p>
       </div>
       <div class="lvl-grid" id="levels-grid-container"></div>
     </div>
@@ -840,9 +837,10 @@
           <div><span data-i18n="hold_wallet_lbl">Wallet hold</span><b class="c-violet" id="prof-hold-bal">0</b></div>
           <div><span data-i18n="mine_wallet_lbl">Mined balance</span><b id="prof-mine-bal">0</b></div>
         </div>
+        <button type="button" class="pill primary wide bh-wallet" id="btn-verify-wallet" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10c-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2l4-4"/></svg><span data-i18n="wverify_btn">Verify wallet</span></button>
         <button type="button" class="btn-3d-gold" id="btn-connect-wallet"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 7V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/><path d="M21 10h-5a2 2 0 0 0 0 4h5z"/></svg><span data-i18n="connect_wallet_btn">Connect TON wallet</span></button>
         <div id="connected-wallet-actions" style="display:none;" class="btn-pair">
-          <button type="button" class="pill ghost wide" id="btn-sync-hold"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg><span data-i18n="sync_hold_btn">Verify hold</span></button>
+          <button type="button" class="pill ghost wide" id="btn-sync-hold"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg><span data-i18n="sync_hold_btn">Refresh hold</span></button>
           <button type="button" class="pill danger wide" id="btn-disconnect-wallet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 15l6-6"/><path d="M11 6l1.5-1.5a4 4 0 0 1 5.7 5.7L17 11.5"/><path d="M13 18l-1.5 1.5a4 4 0 0 1-5.7-5.7L7 12.5"/></svg><span data-i18n="disconnect_wallet_btn">Disconnect</span></button>
         </div>
         <div id="ton-connect-container" style="display:none;"></div>
@@ -932,7 +930,7 @@
           </div>
           <div class="grid-2">
             <div><label style="color:var(--gb);">Level 1 Daily Profit:</label><input type="number" step="0.5" id="adm-lvl1-day" class="input-3d"></div>
-            <div><label style="color:var(--gb);">Level 100 Profit (Auto):</label><input type="text" id="adm-lvl100-day" class="input-3d" readonly style="background:#1e293b;color:#94a3b8;"></div>
+            <div><label style="color:var(--gb);">Level 10 Profit (Auto):</label><input type="text" id="adm-lvl100-day" class="input-3d" readonly style="background:#1e293b;color:#94a3b8;"></div>
           </div>
           <div class="grid-3">
             <div><label style="color:#f59e0b;">Activation fee (TON):</label><input type="number" step="0.01" min="0" id="adm-act-fee" class="input-3d"></div>
@@ -950,9 +948,10 @@
             <div><label style="color:#38bdf8;">Max Ads/Day:</label><input type="number" id="adm-ad-max" class="input-3d"></div>
             <div><label style="color:#38bdf8;">Task Reward:</label><input type="number" id="adm-task-rew" class="input-3d"></div>
           </div>
-          <div class="grid-2">
+          <div class="grid-3">
             <div><label>Referral Mining %:</label><input type="number" id="adm-ref-pct" class="input-3d"></div>
-            <div><label>Referral Activation Hold (Lvl 2 = 200):</label><input type="number" id="adm-ref-minhold" class="input-3d"></div>
+            <div><label>Referral Hold:</label><input type="number" id="adm-ref-minhold" class="input-3d"></div>
+            <div><label>Friend activation bonus:</label><input type="number" min="0" id="adm-ref-actbonus" class="input-3d"></div>
           </div>
           <div class="grid-3">
             <div><label>Min Withdraw:</label><input type="number" id="adm-minwd" class="input-3d"></div>
@@ -1109,7 +1108,7 @@
 
     const I18N = {
       en: {
-        mining_rate:"Mining rate", per_day:"/day", pilot_rank:"Pilot rank", price_lbl:"Price", contract_lbl:"Official contract", daily_badge:"Daily", settings_title:"Settings", language_lbl:"Language", sound_lbl:"Sound effects", current_rank:"Wallet level", claimed_in_app:"Claimed in the app",
+        mining_rate:"Mining rate", per_day:"/day", pilot_rank:"Rank", price_lbl:"Price", contract_lbl:"Official contract", daily_badge:"Daily", settings_title:"Settings", language_lbl:"Language", sound_lbl:"Sound effects", current_rank:"Wallet level", claimed_in_app:"Claimed in the app",
         streak_txt:"24h shift", streak_sub:"Collect every 24h to keep mining", turbo_btn:"Turbo ×2", turbo_sub:"Watch an ad",
         collect_btn:"Collect 24h mining", act_btn:"Activate mining", act_note:"One-time fee from your TON wallet · after that, collecting is free", act_connect:"Connect your TON wallet to activate mining", act_wait:"Payment sent · waiting for the network…", act_checking:"Confirming payment…", act_slow:"Not confirmed yet · tap again in a minute", act_done:"Mining activated!", act_cancel:"Payment cancelled", mining_ended:"Mining has ended", st_ended:"Ended", halving_next:"Next halving in", bounty_title:"Creator bounty", bounty_desc:"Post about us in your channel or make a video with your invite link. After review, you get paid.", bounty_r1:"Your invite link must be in the post or video", bounty_r2:"Public posts only · no bought views", bounty_r3:"Bigger reach and better videos earn more", bounty_post:"Channel post", bounty_video:"Video", bounty_note_ph:"Channel name · subscribers (optional)", bounty_copy_ref:"Copy invite link", bounty_send:"Send for review", bounty_sent:"Sent! We will review it soon", bounty_bad_url:"Paste the full link (https://…)", bounty_review:"Under review", bounty_no:"Not approved", bounty_mine:"Your links", bounty_copied:"Invite link copied", buy_btn:"Buy", levels_btn:"Levels 1–100",
         watch_ads_title:"Watch video ads", ads_today:"Watched today", watch_ad_btn:"Watch",
@@ -1122,7 +1121,7 @@
         ref_pending:"Pending", ref_verified:"Active", ref_earned:"Earned", copy_btn:"Copy link", share_btn:"Share",
         my_referrals_title:"Invited friends", pending_ref_title:"Referral profits", collect_ref_btn:"Collect",
         ton_wallet_title:"TON wallet", connect_wallet_btn:"Connect TON wallet",
-        sync_hold_btn:"Verify hold", disconnect_wallet_btn:"Disconnect",
+        sync_hold_btn:"Refresh hold", disconnect_wallet_btn:"Disconnect",
         hold_wallet_lbl:"Wallet hold", mine_wallet_lbl:"Mined balance",
         withdraw_title:"Withdraw", min_wd_lbl:"Minimum", wd_fee_lbl:"Fee", net_lbl:"You receive",
         hold_cond_lbl:"Hold required", your_hold_lbl:"Your hold", req_wd_btn:"Request withdrawal",
@@ -1130,10 +1129,10 @@
         nav_mine:"Mine", nav_tasks:"Tasks", nav_boost:"Boost", nav_friends:"Friends", nav_profile:"Profile",
         tank_full:"Tank full · collect now", tank_fill:"24h tank ·", st_active:"Active", st_turbo:"Turbo ×2 active", st_paused:"Paused · tank full",
         daily_login_title:"Daily login", claim_daily_btn:"Claim daily reward",
-        day:"Day", claimed:"Claimed", no_refs_yet:"No invited friends yet.", day_of:"Day {n} of 7", daily_next:"Next reward in {t}", claim_today:"Claim {n}", earn_more:"More ways to earn", done_lbl:"Done", level_lbl:"Level", boost_need:"Hold {n} more {coin} in your wallet to reach level {l}", boost_max:"You reached the top level", lvl_cur:"Current", lvl_open:"Unlocked", lvl_hold:"Hold {n}", ref_rule_1:"A friend becomes active after holding {n}+ coins in a connected wallet", ref_rule_2:"You get {p}% of everything an active friend collects", wallet_on:"Connected", wallet_off:"Not connected", wallet_none:"No wallet connected yet", max_btn:"Max", wd_ok:"Withdrawal unlocked", wd_lock:"Hold {p}% ({n} {coin}) in a connected wallet to withdraw", wd_none:"No withdrawals yet", settings_sub:"Language and sound", st_pending:"Pending", st_paid:"Paid", st_rejected:"Rejected", ref_st_active:"Active", ref_st_pending:"Pending", tx_btn:"TX"
+        day:"Day", claimed:"Claimed", no_refs_yet:"No invited friends yet.", day_of:"Day {n} of 7", daily_next:"Next reward in {t}", claim_today:"Claim {n}", earn_more:"More ways to earn", done_lbl:"Done", level_lbl:"Level", boost_need:"Hold {n} more {coin} in your wallet to reach level {l}", boost_max:"You reached the top level", lvl_cur:"Current", lvl_open:"Unlocked", lvl_hold:"Hold {n}", ref_rule_1:"A friend becomes active after holding {n}+ coins in a connected wallet", ref_rule_2:"You get {p}% of everything an active friend collects", wallet_on:"Connected", wallet_off:"Not connected", wallet_none:"No wallet connected yet", max_btn:"Max", wd_ok:"Withdrawal unlocked", wd_lock:"Hold {p}% ({n} {coin}) in a connected wallet to withdraw", wd_none:"No withdrawals yet", settings_sub:"Language and sound", st_pending:"Pending", st_paid:"Paid", st_rejected:"Rejected", ref_st_active:"Active", ref_st_pending:"Pending", tx_btn:"TX", ranks:"Cadet,Pilot,Navigator,Engineer,Commander,Captain,Major,Colonel,Admiral,Pulsar", levels_title:"Levels", lvl_rule:"Your speed counts the smaller of your wallet hold at the last collect and now.", lvl_soon:"Next collect", lvl_next_collect:"Level {l} starts from your next collect", lvl_connect:"Connect a TON wallet and hold {coin} to mine faster", lvl_verify:"Verify your wallet so your coins count for levels", wverify_btn:"Verify wallet", wallet_verified:"Wallet verified", verify_failed:"Wallet connected but not verified. Tap Verify wallet to try again", wallet_ver:"Verified", wallet_unver:"Not verified", ref_rule_act:"You get {n} coins when a friend activates mining", wallet_loading:"The wallet is still loading, try again"
       },
       ar: {
-        mining_rate:"سرعة التعدين", per_day:"يوميًا", pilot_rank:"رتبة الطيار", price_lbl:"السعر", contract_lbl:"العقد الرسمي", daily_badge:"يومي", settings_title:"الإعدادات", language_lbl:"اللغة", sound_lbl:"المؤثرات الصوتية", current_rank:"مستوى المحفظة", claimed_in_app:"رصيدك في التطبيق",
+        mining_rate:"سرعة التعدين", per_day:"يوميًا", pilot_rank:"الرتبة", price_lbl:"السعر", contract_lbl:"العقد الرسمي", daily_badge:"يومي", settings_title:"الإعدادات", language_lbl:"اللغة", sound_lbl:"المؤثرات الصوتية", current_rank:"مستوى المحفظة", claimed_in_app:"رصيدك في التطبيق",
         streak_txt:"دورة 24 ساعة", streak_sub:"اجمع كل 24 ساعة ليستمر التعدين", turbo_btn:"تيربو ×2", turbo_sub:"شاهد إعلانًا",
         collect_btn:"اجمع تعدين 24 ساعة", act_btn:"فعّل التعدين", act_note:"رسوم لمرة واحدة من محفظة TON · بعدها التجميع مجاني", act_connect:"اربط محفظة TON لتفعيل التعدين", act_wait:"تم إرسال الدفع · في انتظار الشبكة…", act_checking:"جاري تأكيد الدفع…", act_slow:"لم يتأكد بعد · اضغط مرة أخرى بعد دقيقة", act_done:"تم تفعيل التعدين!", act_cancel:"تم إلغاء الدفع", mining_ended:"انتهى التعدين", st_ended:"انتهى", halving_next:"التنصيف القادم بعد", bounty_title:"مكافأة صُنّاع المحتوى", bounty_desc:"انشر عن البوت في قناتك أو اصنع فيديو فيه رابط دعوتك، وبعد المراجعة تحصل على مكافأتك.", bounty_r1:"يجب أن يحتوي المنشور أو الفيديو على رابط دعوتك", bounty_r2:"منشورات عامة فقط · بدون مشاهدات مشتراة", bounty_r3:"كلما زاد الوصول وجودة الفيديو زادت المكافأة", bounty_post:"منشور في قناة", bounty_video:"فيديو", bounty_note_ph:"اسم القناة · عدد المشتركين (اختياري)", bounty_copy_ref:"نسخ رابط الدعوة", bounty_send:"إرسال للمراجعة", bounty_sent:"تم الإرسال! ستتم المراجعة قريبًا", bounty_bad_url:"الصق الرابط كاملًا (https://…)", bounty_review:"قيد المراجعة", bounty_no:"لم تتم الموافقة", bounty_mine:"روابطك", bounty_copied:"تم نسخ رابط الدعوة", buy_btn:"شراء", levels_btn:"المستويات",
         watch_ads_title:"شاهد إعلانات الفيديو", ads_today:"شاهدت اليوم", watch_ad_btn:"شاهد",
@@ -1154,10 +1153,10 @@
         nav_mine:"التعدين", nav_tasks:"المهام", nav_boost:"السرعة", nav_friends:"الأصدقاء", nav_profile:"حسابي",
         tank_full:"الخزان ممتلئ · اجمع الآن", tank_fill:"خزان 24 ساعة ·", st_active:"نشط", st_turbo:"تيربو ×2 نشط", st_paused:"متوقف · الخزان ممتلئ",
         daily_login_title:"الدخول اليومي", claim_daily_btn:"استلم المكافأة اليومية",
-        day:"يوم", claimed:"تم الاستلام", no_refs_yet:"لا يوجد أصدقاء مدعوون حتى الآن.", day_of:"اليوم {n} من 7", daily_next:"المكافأة التالية بعد {t}", claim_today:"استلم {n}", earn_more:"طرق أخرى للربح", done_lbl:"تم", level_lbl:"المستوى", boost_need:"احتفظ بـ {n} {coin} إضافية في محفظتك للوصول إلى المستوى {l}", boost_max:"وصلت إلى أعلى مستوى", lvl_cur:"الحالي", lvl_open:"مفتوح", lvl_hold:"احتفظ بـ {n}", ref_rule_1:"يصبح صديقك مفعّلًا عندما يمتلك {n}+ عملة في محفظة مربوطة", ref_rule_2:"تحصل على {p}% من كل ما يجمعه صديقك المفعّل", wallet_on:"مربوطة", wallet_off:"غير مربوطة", wallet_none:"لم تربط محفظة بعد", max_btn:"الكل", wd_ok:"السحب متاح", wd_lock:"احتفظ بـ {p}% ({n} {coin}) في محفظة مربوطة لتتمكن من السحب", wd_none:"لا توجد سحوبات بعد", settings_sub:"اللغة والصوت", st_pending:"قيد المراجعة", st_paid:"تم الدفع", st_rejected:"مرفوض", ref_st_active:"مفعّل", ref_st_pending:"معلّق", tx_btn:"العملية"
+        day:"يوم", claimed:"تم الاستلام", no_refs_yet:"لا يوجد أصدقاء مدعوون حتى الآن.", day_of:"اليوم {n} من 7", daily_next:"المكافأة التالية بعد {t}", claim_today:"استلم {n}", earn_more:"طرق أخرى للربح", done_lbl:"تم", level_lbl:"المستوى", boost_need:"احتفظ بـ {n} {coin} إضافية في محفظتك للوصول إلى المستوى {l}", boost_max:"وصلت إلى أعلى مستوى", lvl_cur:"الحالي", lvl_open:"مفتوح", lvl_hold:"احتفظ بـ {n}", ref_rule_1:"يصبح صديقك مفعّلًا عندما يمتلك {n}+ عملة في محفظة مربوطة", ref_rule_2:"تحصل على {p}% من كل ما يجمعه صديقك المفعّل", wallet_on:"مربوطة", wallet_off:"غير مربوطة", wallet_none:"لم تربط محفظة بعد", max_btn:"الكل", wd_ok:"السحب متاح", wd_lock:"احتفظ بـ {p}% ({n} {coin}) في محفظة مربوطة لتتمكن من السحب", wd_none:"لا توجد سحوبات بعد", settings_sub:"اللغة والصوت", st_pending:"قيد المراجعة", st_paid:"تم الدفع", st_rejected:"مرفوض", ref_st_active:"مفعّل", ref_st_pending:"معلّق", tx_btn:"العملية", ranks:"متدرّب,طيّار,ملّاح,مهندس,قائد,كابتن,رائد,عقيد,أدميرال,بولسار", levels_title:"المستويات", lvl_rule:"تُحسب سرعتك بالأقل بين رصيد محفظتك وقت آخر جمع ورصيدها الآن.", lvl_soon:"من الجمع القادم", lvl_next_collect:"المستوى {l} يبدأ من الجمع القادم", lvl_connect:"اربط محفظة TON واحتفظ بـ {coin} لتعدّن أسرع", lvl_verify:"وثّق محفظتك لتُحتسب عملاتك في المستويات", wverify_btn:"توثيق المحفظة", wallet_verified:"تم توثيق المحفظة", verify_failed:"تم ربط المحفظة دون توثيق. اضغط «توثيق المحفظة» للمحاولة مرة أخرى", wallet_ver:"موثّقة", wallet_unver:"غير موثّقة", ref_rule_act:"تحصل على {n} عملة عندما يفعّل صديقك التعدين", wallet_loading:"المحفظة ما زالت تُحمَّل، حاول مرة أخرى"
       },
       ru: {
-        mining_rate:"Скорость", per_day:"/день", pilot_rank:"Ранг пилота", price_lbl:"Цена", contract_lbl:"Контракт", daily_badge:"Бонус", settings_title:"Настройки", language_lbl:"Язык", sound_lbl:"Звуки", current_rank:"Уровень кошелька", claimed_in_app:"Собрано в приложении",
+        mining_rate:"Скорость", per_day:"/день", pilot_rank:"Ранг", price_lbl:"Цена", contract_lbl:"Контракт", daily_badge:"Бонус", settings_title:"Настройки", language_lbl:"Язык", sound_lbl:"Звуки", current_rank:"Уровень кошелька", claimed_in_app:"Собрано в приложении",
         streak_txt:"Смена 24ч", streak_sub:"Собирайте каждые 24ч, чтобы майнинг шёл", turbo_btn:"Турбо ×2", turbo_sub:"Смотреть рекламу",
         collect_btn:"Собрать за 24ч", act_btn:"Активировать", act_note:"Разовый платёж из TON-кошелька · дальше сбор бесплатно", act_connect:"Подключите TON-кошелёк для активации", act_wait:"Платёж отправлен · ждём сеть…", act_checking:"Проверяем платёж…", act_slow:"Пока не подтверждено · нажмите снова через минуту", act_done:"Майнинг активирован!", act_cancel:"Платёж отменён", mining_ended:"Майнинг завершён", st_ended:"Завершён", halving_next:"Халвинг через", bounty_title:"Бонус для авторов", bounty_desc:"Опубликуйте пост о боте в своём канале или снимите видео с вашей ссылкой-приглашением. После проверки получите награду.", bounty_r1:"В посте или видео должна быть ваша ссылка-приглашение", bounty_r2:"Только публичные посты · без накрутки просмотров", bounty_r3:"Больше охват и лучше видео — выше награда", bounty_post:"Пост в канале", bounty_video:"Видео", bounty_note_ph:"Канал · подписчики (необязательно)", bounty_copy_ref:"Копировать ссылку", bounty_send:"Отправить на проверку", bounty_sent:"Отправлено! Скоро проверим", bounty_bad_url:"Вставьте полную ссылку (https://…)", bounty_review:"На проверке", bounty_no:"Не одобрено", bounty_mine:"Ваши ссылки", bounty_copied:"Ссылка скопирована", buy_btn:"Купить", levels_btn:"Уровни 1–100",
         watch_ads_title:"Видеореклама", ads_today:"Просмотрено сегодня", watch_ad_btn:"Смотреть",
@@ -1178,7 +1177,7 @@
         nav_mine:"Майнинг", nav_tasks:"Задания", nav_boost:"Буст", nav_friends:"Друзья", nav_profile:"Профиль",
         tank_full:"Бак полон · соберите", tank_fill:"Бак 24ч ·", st_active:"Активно", st_turbo:"Турбо ×2 активно", st_paused:"Пауза · бак полон",
         daily_login_title:"Ежедневный вход", claim_daily_btn:"Получить награду",
-        day:"День", claimed:"Получено", no_refs_yet:"Пока нет приглашённых друзей.", day_of:"День {n} из 7", daily_next:"Следующая награда через {t}", claim_today:"Забрать {n}", earn_more:"Ещё способы заработать", done_lbl:"Готово", level_lbl:"Уровень", boost_need:"Держите ещё {n} {coin} в кошельке, чтобы открыть уровень {l}", boost_max:"Вы достигли максимального уровня", lvl_cur:"Текущий", lvl_open:"Открыт", lvl_hold:"Нужно {n}", ref_rule_1:"Друг становится активным, когда держит {n}+ монет в подключённом кошельке", ref_rule_2:"Вы получаете {p}% от всего, что собирает активный друг", wallet_on:"Подключён", wallet_off:"Не подключён", wallet_none:"Кошелёк ещё не подключён", max_btn:"Макс", wd_ok:"Вывод доступен", wd_lock:"Держите {p}% ({n} {coin}) в подключённом кошельке для вывода", wd_none:"Выводов пока нет", settings_sub:"Язык и звук", st_pending:"В обработке", st_paid:"Выплачено", st_rejected:"Отклонено", ref_st_active:"Активен", ref_st_pending:"Ожидание", tx_btn:"TX"
+        day:"День", claimed:"Получено", no_refs_yet:"Пока нет приглашённых друзей.", day_of:"День {n} из 7", daily_next:"Следующая награда через {t}", claim_today:"Забрать {n}", earn_more:"Ещё способы заработать", done_lbl:"Готово", level_lbl:"Уровень", boost_need:"Держите ещё {n} {coin} в кошельке, чтобы открыть уровень {l}", boost_max:"Вы достигли максимального уровня", lvl_cur:"Текущий", lvl_open:"Открыт", lvl_hold:"Нужно {n}", ref_rule_1:"Друг становится активным, когда держит {n}+ монет в подключённом кошельке", ref_rule_2:"Вы получаете {p}% от всего, что собирает активный друг", wallet_on:"Подключён", wallet_off:"Не подключён", wallet_none:"Кошелёк ещё не подключён", max_btn:"Макс", wd_ok:"Вывод доступен", wd_lock:"Держите {p}% ({n} {coin}) в подключённом кошельке для вывода", wd_none:"Выводов пока нет", settings_sub:"Язык и звук", st_pending:"В обработке", st_paid:"Выплачено", st_rejected:"Отклонено", ref_st_active:"Активен", ref_st_pending:"Ожидание", tx_btn:"TX", ranks:"Кадет,Пилот,Штурман,Инженер,Командир,Капитан,Майор,Полковник,Адмирал,Пульсар", levels_title:"Уровни", lvl_rule:"Скорость считается по меньшему из холда при последнем сборе и сейчас.", lvl_soon:"Со след. сбора", lvl_next_collect:"Уровень {l} начнётся со следующего сбора", lvl_connect:"Подключите кошелёк TON и держите {coin}, чтобы майнить быстрее", lvl_verify:"Подтвердите кошелёк, чтобы монеты учитывались для уровней", wverify_btn:"Подтвердить кошелёк", wallet_verified:"Кошелёк подтверждён", verify_failed:"Кошелёк подключён, но не подтверждён. Нажмите «Подтвердить кошелёк» ещё раз", wallet_ver:"Подтверждён", wallet_unver:"Не подтверждён", ref_rule_act:"Вы получаете {n} монет, когда друг активирует майнинг", wallet_loading:"Кошелёк ещё загружается, попробуйте снова"
       }
     };
     let currentLang = localStorage.getItem('vk_lang') || 'en';
@@ -1191,9 +1190,9 @@
     }
 
     function getLevelArtSVG(lvl) {
-      if (lvl <= 30) {
+      if (lvl <= 3) {
         return `<svg width="46" height="46" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="32" r="14" fill="#1E1747" stroke="#A78BFA" stroke-width="2"/><circle cx="27" cy="27" r="3" fill="#C4B5FD" opacity=".6"/><ellipse cx="32" cy="32" rx="26" ry="8" stroke="#22D3EE" stroke-width="2" transform="rotate(-20 32 32)"/></svg>`;
-      } else if (lvl <= 70) {
+      } else if (lvl <= 7) {
         return `<svg width="46" height="46" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 8c9 6 13 16 12 28l-5 8H25l-5-8c-1-12 3-22 12-28z" fill="#1E1747" stroke="#A78BFA" stroke-width="2" stroke-linejoin="round"/><circle cx="32" cy="27" r="5" fill="#22D3EE"/><path d="M25 40l-6 4v8l7-4M39 40l6 4v8l-7-4" stroke="#C4B5FD" stroke-width="2" stroke-linejoin="round"/><path d="M28 48h8l-4 9z" fill="#22D3EE"/></svg>`;
       } else {
         return `<svg width="46" height="46" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="32" r="22" stroke="#7C3AED" stroke-width="2"/><path d="M12 12l12 12M40 40l12 12" stroke="#22D3EE" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="32" r="9" fill="#EDE9FE"/><circle cx="32" cy="32" r="4" fill="#fff"/></svg>`;
@@ -1202,9 +1201,9 @@
 
     const defaultConfig = {
       brandTitle: "PULSAR", coinSym: "$VIKING",
-      lvl1PerDay: 250,
-      adReward: 5, maxAdsPerDay: 10, taskReward: 50,
-      refClaimPercent: 5, refMinHold: 200,
+      lvl1PerDay: 500,
+      adReward: 30, maxAdsPerDay: 10, taskReward: 250,
+      refClaimPercent: 10, refMinHold: 200, refActBonus: 1000,
       minWithdraw: 5000, holdPercentReq: 25, withdrawFeePercent: 5,
       payoutWallet: "", adsgramBlockId: "", botToken: "", payoutChannel: "",
       adminChatId: "",
@@ -1241,8 +1240,9 @@
     const iso = (x) => '\u2066' + x + '\u2069'; // keeps numbers and $SYMBOLS in order inside Arabic text
     const fmtBig = (n) => n >= 1e6 ? +(n / 1e6).toFixed(n >= 1e7 ? 1 : 2) + 'M' : n >= 1e3 ? +(n / 1e3).toFixed(1) + 'K' : String(Math.floor(n));
     
-    const DAILY_REWARDS = [10, 20, 30, 50, 70, 100, 200];
-    let currentLevelPage = 1;
+    const DEFAULT_DAILY = [20, 40, 60, 80, 120, 180, 300];
+    const dailyList = () => (Array.isArray(config.dailyRewards) && config.dailyRewards.length === 7 ? config.dailyRewards : DEFAULT_DAILY);
+    let serverLevel = 1, walletProven = false; // from the server: the level it pays now, and whether the wallet signed in with proof
 
     // loading screen: smooth progress that creeps while the server answers, at least ~1.8s so the intro is seen
     const BOOT_T0 = Date.now();
@@ -1273,43 +1273,29 @@
       setTimeout(() => { bootDone = true; }, Math.max(0, 1800 - (Date.now() - BOOT_T0)));
     }
 
-    const customLevels = [
-      {req: 0, day: 250}, {req: 200, day: 300}, {req: 1000, day: 400}, {req: 2500, day: 650},
-      {req: 5000, day: 1000}, {req: 7000, day: 1200}, {req: 10000, day: 1500}, {req: 12000, day: 1800},
-      {req: 15000, day: 2500}, {req: 18000, day: 2800}, {req: 22000, day: 3200}, {req: 26000, day: 3600},
-      {req: 31000, day: 4100}, {req: 37000, day: 4700}, {req: 44000, day: 5400}, {req: 52000, day: 6200},
-      {req: 61000, day: 7100}, {req: 71000, day: 8100}, {req: 82000, day: 9200}, {req: 95000, day: 10500},
-      {req: 110000, day: 12000}, {req: 126000, day: 13600}, {req: 144000, day: 15400}, {req: 164000, day: 17400},
-      {req: 186000, day: 19600}, {req: 210000, day: 22000}, {req: 236000, day: 24600}, {req: 264000, day: 27400},
-      {req: 294000, day: 30400}, {req: 326000, day: 33600}
-    ];
-
+    // 10 levels sent by the server: [coins held in a verified wallet, speed ×]. The server pays them; the app only shows them
+    const DEFAULT_LEVELS = [[0, 1], [1000, 1.1], [2500, 1.2], [5000, 1.4], [10000, 1.6], [20000, 1.8], [40000, 2], [75000, 2.3], [125000, 2.6], [200000, 3]];
     let LEVELS_DATA = [];
     function rebuildLevelsTable() {
-      LEVELS_DATA = [];
+      const lv = Array.isArray(config.levels) && config.levels.length ? config.levels : DEFAULT_LEVELS;
       const base = Number(config.lvl1PerDay);
-      const scale = (Number.isFinite(base) ? base : 250) / 250 * rewardF(); // halving lowers every level
-      for (let i = 1; i <= 100; i++) {
-        const g = i <= 30 ? "Cadet" : (i <= 70 ? "Pilot" : "Commander");
-        let reqHold, perDay;
-        if (i <= 30) {
-          reqHold = customLevels[i - 1].req;
-          perDay = +(customLevels[i - 1].day * scale).toFixed(2);
-        } else {
-          const prevLvl = LEVELS_DATA[i - 2]; 
-          reqHold = Math.round(prevLvl.reqHold * 1.15);
-          perDay = Math.round(prevLvl.perDay * 1.12);
-        }
-        const ths = +(perDay / 25).toFixed(3);
-        LEVELS_DATA.push({ level: i, name: `${g} ${i}`, reqHold, ths, perDay, groupName: g });
-      }
+      const day = (Number.isFinite(base) ? base : 500) * rewardF(); // halving lowers every level
+      const names = String(trx('ranks')).split(',');
+      LEVELS_DATA = lv.map(([req, x], i) => {
+        const m = Number(x) || 1;
+        return { level: i + 1, name: (names[i] || 'Level ' + (i + 1)).trim(), reqHold: Number(req) || 0, mult: m, perDay: +(day * m).toFixed(2), ths: +(10 * m).toFixed(1) };
+      });
     }
     rebuildLevelsTable();
 
+    // cur = the level the server pays now; hold = the level the verified wallet already reaches (it counts from the next collect)
     function getCurrentLevelObj() {
-      let cur = LEVELS_DATA[0];
-      for (const l of LEVELS_DATA) { if (walletHold >= l.reqHold) cur = l; else break; }
-      return { cur, next: LEVELS_DATA[Math.min(99, cur.level)] || cur };
+      const top = LEVELS_DATA.length;
+      const cur = LEVELS_DATA[Math.min(top, Math.max(1, serverLevel || 1)) - 1] || LEVELS_DATA[0];
+      let hold = LEVELS_DATA[0];
+      if (walletProven && linkedWalletAddr) for (const l of LEVELS_DATA) if (walletHold >= l.reqHold) hold = l;
+      if (hold.level < cur.level) hold = cur;
+      return { cur, next: LEVELS_DATA[cur.level] || cur, hold, top };
     }
 
     function showToast(msg, tone = "#7C3AED") {
@@ -1340,7 +1326,7 @@
       const hasClaimedToday = (lastUtc === todayUtc);
 
       const streak = Math.min(7, Math.max(0, dailyStreak || 0));
-      container.innerHTML = DAILY_REWARDS.map((rew, idx) => {
+      container.innerHTML = dailyList().map((rew, idx) => {
         const dayNum = idx + 1;
         const cls = dayNum <= streak ? "dnode claimed" : (dayNum === streak + 1 && !hasClaimedToday ? "dnode active" : "dnode");
         return `<div class="${cls}"><b>${dayNum <= streak ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>' : dayNum}</b><span>+${fmtR(rew * rewardF())}</span></div>`;
@@ -1354,7 +1340,7 @@
         const left = 86400000 - (Date.now() % 86400000), h = Math.floor(left / 3600000), m = Math.floor(left % 3600000 / 60000);
         btn.disabled = true; btn.innerText = trx('daily_next').replace('{t}', iso(h ? `${h}h ${m}m` : `${m}m`));
       } else {
-        const rew = DAILY_REWARDS[Math.min(6, streak)] || 0;
+        const rew = dailyList()[Math.min(6, streak)] || 0;
         btn.disabled = false; btn.innerText = trx('claim_today').replace('{n}', iso('+' + fmtR(rew * rewardF())));
       }
     }
@@ -1414,7 +1400,8 @@
       config = Object.assign({}, defaultConfig, j.settings || {});
       if (j.emission) emission = j.emission;
       needsActivation = !!d.needsActivation;
-      rebuildLevelsTable();
+      serverLevel = Number(d.level) || 1;
+      walletProven = d.walletProven === true;
       minedInApp = Number(d.mined) || 0;
       walletHold = Number(d.hold) || 0;
       lastCollectTime = d.lastCollectTime || Date.now();
@@ -1453,7 +1440,21 @@
       } catch (err) { showToast("❌ " + err.message, "#ef4444"); }
     }
 
-    let tonConnectUI = null, userClickedConnect = false;
+    let tonConnectUI = null, userClickedConnect = false, proofAt = 0, proofBusy = null;
+    const PROOF_SENT = 'pl_proof_sent';
+    // a one-time code from the server that the wallet signs when it connects: it proves the wallet is yours (levels need it)
+    function prepareProof(force) {
+      if (!tonConnectUI || tonConnectUI.connected) return Promise.resolve();
+      if (!force && Date.now() - proofAt < 9 * 60000) return Promise.resolve();
+      if (proofBusy) return proofBusy;
+      try { tonConnectUI.setConnectRequestParameters({ state: 'loading' }); } catch (e) {}
+      proofBusy = api("proofPayload").then(r => {
+        tonConnectUI.setConnectRequestParameters({ state: 'ready', value: { tonProof: r.payload } });
+        proofAt = Date.now();
+      }).catch(() => { try { tonConnectUI.setConnectRequestParameters(null); } catch (e) {} proofAt = 0; })
+        .finally(() => { proofBusy = null; });
+      return proofBusy;
+    }
     // the wallet library is loaded with "defer": set it up as soon as it is there
     function initTonConnect() {
       if (tonConnectUI || !window.TON_CONNECT_UI) return;
@@ -1463,16 +1464,31 @@
           buttonRootId: 'ton-connect-container'
         });
         tonConnectUI.onStatusChange(async wallet => {
-          const addr = wallet?.account?.address || "";
+          const acc = wallet && wallet.account, addr = (acc && acc.address) || "";
           if (!addr) return;
           const announce = userClickedConnect;
           userClickedConnect = false;
+          // a restored session still carries the old signature: send only a fresh one, once
+          const tp = wallet.connectItems && wallet.connectItems.tonProof, proof = tp && tp.proof;
+          const fresh = !!(proof && proof.payload && Math.abs(Date.now() / 1000 - Number(proof.timestamp)) < 840 && lsGet(PROOF_SENT) !== proof.payload);
+          let unverified = false;
           try {
-            await api("wallet", { address: addr });
+            let r;
+            if (fresh) {
+              lsSet(PROOF_SENT, proof.payload);
+              proofAt = 0; // each code works once
+              try { r = await api("wallet", { address: addr, proof, stateInit: acc.walletStateInit, publicKey: acc.publicKey, chain: acc.chain }); }
+              catch (err) { if (!/wallet check/i.test(err.message)) throw err; unverified = true; r = await api("wallet", { address: addr }); }
+            } else r = await api("wallet", { address: addr });
             await refreshState();
-            if (announce) { SoundFX.buySuccess(); showToast("👛 Wallet Connected!"); }
+            if (announce) {
+              if (r.proven) { SoundFX.buySuccess(); showToast("✅ " + trx('wallet_verified'), "#22c55e"); }
+              else if (unverified) showToast(trx('verify_failed'), "#d97706");
+              else { SoundFX.buySuccess(); showToast("👛 Wallet Connected!"); }
+            }
           } catch (err) { if (announce) showToast("❌ " + err.message, "#ef4444"); }
         });
+        tonConnectUI.connectionRestored.then(ok => { if (!ok) prepareProof(); }).catch(() => {});
       } catch (e) {}
     }
     initTonConnect();
@@ -1483,10 +1499,23 @@
       SoundFX.click();
       userClickedConnect = true;
       if (tonConnectUI) {
+        await prepareProof();
         try {
           await tonConnectUI.openModal();
         } catch (err) {}
       }
+    }
+
+    // reconnect the wallet with a signature so its coins count for levels (the server keeps the link meanwhile)
+    async function verifyWallet(e) {
+      if (!isHumanClick(e)) return;
+      SoundFX.click();
+      if (!tonConnectUI) initTonConnect();
+      if (!tonConnectUI) return showToast("⚠️ " + trx('wallet_loading'), "#ef4444");
+      try { if (tonConnectUI.connected) await tonConnectUI.disconnect(); } catch (err) {}
+      await prepareProof(true);
+      userClickedConnect = true;
+      try { await tonConnectUI.openModal(); } catch (err) {}
     }
     
     async function disconnectTonWallet(e) {
@@ -1544,7 +1573,8 @@
 
     function applyUI() {
       applyTranslations();
-      const { cur, next } = getCurrentLevelObj();
+      rebuildLevelsTable(); // rank names follow the language
+      const { cur, next, hold, top } = getCurrentLevelObj();
       const mult = 1;
 
       document.getElementById('ui-brand-title').innerText = config.brandTitle;
@@ -1554,7 +1584,7 @@
 
       document.title = config.brandTitle || "PULSAR";
       document.getElementById('mine-ths').innerText = (cur.ths * mult).toFixed(2) + " TH/s" + (mult > 1 ? " · ×2" : "");
-      document.getElementById('mine-lvl-txt').innerText = "Level " + cur.level;
+      document.getElementById('mine-lvl-txt').innerText = trx('level_lbl') + " " + cur.level;
       document.getElementById('mine-rank-title').innerText = cur.name;
       document.getElementById('mine-claimed-total').innerText = Math.floor(minedInApp).toLocaleString();
       document.getElementById('mine-day-rate').innerText = (cur.perDay * mult).toLocaleString('en-US', { maximumFractionDigits: 2 });
@@ -1581,23 +1611,32 @@
 
       document.getElementById('boost-lvl-header').innerText = "Level " + cur.level;
       document.getElementById('boost-lvl-num').innerText = cur.level;
-      document.getElementById('boost-rank-badge').innerText = cur.groupName + "s";
+      document.getElementById('boost-rank-badge').innerText = cur.name;
       document.getElementById('boost-pnl-txt').innerHTML = `+${esc(Number(cur.perDay).toLocaleString('en-US'))} <small>${esc(config.coinSym)} ${esc(trx('per_day'))}</small>`;
       document.getElementById('boost-ths-txt').innerText = `${Number(cur.ths).toLocaleString('en-US')} TH/s`;
       document.getElementById('boost-wallet-bal').innerText = Math.floor(walletHold).toLocaleString();
       document.getElementById('boost-app-bal').innerText = Math.floor(minedInApp).toLocaleString();
 
-      const toGo = Math.max(0, Math.ceil(next.reqHold - walletHold));
+      // only coins in a verified wallet count; the ring fills toward the level after the one paid now
+      const counted = walletProven && linkedWalletAddr ? walletHold : 0;
       const span = Math.max(1, next.reqHold - cur.reqHold);
-      const ringPct = cur.level >= 100 ? 100 : Math.max(0, Math.min(100, (walletHold - cur.reqHold) / span * 100));
+      const ringPct = cur.level >= top ? 100 : Math.max(0, Math.min(100, (counted - cur.reqHold) / span * 100));
       document.getElementById('boost-ring').setAttribute('stroke-dasharray', `${ringPct.toFixed(1)} 100`);
-      document.getElementById('boost-needed-txt').innerText = cur.level < 100
-        ? trx('boost_need').replace('{n}', iso(toGo.toLocaleString())).replace('{coin}', iso(config.coinSym)).replace('{l}', next.level)
-        : trx('boost_max');
+      let need;
+      if (!linkedWalletAddr) need = trx('lvl_connect').replace('{coin}', iso(config.coinSym));
+      else if (!walletProven) need = trx('lvl_verify');
+      else if (hold.level > cur.level) need = trx('lvl_next_collect').replace('{l}', hold.level);
+      else if (cur.level < top) need = trx('boost_need').replace('{n}', iso(Math.max(0, Math.ceil(next.reqHold - counted)).toLocaleString())).replace('{coin}', iso(config.coinSym)).replace('{l}', next.level);
+      else need = trx('boost_max');
+      document.getElementById('boost-needed-txt').innerText = need;
+      document.getElementById('btn-boost-wallet').hidden = !!(linkedWalletAddr && walletProven);
+      document.getElementById('btn-boost-wallet-lbl').textContent = trx(linkedWalletAddr ? 'wverify_btn' : 'connect_wallet_btn');
+      document.getElementById('btn-verify-wallet').hidden = !(linkedWalletAddr && !walletProven);
       const rr = document.querySelectorAll('.invite-rules li');
       if (rr.length === 2) {
-        rr[0].textContent = trx('ref_rule_1').replace('{n}', Number(config.refMinHold || 200).toLocaleString());
-        rr[1].textContent = trx('ref_rule_2').replace('{p}', config.refClaimPercent ?? 5);
+        const bonus = (Number(config.refActBonus) || 0) * rewardF();
+        rr[0].textContent = bonus > 0 ? trx('ref_rule_act').replace('{n}', iso(fmtR(bonus))) : trx('ref_rule_1').replace('{n}', Number(config.refMinHold || 200).toLocaleString());
+        rr[1].textContent = trx('ref_rule_2').replace('{p}', config.refClaimPercent ?? 10);
       }
       renderLevelsGrid();
 
@@ -1623,8 +1662,8 @@
       const isConn = linkedWalletAddr && linkedWalletAddr.length > 8;
       document.getElementById('prof-wallet-addr-display').innerText = isConn ? (linkedWalletAddr.slice(0, 6) + "…" + linkedWalletAddr.slice(-6)) : trx('wallet_none');
       const wb = document.getElementById('wallet-badge-status');
-      wb.innerText = isConn ? trx('wallet_on') : trx('wallet_off');
-      wb.className = 'st ' + (isConn ? 'ok' : 'no');
+      wb.innerText = isConn ? trx(walletProven ? 'wallet_ver' : 'wallet_unver') : trx('wallet_off');
+      wb.className = 'st ' + (isConn ? (walletProven ? 'ok' : '') : 'no');
       document.getElementById('btn-connect-wallet').style.display = isConn ? "none" : "flex";
       document.getElementById('connected-wallet-actions').style.display = isConn ? "grid" : "none";
 
@@ -1750,6 +1789,7 @@
         if (!tonConnectUI.connected) {
           userClickedConnect = true;
           showToast(trx('act_connect'), "#0284c7");
+          await prepareProof();
           try { await tonConnectUI.openModal(); } catch (e) {}
           return;
         }
@@ -1840,23 +1880,22 @@
     }
 
     function renderLevelsGrid() {
-      const { cur } = getCurrentLevelObj();
-      const items = LEVELS_DATA.slice((currentLevelPage - 1) * 10, currentLevelPage * 10);
-      document.getElementById('lvl-page-title').innerText = items[0].groupName + "s";
-      document.getElementById('lvl-page-range').innerText = `${trx('level_lbl')} ${iso(items[0].level + '–' + items[items.length - 1].level)}`;
+      const { cur, hold } = getCurrentLevelObj();
       const box = document.getElementById('levels-grid-container');
       const lockSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
-      box.innerHTML = items.map(it => {
-        const isCur = it.level === cur.level, isPass = it.level < cur.level;
+      const per = trx('per_day').startsWith('/') ? trx('per_day') : ' ' + trx('per_day');
+      box.innerHTML = LEVELS_DATA.map(it => {
+        const isCur = it.level === cur.level, isPass = it.level < cur.level, isSoon = !isCur && !isPass && it.level <= hold.level;
         const st = isCur ? `<span class="lc-st cur">${esc(trx('lvl_cur'))}</span>`
           : isPass ? `<span class="lc-st ok">✓ ${esc(trx('lvl_open'))}</span>`
-          : `<button type="button" class="lc-st lock btn-lck">${lockSvg}${esc(trx('lvl_hold').replace('{n}', fmtBig(it.reqHold)))}</button>`;
+          : isSoon ? `<span class="lc-st soon">${esc(trx('lvl_soon'))}</span>`
+          : `<button type="button" class="lc-st lock btn-lck">${lockSvg}${esc(trx('lvl_hold').replace('{n}', iso(fmtBig(it.reqHold))))}</button>`;
         return `
-          <div class="lvl-card ${isCur ? 'cur' : (isPass ? '' : 'locked')}">
+          <div class="lvl-card ${isCur ? 'cur' : (isPass || isSoon ? '' : 'locked')}">
             <div class="lc-top"><span class="lc-num">LVL ${it.level}</span>${st}</div>
             <div class="lc-art">${getLevelArtSVG(it.level)}</div>
             <div class="lc-name">${esc(it.name)}</div>
-            <div class="lc-rate"><b>+${esc(it.ths)} TH/s</b><span>${esc(Number(it.perDay).toLocaleString('en-US'))}${esc(trx('per_day').startsWith('/') ? trx('per_day') : ' ' + trx('per_day'))}</span></div>
+            <div class="lc-rate"><b>×${esc(it.mult)}</b><span>${esc(Number(it.perDay).toLocaleString('en-US'))}${esc(per)}</span></div>
           </div>`;
       }).join('');
       box.querySelectorAll('.btn-lck').forEach(b => b.addEventListener('click', openStonfiSwap));
@@ -2027,13 +2066,13 @@
       }));
     }
 
-    const ADMIN_FIELDS = { 'adm-title':'brandTitle','adm-sym':'coinSym','adm-lvl1-day':'lvl1PerDay','adm-ad-rew':'adReward','adm-ad-max':'maxAdsPerDay','adm-task-rew':'taskReward','adm-ref-pct':'refClaimPercent','adm-ref-minhold':'refMinHold','adm-minwd':'minWithdraw','adm-holdpct':'holdPercentReq','adm-wdfee-pct':'withdrawFeePercent','adm-payout-wallet':'payoutWallet','adm-adsgram-id':'adsgramBlockId','adm-payout-ch':'payoutChannel','adm-admin-chat':'adminChatId','adm-ch1':'channel1','adm-ch2':'channel2','adm-botuser':'botUsername','adm-news-url':'newsUrl','adm-payouts-url':'payoutsUrl','adm-act-fee':'activationFee','adm-halving':'halvingEvery','adm-cap':'miningCap','adm-bounty-min':'bountyMin','adm-bounty-max':'bountyMax','adm-bounty-budget':'bountyBudget' };
+    const ADMIN_FIELDS = { 'adm-title':'brandTitle','adm-sym':'coinSym','adm-lvl1-day':'lvl1PerDay','adm-ad-rew':'adReward','adm-ad-max':'maxAdsPerDay','adm-task-rew':'taskReward','adm-ref-pct':'refClaimPercent','adm-ref-minhold':'refMinHold','adm-minwd':'minWithdraw','adm-holdpct':'holdPercentReq','adm-wdfee-pct':'withdrawFeePercent','adm-payout-wallet':'payoutWallet','adm-adsgram-id':'adsgramBlockId','adm-payout-ch':'payoutChannel','adm-admin-chat':'adminChatId','adm-ch1':'channel1','adm-ch2':'channel2','adm-botuser':'botUsername','adm-news-url':'newsUrl','adm-payouts-url':'payoutsUrl','adm-act-fee':'activationFee','adm-halving':'halvingEvery','adm-cap':'miningCap','adm-bounty-min':'bountyMin','adm-bounty-max':'bountyMax','adm-bounty-budget':'bountyBudget','adm-ref-actbonus':'refActBonus' };
     async function openOwnerDashboard() {
       if (CURRENT_UID !== OWNER_UID) return showToast("❌ Access Denied! (Owner Only)", "#ef4444");
       try { await loadAdminData(); } catch (err) { return showToast("❌ " + err.message, "#ef4444"); }
       const c = adminCfg || config;
       for (const [id, key] of Object.entries(ADMIN_FIELDS)) document.getElementById(id).value = c[key] ?? "";
-      document.getElementById('adm-lvl100-day').value = LEVELS_DATA[99].perDay;
+      document.getElementById('adm-lvl100-day').value = LEVELS_DATA[LEVELS_DATA.length - 1].perDay;
       document.getElementById('adm-minebal').value = Math.floor(minedInApp);
       document.getElementById('adm-holdbal').value = Math.floor(walletHold);
       ['adm-minebal', 'adm-holdbal'].forEach(id => document.getElementById(id).disabled = true);
@@ -2047,10 +2086,6 @@
       document.getElementById('page-' + id)?.classList.add('active');
       document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.getAttribute('data-tab') === id));
       if (id === 'tasks') loadBounties();
-    }
-
-    function setActiveTierBtn(activeNum) {
-      [1, 2, 3].forEach(n => document.getElementById('tier-btn-' + n).classList.toggle('tier-active', n === activeNum));
     }
 
     // Event Listeners
@@ -2104,6 +2139,8 @@
 
     document.querySelectorAll('.btn-stonfi-buy').forEach(b => b.addEventListener('click', openStonfiSwap));
     document.getElementById('btn-connect-wallet').addEventListener('click', connectTonWallet);
+    document.getElementById('btn-verify-wallet').addEventListener('click', verifyWallet);
+    document.getElementById('btn-boost-wallet').addEventListener('click', (e) => (linkedWalletAddr ? verifyWallet(e) : connectTonWallet(e)));
     document.getElementById('btn-sync-hold').addEventListener('click', () => syncOnChainJettonHold(true));
     document.getElementById('btn-disconnect-wallet').addEventListener('click', disconnectTonWallet);
     document.getElementById('wd-input-amt').addEventListener('input', updateWdCalculation);
@@ -2128,11 +2165,6 @@
       catch (err) { showToast("❌ " + err.message, "#ef4444"); }
     }));
 
-    document.getElementById('tier-btn-1').addEventListener('click', () => { currentLevelPage = 1; setActiveTierBtn(1); renderLevelsGrid(); });
-    document.getElementById('tier-btn-2').addEventListener('click', () => { currentLevelPage = 4; setActiveTierBtn(2); renderLevelsGrid(); });
-    document.getElementById('tier-btn-3').addEventListener('click', () => { currentLevelPage = 8; setActiveTierBtn(3); renderLevelsGrid(); });
-    document.getElementById('btn-lvl-prev').addEventListener('click', () => { currentLevelPage = Math.max(1, currentLevelPage - 1); renderLevelsGrid(); });
-    document.getElementById('btn-lvl-next').addEventListener('click', () => { currentLevelPage = Math.min(10, currentLevelPage + 1); renderLevelsGrid(); });
 
     document.getElementById('btn-copy-ref').addEventListener('click', () => { navigator.clipboard.writeText(document.getElementById('ref-link-box').value); showToast("📋 Link Copied!"); });
     document.getElementById('btn-bounty-ref').addEventListener('click', () => {
@@ -2164,7 +2196,7 @@
       try {
         await api("adminSettings", { settings });
         await refreshState();
-        document.getElementById('adm-lvl100-day').value = LEVELS_DATA[99].perDay;
+        document.getElementById('adm-lvl100-day').value = LEVELS_DATA[LEVELS_DATA.length - 1].perDay;
         SoundFX.buySuccess(); showToast("☁️ Settings saved and applied!");
       } catch (err) { showToast("❌ " + err.message, "#ef4444"); }
     });
