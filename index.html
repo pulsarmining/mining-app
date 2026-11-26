@@ -418,6 +418,181 @@
     .adm-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
     .adm-tabs .adm-tab{font-size:11px;padding:9px 2px;white-space:nowrap}
     .adm-b-open{display:block;width:100%;text-align:start;direction:ltr;background:none;border:0;padding:0;margin:2px 0 4px;color:#93C5FD;font-size:11px;text-decoration:underline;word-break:break-all;cursor:pointer}
+    /* ===== inner pages v3: Tasks, Boost, Friends, Profile ===== */
+    .page .card-3d{padding:16px;margin-bottom:12px}
+    .sec-title{font:600 14px/1.2 var(--display);color:#C7D2FE;margin:18px 4px 9px}
+    .pn-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+    .pn-head h4{font-size:16px}
+    .pn-meta{font-size:12px;color:var(--m);white-space:nowrap;font-variant-numeric:tabular-nums}
+    .c-amber{color:#FBBF24!important}.c-mint{color:#34D399!important}.c-violet{color:#C4B5FD!important}.c-rose{color:#F87171!important}
+    /* rows */
+    .list-card{padding:2px 14px!important}
+    .row{display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:12px;padding:13px 0;width:100%;text-align:start}
+    .row+.row{border-top:1px solid rgba(124,58,237,.16)}
+    .row-btn{background:none;border:0;color:inherit;font:inherit;cursor:pointer}
+    .row-btn:active{opacity:.8}
+    .ico{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none}
+    .ico svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .ico-violet{background:linear-gradient(145deg,#8B5CF6,#4C1D95);box-shadow:0 4px 12px rgba(124,58,237,.35),inset 0 1px 0 rgba(255,255,255,.22)}
+    .ico-cyan{background:linear-gradient(145deg,#22D3EE,#0E7490);box-shadow:0 4px 12px rgba(34,211,238,.25),inset 0 1px 0 rgba(255,255,255,.25)}
+    .ico-gold{background:linear-gradient(145deg,#FCD34D,#B45309);box-shadow:0 4px 12px rgba(252,211,77,.22),inset 0 1px 0 rgba(255,255,255,.3)}
+    .ico-slate{background:rgba(124,58,237,.14);border:1px solid rgba(167,139,250,.3)}
+    .ico-slate svg{stroke:#C4B5FD}
+    .row-body{display:flex;flex-direction:column;gap:6px;min-width:0}
+    .row-title{font-size:14px;font-weight:600;color:#fff;line-height:1.25}
+    .row-sub{font-size:12px;color:var(--m);display:flex;gap:8px;flex-wrap:wrap}
+    .row-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--m);flex-wrap:wrap}
+    .row-num{font:600 18px/1 var(--display);color:var(--cyan2);direction:ltr;text-align:start;font-variant-numeric:tabular-nums}
+    .row-bar{height:4px;border-radius:4px;background:rgba(255,255,255,.07);overflow:hidden;display:flex}
+    .row-bar i{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,#7C3AED,#22D3EE);transition:width .4s ease}
+    .chev{width:18px;height:18px;fill:none;stroke:var(--m);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    body.rtl-mode .chev{transform:scaleX(-1)}
+    .empty{padding:18px 4px;text-align:center;font-size:12.5px;color:var(--m)}
+    /* reward chip: coin + amount */
+    .chip{display:inline-flex;align-items:center;gap:0;height:22px;padding:0 9px 0 4px;border-radius:999px;background:rgba(252,211,77,.1);border:1px solid rgba(252,211,77,.28);color:#FCD34D;font:600 12px/1 var(--display);white-space:nowrap;direction:ltr}
+    .chip::before{content:"";width:14px;height:14px;margin-right:5px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FEF3C7,#FBBF24 45%,#B45309);box-shadow:0 0 6px rgba(252,211,77,.5)}
+    .chip.big{height:26px;font-size:13px}
+    /* pills */
+    .pill{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 16px;border-radius:999px;font:600 13px/1 Inter,system-ui,sans-serif;white-space:nowrap;border:1px solid transparent;color:#fff;cursor:pointer}
+    .pill svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+    .pill.primary{background:linear-gradient(180deg,#8B5CF6,#6D28D9) padding-box,linear-gradient(135deg,#E9D5FF,#22D3EE 60%,#7C3AED) border-box;box-shadow:0 4px 14px rgba(124,58,237,.4)}
+    .pill.ghost{background:rgba(124,58,237,.12);border-color:rgba(167,139,250,.38);color:#DDD6FE}
+    .pill.danger{background:rgba(127,29,29,.22);border-color:rgba(248,113,113,.4);color:#FCA5A5}
+    .pill.done{background:none;color:#34D399;padding:0 4px;cursor:default}
+    .pill.wide{width:100%;height:42px}
+    .pill:disabled{opacity:.45}
+    .pill:active{transform:scale(.97)}
+    .btn-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    /* channel tasks: Join, then Check, then Done */
+    .task-act{display:flex;align-items:center}
+    .task-row .t-check,.task-row .t-done{display:none}
+    .task-row.opened .t-open{display:none}
+    .task-row.opened .t-check{display:inline-flex}
+    .task-row.done .t-open,.task-row.done .t-check{display:none}
+    .task-row.done .t-done{display:inline-flex}
+    .task-row.done .ico{filter:saturate(.5) brightness(.8)}
+    /* daily orbit */
+    .daily-orbit{position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));margin:2px 0 16px}
+    .daily-orbit::before,.daily-orbit::after{content:"";position:absolute;top:16px;height:2px;border-radius:2px;inset-inline-start:calc(100% / 14)}
+    .daily-orbit::before{inset-inline-end:calc(100% / 14);background:rgba(124,58,237,.25)}
+    .daily-orbit::after{width:calc((100% - 100% / 7) * var(--p, 0));background:linear-gradient(90deg,#34D399,#22D3EE);box-shadow:0 0 8px rgba(52,211,153,.5)}
+    .dnode{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:7px}
+    .dnode b{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font:600 13px/1 var(--display);color:#8F9BCB;background:#0B1033;border:1px solid rgba(124,58,237,.4)}
+    .dnode b svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+    .dnode span{font:600 11px/1 var(--display);color:#8F9BCB;direction:ltr}
+    .dnode.claimed b{background:linear-gradient(145deg,#34D399,#047857);border-color:rgba(110,231,183,.6)}
+    .dnode.claimed span{color:#6EE7B7}
+    .dnode.active b{color:#fff;background:radial-gradient(circle at 50% 38%,#A78BFA,#6D28D9);border-color:#C4B5FD;box-shadow:0 0 0 4px rgba(124,58,237,.2),0 0 16px rgba(167,139,250,.7);animation:dn-pulse 2.4s ease-in-out infinite}
+    .dnode.active span{color:#FCD34D}
+    @keyframes dn-pulse{50%{box-shadow:0 0 0 7px rgba(124,58,237,.1),0 0 22px rgba(167,139,250,.85)}}
+    .daily-claim{min-height:46px}
+    .daily-claim:disabled{background:rgba(124,58,237,.1);border:1px solid rgba(167,139,250,.25);box-shadow:none;color:#A5B4FC;text-shadow:none;font-weight:600;letter-spacing:0;opacity:1!important}
+    .daily-claim:disabled::after{display:none}
+    /* bounty card in the same language */
+    .bounty-card .pn-head{margin-bottom:8px}
+    .seg{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:4px;padding:4px;border-radius:14px;background:rgba(5,8,22,.6);border:1px solid rgba(124,58,237,.22);margin-bottom:10px}
+    .seg>button{width:auto;min-height:34px;height:34px;padding:0 6px;border-radius:10px;border:0!important;background:none!important;color:#8F9BCB;font:600 12.5px/1 var(--display);box-shadow:none!important}
+    .seg>button.tier-active,.seg>button.active{background:linear-gradient(180deg,#7C3AED,#5B21B6)!important;color:#fff;box-shadow:0 2px 10px rgba(124,58,237,.45)!important}
+    .bounty-kinds .bk-opt{font-size:12.5px}
+    /* boost */
+    .boost-hero{padding:18px 16px 16px!important}
+    .bh-top{display:flex;align-items:center;gap:16px;margin-bottom:12px}
+    .lvl-ring{position:relative;width:104px;height:104px;flex:none}
+    .lvl-ring svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
+    .lr-track{fill:none;stroke:rgba(124,58,237,.2);stroke-width:7}
+    .lr-fill{fill:none;stroke:url(#ring-g);stroke-width:7;stroke-linecap:round;filter:drop-shadow(0 0 5px rgba(34,211,238,.6));transition:stroke-dasharray .8s ease}
+    .lr-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .lr-in b{font:700 32px/1 var(--display);color:#fff}
+    .lr-in span{font-size:11px;color:var(--m);margin-top:4px}
+    .bh-info{min-width:0;display:flex;flex-direction:column;gap:7px;align-items:flex-start}
+    .rank-chip{display:inline-flex;height:24px;align-items:center;padding:0 10px;border-radius:999px;background:rgba(124,58,237,.2);border:1px solid rgba(167,139,250,.45);color:#EDE9FE;font:600 12px/1 var(--display)}
+    .bh-rate{font:700 21px/1.1 var(--display);color:var(--cyan2);direction:ltr;text-align:start;text-shadow:0 0 12px rgba(34,211,238,.35)}
+    .bh-rate small{font-size:12px;font-weight:600;color:#A5F3FC;opacity:.85}
+    .bh-sub{font-size:12px;color:var(--m)}
+    .bh-need{font-size:12.5px;line-height:1.5;color:#C7D2FE;margin:0 0 12px}
+    .strip{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);margin:0 0 12px;border-radius:14px;background:rgba(5,8,22,.5);border:1px solid rgba(124,58,237,.22)}
+    .strip>div{display:flex;flex-direction:column;gap:7px;padding:11px 12px;min-width:0}
+    .strip>div+div{border-inline-start:1px solid rgba(124,58,237,.22)}
+    .strip span{font-size:11.5px;color:var(--m)}
+    .strip b{font:600 18px/1 var(--display);color:#fff;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .strip-card{background:var(--glass) padding-box,var(--base) padding-box,var(--edge) border-box;border:1px solid transparent;border-radius:18px;box-shadow:0 10px 26px rgba(0,0,0,.3)}
+    .strip-card>div{align-items:center;text-align:center}
+    .tiers{margin-top:4px}
+    .tiers>button{direction:ltr;unicode-bidi:isolate}
+    .lvl-nav{margin-bottom:12px}
+    .nav-arrow{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(124,58,237,.12);border:1px solid rgba(167,139,250,.3);color:#DDD6FE}
+    .nav-arrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .ln-mid{display:flex;flex-direction:column;align-items:center;gap:4px}
+    .ln-mid strong{font:600 16px/1 var(--display);color:#fff}
+    .ln-mid span{font-size:11.5px;color:var(--m)}
+    .lvl-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .lvl-card{position:relative;border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:9px;background:var(--glass) padding-box,var(--base) padding-box,linear-gradient(160deg,rgba(167,139,250,.4),rgba(34,211,238,.12)) border-box;border:1px solid transparent}
+    .lvl-card.cur{background:linear-gradient(180deg,rgba(76,29,149,.6),rgba(12,18,46,.92)) padding-box,var(--base) padding-box,linear-gradient(180deg,#C4B5FD,#22D3EE) border-box;box-shadow:0 0 18px rgba(124,58,237,.4)}
+    .lvl-card.locked .lc-art{filter:grayscale(.75) brightness(.55)}
+    .lvl-card.locked .lc-name{color:#A5B4FC}
+    .lc-top{display:flex;align-items:center;justify-content:space-between;gap:6px;direction:ltr}
+    .lc-num{font:600 11px/1 var(--display);color:#A5B4FC}
+    .lc-art{height:62px;display:grid;place-items:center;border-radius:12px;background:radial-gradient(circle at 50% 45%,rgba(124,58,237,.32),rgba(5,8,22,.55) 70%)}
+    .lc-art svg{width:46px;height:46px}
+    .lc-name{font:600 13.5px/1.2 var(--display);color:#fff}
+    .lc-rate{display:flex;justify-content:space-between;gap:6px;font-size:11px;color:var(--m);direction:ltr}
+    .lc-rate b{color:var(--cyan2);font-weight:600}
+    .lc-st{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:999px;font:600 10.5px/1 Inter,system-ui,sans-serif;white-space:nowrap;border:0}
+    .lc-st svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    .lc-st.cur{background:linear-gradient(180deg,#7C3AED,#5B21B6);color:#fff}
+    .lc-st.ok{background:rgba(52,211,153,.14);color:#6EE7B7}
+    .lc-st.lock{background:rgba(255,255,255,.07);color:#C7D2FE;cursor:pointer}
+    /* friends */
+    .invite-card{overflow:hidden}
+    .constellation{position:absolute;top:10px;inset-inline-end:12px;width:92px;height:44px;opacity:.85;pointer-events:none}
+    .constellation circle{fill:#C4B5FD}
+    .constellation .cst-main{fill:#fff;filter:drop-shadow(0 0 6px #A78BFA)}
+    .invite-card h3{font-size:19px;margin:4px 0 12px;max-width:62%}
+    .invite-rules{list-style:none;display:grid;gap:7px;margin:0 0 14px;padding:0}
+    .invite-rules li,.bounty-rules li{position:relative;font-size:12.5px;line-height:1.45;color:#CBD5E1;padding-inline-start:16px}
+    .invite-rules li::before{content:"";position:absolute;inset-inline-start:2px;top:6px;width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#22D3EE,#A78BFA)}
+    .link-box{direction:ltr;text-align:left;font-size:12.5px;color:#C7D2FE;margin-bottom:10px!important;text-overflow:ellipsis}
+    .ref-list{max-height:none}
+    .ref-row{display:grid;grid-template-columns:36px minmax(0,1fr) auto;align-items:center;gap:11px;padding:11px 0}
+    .ref-row+.ref-row{border-top:1px solid rgba(124,58,237,.14)}
+    .ref-av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font:600 14px/1 var(--display);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+    .ref-name{font-size:13.5px;font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .ref-id{font-size:11px;color:var(--m);margin-top:3px;direction:ltr;text-align:start}
+    .ref-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+    .ref-profit{font:600 11px/1 var(--display);color:#FCD34D;direction:ltr}
+    .st{display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:999px;font:600 11px/1 Inter,system-ui,sans-serif;background:rgba(251,191,36,.13);color:#FBBF24;white-space:nowrap;box-shadow:none}
+    .st.ok{background:rgba(52,211,153,.14);color:#34D399}
+    .st.no{background:rgba(248,113,113,.14);color:#F87171}
+    /* profile */
+    .wallet-pass{background:linear-gradient(160deg,rgba(91,33,182,.55),rgba(11,17,44,.9) 58%) padding-box,var(--base) padding-box,linear-gradient(135deg,#C4B5FD,rgba(34,211,238,.6) 50%,rgba(124,58,237,.3)) border-box!important}
+    .wp-head{display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:12px;margin-bottom:14px}
+    .wp-addr{font:500 12.5px/1.2 var(--display);color:#A5B4FC;letter-spacing:.02em;direction:ltr;text-align:start;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .wallet-pass .strip{background:rgba(5,8,22,.45)}
+    .amt-field{position:relative;margin-bottom:10px;direction:ltr}
+    .amt-field .input-3d{margin:0;height:52px;padding-right:86px;font:600 19px/1 var(--display);direction:ltr}
+    .amt-field .pill{position:absolute;top:8px;right:8px;height:36px;padding:0 14px}
+    .kv-list{display:grid;gap:9px;padding:12px 14px;margin-bottom:10px;border-radius:14px;background:rgba(5,8,22,.5);border:1px solid rgba(124,58,237,.2);font-size:12.5px;color:var(--m)}
+    .kv-list .kv{align-items:center}
+    .kv-list strong{color:#E0E7FF;font:600 13px/1 var(--display)}
+    .kv-total{padding-top:9px;border-top:1px dashed rgba(124,58,237,.32)}
+    .kv-total span{color:#E0E7FF;font-weight:600}
+    .kv-total strong{font-size:16px}
+    .wd-title{gap:6px!important}
+    .wd-status{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;line-height:1.4;margin-bottom:12px;padding:10px 12px;border-radius:12px}
+    .wd-status:empty{display:none}
+    .wd-status.ok{background:rgba(52,211,153,.1);color:#6EE7B7}
+    .wd-status.lock{background:rgba(248,113,113,.08);color:#FCA5A5}
+    .wd-status::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;flex:none;box-shadow:0 0 8px currentColor}
+    .link-btn{display:block;width:100%;margin-top:12px;background:none;border:0;color:#A5B4FC;font-size:12.5px;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+    .link-btn[hidden]{display:none}
+    .hist-list .h-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px 0}
+    .h-row+.h-row{border-top:1px solid rgba(124,58,237,.14)}
+    .h-num{font:600 12px/1 var(--display);color:#A5B4FC}
+    .h-amt{font:600 14px/1 var(--display);color:#fff;direction:ltr;text-align:start;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .h-amt small{font-size:11px;color:var(--m);font-weight:500}
+    .h-end{display:flex;align-items:center;gap:6px}
+    .h-tx{height:22px;padding:0 8px;border-radius:999px;border:1px solid rgba(167,139,250,.38);background:rgba(124,58,237,.12);color:#DDD6FE;font:600 10.5px/1 Inter,system-ui,sans-serif;cursor:pointer}
+    @media (prefers-reduced-motion: reduce){.dnode.active b{animation:none}.lr-fill,.row-bar i{transition:none}}
   </style>
 </head>
 <body oncontextmenu="return false;">
@@ -499,52 +674,69 @@
 
     <!-- 2. TASKS PAGE -->
     <div id="page-tasks" class="page">
-      <div class="card-3d">
-        <div class="sec-head"><h4 data-i18n="daily_login_title">Daily login · 7 days</h4><span style="color:var(--violet3);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="9" width="17" height="11" rx="2"/><path d="M12 9v11M3.5 13h17"/><path d="M12 9c-1.5-3-5-3.5-5-1s3 1 5 1c2 0 5 1.5 5-1s-3.5-2-5 1z"/></svg></span></div>
-        <div class="daily-grid" id="daily-streak-container"></div>
-        <button type="button" class="btn-3d-gold" id="btn-claim-daily" data-i18n="claim_daily_btn">Claim daily reward</button>
-      </div>
-
-      <div class="card-3d">
-        <div class="sec-head"><h4 data-i18n="watch_ads_title">Watch video ads</h4><span class="reward">+<span id="ui-ad-rew">5</span> <span class="coin-sym">$VIKING</span></span></div>
-        <div class="prog-row" style="margin-top:10px;"><span data-i18n="ads_today">Watched today</span><span id="ads-watched-txt" style="direction:ltr;">0/10</span></div>
-        <div class="prog-bg-3d" style="margin-bottom:12px;"><div class="prog-fill-3d" id="ads-prog-bar" style="width:0%;"></div></div>
-        <button type="button" class="btn-3d-gold" id="btn-watch-ad"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span data-i18n="watch_ad_btn">Watch full ad</span></button>
-      </div>
-
-      <div class="card-3d">
-        <div class="sec-head"><h4 data-i18n="ch1_title">Official channel</h4><span class="reward">+<span class="ui-task-rew">50</span> <span class="coin-sym">$VIKING</span></span></div>
-        <div class="grid-2" style="margin-top:12px;">
-          <button type="button" class="btn-3d-dark" id="btn-open-ch1" data-i18n="open_ch">1. Open channel</button>
-          <button type="button" class="btn-3d-gold" id="ch-task-1-btn" data-i18n="verify_btn">2. Verify</button>
+      <div class="card-3d daily-card">
+        <div class="pn-head">
+          <h4 data-i18n="daily_login_title">Daily login</h4>
+          <span class="pn-meta" id="daily-day-lbl">Day 1 of 7</span>
         </div>
+        <div class="daily-orbit" id="daily-streak-container"></div>
+        <button type="button" class="btn-3d-gold daily-claim" id="btn-claim-daily" data-i18n="claim_daily_btn">Claim daily reward</button>
       </div>
 
-      <div class="card-3d">
-        <div class="sec-head"><h4 data-i18n="ch2_title">Payouts &amp; community</h4><span class="reward">+<span class="ui-task-rew">50</span> <span class="coin-sym">$VIKING</span></span></div>
-        <div class="grid-2" style="margin-top:12px;">
-          <button type="button" class="btn-3d-dark" id="btn-open-ch2" data-i18n="open_grp">1. Open channel</button>
-          <button type="button" class="btn-3d-gold" id="ch-task-2-btn" data-i18n="verify_btn">2. Verify</button>
+      <h3 class="sec-title" data-i18n="earn_more">More ways to earn</h3>
+      <div class="card-3d list-card">
+        <div class="row">
+          <span class="ico ico-violet" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg></span>
+          <div class="row-body">
+            <div class="row-title" data-i18n="watch_ads_title">Watch video ads</div>
+            <div class="row-meta"><span class="chip">+<span id="ui-ad-rew">5</span></span><span><span data-i18n="ads_today">Watched today</span> <bdi id="ads-watched-txt">0/10</bdi></span></div>
+            <div class="row-bar"><i id="ads-prog-bar"></i></div>
+          </div>
+          <button type="button" class="pill primary" id="btn-watch-ad" data-i18n="watch_ad_btn">Watch</button>
+        </div>
+        <div class="row task-row" id="task-row-1">
+          <span class="ico ico-cyan" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 4L3 11.2l6.3 2.2L11.6 20l3.2-4.3 4.6 3.3z"/><path d="M9.3 13.4L21 4"/></svg></span>
+          <div class="row-body">
+            <div class="row-title" data-i18n="ch1_title">Official channel</div>
+            <div class="row-meta"><span class="chip">+<span class="ui-task-rew">50</span></span></div>
+          </div>
+          <div class="task-act">
+            <button type="button" class="pill ghost t-open" id="btn-open-ch1" data-i18n="open_ch">Join</button>
+            <button type="button" class="pill primary t-check" id="ch-task-1-btn" data-i18n="verify_btn">Check</button>
+            <span class="pill done t-done"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="done_lbl">Done</span></span>
+          </div>
+        </div>
+        <div class="row task-row" id="task-row-2">
+          <span class="ico ico-cyan" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 4L3 11.2l6.3 2.2L11.6 20l3.2-4.3 4.6 3.3z"/><path d="M9.3 13.4L21 4"/></svg></span>
+          <div class="row-body">
+            <div class="row-title" data-i18n="ch2_title">Payouts &amp; community</div>
+            <div class="row-meta"><span class="chip">+<span class="ui-task-rew">50</span></span></div>
+          </div>
+          <div class="task-act">
+            <button type="button" class="pill ghost t-open" id="btn-open-ch2" data-i18n="open_grp">Join</button>
+            <button type="button" class="pill primary t-check" id="ch-task-2-btn" data-i18n="verify_btn">Check</button>
+            <span class="pill done t-done"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="done_lbl">Done</span></span>
+          </div>
         </div>
       </div>
 
       <div class="card-3d bounty-card" id="bounty-card">
-        <div class="sec-head"><h4 data-i18n="bounty_title">Creator bounty</h4><span class="reward">+<span id="bounty-range">500–10,000</span> <span class="coin-sym">$VIKING</span></span></div>
+        <div class="pn-head"><h4 data-i18n="bounty_title">Creator bounty</h4><span class="chip big">+<span id="bounty-range">500–10,000</span></span></div>
         <p class="bounty-desc" data-i18n="bounty_desc">Post about us in your channel or make a video with your invite link. After review, you get paid.</p>
         <ul class="bounty-rules">
           <li data-i18n="bounty_r1">Your invite link must be in the post or video</li>
           <li data-i18n="bounty_r2">Public posts only · no bought views</li>
           <li data-i18n="bounty_r3">Bigger reach and better videos earn more</li>
         </ul>
-        <div class="bounty-kinds" role="radiogroup">
+        <div class="seg bounty-kinds" role="radiogroup">
           <button type="button" class="bk-opt active" role="radio" aria-checked="true" data-kind="post" data-i18n="bounty_post">Channel post</button>
           <button type="button" class="bk-opt" role="radio" aria-checked="false" data-kind="video" data-i18n="bounty_video">Video</button>
         </div>
         <input type="url" id="bounty-url" class="input-3d" inputmode="url" autocomplete="off" maxlength="300" placeholder="https://t.me/yourchannel/123" style="direction:ltr;" aria-label="Post or video link">
         <input type="text" id="bounty-note" class="input-3d" maxlength="200" placeholder="Channel name · subscribers (optional)" aria-label="Note">
-        <div class="grid-2">
-          <button type="button" class="btn-3d-dark" id="btn-bounty-ref" data-i18n="bounty_copy_ref">Copy invite link</button>
-          <button type="button" class="btn-3d-gold" id="btn-bounty-send" data-i18n="bounty_send">Send for review</button>
+        <div class="btn-pair">
+          <button type="button" class="pill ghost wide" id="btn-bounty-ref" data-i18n="bounty_copy_ref">Copy invite link</button>
+          <button type="button" class="pill primary wide" id="btn-bounty-send" data-i18n="bounty_send">Send for review</button>
         </div>
         <div class="bounty-list" id="bounty-list"></div>
       </div>
@@ -552,83 +744,126 @@
 
     <!-- 3. BOOST PAGE -->
     <div id="page-boost" class="page">
-      <div class="card-3d">
-        <div class="sec-head"><h2 id="boost-lvl-header">Level 1</h2><span class="badge-tag" style="background:#1E1747;color:var(--violet3);" id="boost-rank-badge">Cadets</span></div>
-        <div style="font-size:13px;font-weight:600;color:var(--cyan2);margin:6px 0 12px;direction:ltr;" id="boost-pnl-txt">+0 /d</div>
-        <div class="grid-2" style="margin-bottom:10px;">
-          <div class="sub-3d" style="border-color:#3B2C7A;"><span class="stat-label" data-i18n="wallet_hold">Wallet hold</span><div class="stat-value" style="color:var(--violet3);" id="boost-wallet-bal">0</div></div>
-          <div class="sub-3d"><span class="stat-label" data-i18n="mined_app">Mined in app</span><div class="stat-value" id="boost-app-bal">0</div></div>
+      <div class="card-3d boost-hero">
+        <div class="bh-top">
+          <div class="lvl-ring">
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <defs><linearGradient id="ring-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#A78BFA"/></linearGradient></defs>
+              <circle class="lr-track" cx="50" cy="50" r="43"/>
+              <circle class="lr-fill" id="boost-ring" cx="50" cy="50" r="43" pathLength="100" stroke-dasharray="0 100"/>
+            </svg>
+            <div class="lr-in"><b id="boost-lvl-num">1</b><span data-i18n="level_lbl">Level</span></div>
+          </div>
+          <div class="bh-info">
+            <span class="rank-chip" id="boost-rank-badge">Cadets</span>
+            <div class="bh-rate" id="boost-pnl-txt">+250 / day</div>
+            <div class="bh-sub"><span id="boost-lvl-header" hidden>Level 1</span> <bdi id="boost-ths-txt">10 TH/s</bdi></div>
+          </div>
         </div>
-        <p style="font-size:12px;color:var(--m);margin-bottom:12px;line-height:1.45;" id="boost-needed-txt"></p>
+        <p class="bh-need" id="boost-needed-txt"></p>
+        <div class="strip">
+          <div><span data-i18n="wallet_hold">Wallet hold</span><b id="boost-wallet-bal">0</b></div>
+          <div><span data-i18n="mined_app">Mined in app</span><b id="boost-app-bal">0</b></div>
+        </div>
         <button type="button" class="btn-3d-gold btn-stonfi-buy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v8M8 12h8"/></svg><span data-i18n="buy_upgrade_btn">Buy on STON.fi to level up</span></button>
       </div>
 
-      <div class="grid-3" style="margin-bottom:10px;">
-        <button type="button" class="btn-3d-dark tier-active" id="tier-btn-1">LVL 1–30</button>
-        <button type="button" class="btn-3d-dark" id="tier-btn-2">LVL 31–70</button>
-        <button type="button" class="btn-3d-dark" id="tier-btn-3">LVL 71–100</button>
+      <div class="seg tiers" role="tablist">
+        <button type="button" class="btn-3d-dark tier-active" id="tier-btn-1" role="tab">1–30</button>
+        <button type="button" class="btn-3d-dark" id="tier-btn-2" role="tab">31–70</button>
+        <button type="button" class="btn-3d-dark" id="tier-btn-3" role="tab">71–100</button>
       </div>
 
       <div class="lvl-nav">
-        <button type="button" class="btn-3d-dark" id="btn-lvl-prev" aria-label="Previous levels"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6l6 6"/></svg></button>
-        <div style="text-align:center;"><strong id="lvl-page-title" style="font-family:var(--display);">Cadets</strong><div style="font-size:11px;color:var(--m);" id="lvl-page-range">Level 1–10</div></div>
-        <button type="button" class="btn-3d-dark" id="btn-lvl-next" aria-label="Next levels"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg></button>
+        <button type="button" class="nav-arrow" id="btn-lvl-prev" aria-label="Previous levels"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6l6 6"/></svg></button>
+        <div class="ln-mid"><strong id="lvl-page-title">Cadets</strong><span id="lvl-page-range">Level 1–10</span></div>
+        <button type="button" class="nav-arrow" id="btn-lvl-next" aria-label="Next levels"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg></button>
       </div>
-      <div class="grid-2" id="levels-grid-container"></div>
+      <div class="lvl-grid" id="levels-grid-container"></div>
     </div>
 
     <!-- 4. FRIENDS PAGE -->
     <div id="page-friends" class="page">
-      <div class="card-3d">
-        <h3 style="color:var(--violet3);margin-bottom:8px;" data-i18n="ref_rule_title">Referrals · 5% of mining</h3>
-        <p style="font-size:12.5px;line-height:1.6;color:#CBD5E1;" data-i18n="ref_rule_desc"></p>
-      </div>
-      <div class="grid-3" style="margin-bottom:10px;text-align:center;">
-        <div class="card-3d" style="margin:0;padding:10px 6px;"><span class="stat-label" data-i18n="ref_pending">Pending</span><div class="stat-value" style="color:#FBBF24;text-align:center;" id="ref-pending-count">0</div></div>
-        <div class="card-3d" style="margin:0;padding:10px 6px;"><span class="stat-label" data-i18n="ref_verified">Active</span><div class="stat-value" style="color:#34D399;text-align:center;" id="ref-verified-count">0</div></div>
-        <div class="card-3d" style="margin:0;padding:10px 6px;"><span class="stat-label" data-i18n="ref_earned">Earned</span><div class="stat-value" style="color:var(--violet3);text-align:center;" id="ref-earned-total">0</div></div>
-      </div>
-      <div class="card-3d">
-        <input type="text" id="ref-link-box" class="input-3d" readonly style="direction:ltr;" aria-label="Your invite link">
-        <div class="grid-2">
-          <button type="button" class="btn-3d-gold" id="btn-copy-ref"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg><span data-i18n="copy_btn">Copy link</span></button>
-          <button type="button" class="btn-3d-bronze" id="btn-share-ref"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M7 8l5-5l5 5"/><path d="M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg><span data-i18n="share_btn">Share</span></button>
+      <div class="card-3d invite-card">
+        <svg class="constellation" viewBox="0 0 120 70" aria-hidden="true">
+          <path d="M10 52L38 30L62 44L88 16L112 30" fill="none" stroke="url(#cst-g)" stroke-width="1.2" stroke-dasharray="2 3"/>
+          <defs><linearGradient id="cst-g" x1="0" x2="1"><stop offset="0" stop-color="#22D3EE" stop-opacity=".2"/><stop offset="1" stop-color="#C4B5FD" stop-opacity=".9"/></linearGradient></defs>
+          <circle cx="10" cy="52" r="2.2"/><circle cx="38" cy="30" r="3"/><circle cx="62" cy="44" r="2.4"/><circle cx="88" cy="16" r="4.2" class="cst-main"/><circle cx="112" cy="30" r="2.4"/>
+        </svg>
+        <h3 data-i18n="ref_rule_title">Invite friends</h3>
+        <ul class="invite-rules">
+          <li data-i18n="ref_rule_1">Your friend becomes active after holding 200+ coins in a connected wallet</li>
+          <li data-i18n="ref_rule_2">You get 5% of everything an active friend collects</li>
+        </ul>
+        <input type="text" id="ref-link-box" class="input-3d link-box" readonly aria-label="Your invite link">
+        <div class="btn-pair">
+          <button type="button" class="pill primary wide" id="btn-copy-ref"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg><span data-i18n="copy_btn">Copy link</span></button>
+          <button type="button" class="pill ghost wide" id="btn-share-ref"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3"/><path d="M7 8l5-5l5 5"/><path d="M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg><span data-i18n="share_btn">Share</span></button>
         </div>
       </div>
-      <div class="card-3d">
-        <h4 data-i18n="my_referrals_title">Invited friends</h4>
-        <div id="my-referrals-list" style="font-size:12px;margin-top:6px;max-height:200px;overflow-y:auto;"></div>
+
+      <div class="strip strip-card">
+        <div><span data-i18n="ref_pending">Pending</span><b class="c-amber" id="ref-pending-count">0</b></div>
+        <div><span data-i18n="ref_verified">Active</span><b class="c-mint" id="ref-verified-count">0</b></div>
+        <div><span data-i18n="ref_earned">Earned</span><b class="c-violet" id="ref-earned-total">0</b></div>
       </div>
-      <div class="card-3d">
-        <h4 style="margin-bottom:4px;" data-i18n="pending_ref_title">Pending referral profits</h4>
-        <div style="font-family:var(--display);font-size:26px;font-weight:700;color:var(--cyan2);margin-bottom:12px;direction:ltr;" id="pending-ref-comm-display">0.0000</div>
-        <button type="button" class="btn-3d-gold" id="btn-collect-ref"><span data-i18n="collect_ref_btn">Collect referral profits</span></button>
+
+      <div class="card-3d list-card">
+        <div class="row">
+          <span class="ico ico-gold" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.5 10a2.5 2 0 0 1 5 0c0 2.5-5 1.5-5 4a2.5 2 0 0 0 5 0"/></svg></span>
+          <div class="row-body">
+            <div class="row-title" data-i18n="pending_ref_title">Pending referral profits</div>
+            <div class="row-num" id="pending-ref-comm-display">0.0000</div>
+          </div>
+          <button type="button" class="pill primary" id="btn-collect-ref" data-i18n="collect_ref_btn">Collect</button>
+        </div>
+      </div>
+
+      <h3 class="sec-title" data-i18n="my_referrals_title">Invited friends</h3>
+      <div class="card-3d list-card">
+        <div id="my-referrals-list" class="ref-list"></div>
       </div>
     </div>
 
     <!-- 5. PROFILE PAGE -->
     <div id="page-profile" class="page">
-      <div class="card-3d profile-head">
-        <div class="avatar"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1-3.6 3.8-5.5 7-5.5s6 1.9 7 5.5"/></svg></div>
-        <div style="min-width:0;">
-          <h3 id="prof-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Player</h3>
-          <div style="font-size:12px;color:var(--m);direction:ltr;" id="prof-username">@user</div>
-          <div style="font-size:11px;color:var(--m);direction:ltr;" id="prof-id">ID</div>
+      <div class="card-3d wallet-pass">
+        <div class="wp-head">
+          <span class="ico ico-violet" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 7V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/><path d="M21 10h-5a2 2 0 0 0 0 4h5z"/></svg></span>
+          <div class="row-body">
+            <div class="row-title" data-i18n="ton_wallet_title">TON wallet</div>
+            <div class="wp-addr" id="prof-wallet-addr-display">Not connected yet</div>
+          </div>
+          <span class="badge-tag" id="wallet-badge-status">Disconnected</span>
         </div>
-        <button type="button" class="gear-btn" id="btn-settings" aria-label="Settings"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3a1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5a1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8a1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1a1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5a1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
-      </div>
-
-      <div class="card-3d">
-        <div class="sec-head" style="margin-bottom:12px;">
-          <div style="min-width:0;"><h4 data-i18n="ton_wallet_title">TON wallet</h4><p style="font-size:11.5px;color:var(--m);direction:ltr;margin-top:2px;" id="prof-wallet-addr-display">Not connected yet</p></div>
-          <span class="badge-tag" id="wallet-badge-status" style="background:#B91C1C;">Disconnected</span>
+        <div class="strip">
+          <div><span data-i18n="hold_wallet_lbl">Wallet hold</span><b class="c-violet" id="prof-hold-bal">0</b></div>
+          <div><span data-i18n="mine_wallet_lbl">Mined balance</span><b id="prof-mine-bal">0</b></div>
         </div>
         <button type="button" class="btn-3d-gold" id="btn-connect-wallet"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 7V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/><path d="M21 10h-5a2 2 0 0 0 0 4h5z"/></svg><span data-i18n="connect_wallet_btn">Connect TON wallet</span></button>
-        <div id="connected-wallet-actions" style="display:none;" class="grid-2">
-          <button type="button" class="btn-3d-bronze" id="btn-sync-hold"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg><span data-i18n="sync_hold_btn">Verify hold</span></button>
-          <button type="button" class="btn-3d-danger" id="btn-disconnect-wallet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 15l6-6"/><path d="M11 6l1.5-1.5a4 4 0 0 1 5.7 5.7L17 11.5"/><path d="M13 18l-1.5 1.5a4 4 0 0 1-5.7-5.7L7 12.5"/></svg><span data-i18n="disconnect_wallet_btn">Disconnect</span></button>
+        <div id="connected-wallet-actions" style="display:none;" class="btn-pair">
+          <button type="button" class="pill ghost wide" id="btn-sync-hold"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg><span data-i18n="sync_hold_btn">Verify hold</span></button>
+          <button type="button" class="pill danger wide" id="btn-disconnect-wallet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 15l6-6"/><path d="M11 6l1.5-1.5a4 4 0 0 1 5.7 5.7L17 11.5"/><path d="M13 18l-1.5 1.5a4 4 0 0 1-5.7-5.7L7 12.5"/></svg><span data-i18n="disconnect_wallet_btn">Disconnect</span></button>
         </div>
         <div id="ton-connect-container" style="display:none;"></div>
+      </div>
+
+      <div class="card-3d wd-card">
+        <div class="pn-head"><h4 class="wd-title"><span data-i18n="withdraw_title">Withdraw</span><span class="coin-sym">$VIKING</span></h4></div>
+        <div class="amt-field">
+          <input type="number" id="wd-input-amt" class="input-3d" value="5000" min="5000" step="500" inputmode="numeric" aria-label="Amount to withdraw">
+          <button type="button" class="pill ghost" id="btn-wd-max" data-i18n="max_btn">Max</button>
+        </div>
+        <div class="kv-list">
+          <div class="kv"><span data-i18n="min_wd_lbl">Minimum</span><strong id="wd-min-ui">5,000</strong></div>
+          <div class="kv"><span data-i18n="wd_fee_lbl">Fee</span><strong class="c-rose">-<span id="wd-fee-calc">250</span></strong></div>
+          <div class="kv"><span data-i18n="hold_cond_lbl">Hold required</span><strong id="wd-req-hold-num">1,250</strong></div>
+          <div class="kv"><span data-i18n="your_hold_lbl">Your hold</span><strong id="wd-cur-hold-num">0</strong></div>
+          <div class="kv kv-total"><span data-i18n="net_lbl">You receive</span><strong class="c-mint" id="wd-net-calc">4,750</strong></div>
+        </div>
+        <div class="wd-status" id="wd-unlock-status"></div>
+        <button type="button" class="btn-3d-gold" id="btn-request-wd"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6l-6 6"/></svg><span data-i18n="req_wd_btn">Request withdrawal</span></button>
+        <button type="button" class="link-btn btn-stonfi-buy" id="btn-wd-buy"><span data-i18n="buy_hold_btn">Buy on STON.fi to unlock</span></button>
       </div>
 
       <div class="token-card" id="token-card">
@@ -637,31 +872,21 @@
         <button type="button" class="tc-buy btn-stonfi-buy" data-i18n="buy_btn">Buy</button>
       </div>
 
-
-      <div class="grid-2" style="margin-bottom:10px;">
-        <div class="card-3d" style="margin:0;"><span class="stat-label" data-i18n="hold_wallet_lbl">Wallet hold</span><div class="stat-value" style="color:var(--violet3);"><span id="prof-hold-bal">0</span></div></div>
-        <div class="card-3d" style="margin:0;"><span class="stat-label" data-i18n="mine_wallet_lbl">Mined balance</span><div class="stat-value"><span id="prof-mine-bal">0</span></div></div>
+      <h3 class="sec-title" data-i18n="wd_hist_title">Withdrawal history</h3>
+      <div class="card-3d list-card">
+        <div id="wd-history-box" class="hist-list"></div>
       </div>
 
-      <div id="wd-unlock-status" class="card-3d" style="font-size:12px;font-weight:600;color:#FCA5A5;"></div>
-
-      <div class="card-3d">
-        <h4 style="margin-bottom:10px;"><span data-i18n="withdraw_title">Withdraw</span> <span class="coin-sym">$VIKING</span></h4>
-        <input type="number" id="wd-input-amt" class="input-3d" value="5000" min="5000" step="500" inputmode="numeric" aria-label="Amount to withdraw">
-        <div class="sub-3d" style="margin-bottom:12px;font-size:12px;line-height:1.8;">
-          <div class="kv"><span data-i18n="min_wd_lbl">Minimum</span><strong id="wd-min-ui">5,000</strong></div>
-          <div class="kv"><span data-i18n="wd_fee_lbl">Fee</span><strong style="color:#FCA5A5;">-<span id="wd-fee-calc">250</span></strong></div>
-          <div class="kv"><span data-i18n="net_lbl">You receive</span><strong style="color:#6EE7B7;" id="wd-net-calc">4,750</strong></div>
-          <div class="kv"><span data-i18n="hold_cond_lbl">Hold required</span><strong style="color:var(--violet3);" id="wd-req-hold-num">1,250</strong></div>
-          <div class="kv"><span data-i18n="your_hold_lbl">Your hold</span><strong id="wd-cur-hold-num">0</strong></div>
+      <div class="card-3d list-card">
+        <button type="button" class="row row-btn" id="btn-settings" aria-label="Settings">
+          <span class="ico ico-slate" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3a1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5a1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8a1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1a1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5a1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span>
+          <span class="row-body"><span class="row-title" data-i18n="settings_title">Settings</span><span class="row-sub" data-i18n="settings_sub">Language and sound</span></span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg>
+        </button>
+        <div class="row">
+          <span class="ico ico-slate" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2"/><path d="M6 16c.6-1.6 1.7-2.5 3-2.5s2.4.9 3 2.5M14.5 10h4M14.5 13h3"/></svg></span>
+          <span class="row-body"><span class="row-title" id="prof-name">Player</span><span class="row-sub"><bdi id="prof-username">@user</bdi> <bdi id="prof-id">ID</bdi></span></span>
         </div>
-        <button type="button" class="btn-3d-gold" id="btn-request-wd" style="margin-bottom:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6l-6 6"/></svg><span data-i18n="req_wd_btn">Request withdrawal</span></button>
-        <button type="button" class="btn-3d-bronze btn-stonfi-buy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v8M8 12h8"/></svg><span data-i18n="buy_hold_btn">Buy on STON.fi to unlock</span></button>
-      </div>
-
-      <div class="card-3d">
-        <h4 style="margin-bottom:6px;" data-i18n="wd_hist_title">Withdrawal history</h4>
-        <div id="wd-history-box" style="font-size:12px;color:var(--m);text-align:center;">No withdrawals yet.</div>
       </div>
     </div>
 
@@ -887,15 +1112,15 @@
         mining_rate:"Mining rate", per_day:"/day", pilot_rank:"Pilot rank", price_lbl:"Price", contract_lbl:"Official contract", daily_badge:"Daily", settings_title:"Settings", language_lbl:"Language", sound_lbl:"Sound effects", current_rank:"Wallet level", claimed_in_app:"Claimed in the app",
         streak_txt:"24h shift", streak_sub:"Collect every 24h to keep mining", turbo_btn:"Turbo ×2", turbo_sub:"Watch an ad",
         collect_btn:"Collect 24h mining", act_btn:"Activate mining", act_note:"One-time fee from your TON wallet · after that, collecting is free", act_connect:"Connect your TON wallet to activate mining", act_wait:"Payment sent · waiting for the network…", act_checking:"Confirming payment…", act_slow:"Not confirmed yet · tap again in a minute", act_done:"Mining activated!", act_cancel:"Payment cancelled", mining_ended:"Mining has ended", st_ended:"Ended", halving_next:"Next halving in", bounty_title:"Creator bounty", bounty_desc:"Post about us in your channel or make a video with your invite link. After review, you get paid.", bounty_r1:"Your invite link must be in the post or video", bounty_r2:"Public posts only · no bought views", bounty_r3:"Bigger reach and better videos earn more", bounty_post:"Channel post", bounty_video:"Video", bounty_note_ph:"Channel name · subscribers (optional)", bounty_copy_ref:"Copy invite link", bounty_send:"Send for review", bounty_sent:"Sent! We will review it soon", bounty_bad_url:"Paste the full link (https://…)", bounty_review:"Under review", bounty_no:"Not approved", bounty_mine:"Your links", bounty_copied:"Invite link copied", buy_btn:"Buy", levels_btn:"Levels 1–100",
-        watch_ads_title:"Watch video ads", ads_today:"Watched today", watch_ad_btn:"Watch full ad",
+        watch_ads_title:"Watch video ads", ads_today:"Watched today", watch_ad_btn:"Watch",
         ch1_title:"Official channel", ch2_title:"Payouts & community",
-        open_ch:"1. Open channel", open_grp:"1. Open channel", verify_btn:"2. Verify",
+        open_ch:"Join", open_grp:"Join", verify_btn:"Check",
         wallet_hold:"Wallet hold", mined_app:"Mined in app",
         buy_upgrade_btn:"Buy on STON.fi to level up",
-        ref_rule_title:"Referrals · 5% of mining",
+        ref_rule_title:"Invite friends",
         ref_rule_desc:"1. Activation: a referral becomes active when your friend holds 200+ coins in a connected wallet.<br>2. Bonus: every time an active friend collects, you get 5% of what they mined.",
         ref_pending:"Pending", ref_verified:"Active", ref_earned:"Earned", copy_btn:"Copy link", share_btn:"Share",
-        my_referrals_title:"Invited friends", pending_ref_title:"Pending referral profits", collect_ref_btn:"Collect referral profits",
+        my_referrals_title:"Invited friends", pending_ref_title:"Referral profits", collect_ref_btn:"Collect",
         ton_wallet_title:"TON wallet", connect_wallet_btn:"Connect TON wallet",
         sync_hold_btn:"Verify hold", disconnect_wallet_btn:"Disconnect",
         hold_wallet_lbl:"Wallet hold", mine_wallet_lbl:"Mined balance",
@@ -904,22 +1129,22 @@
         buy_hold_btn:"Buy on STON.fi to unlock", wd_hist_title:"Withdrawal history",
         nav_mine:"Mine", nav_tasks:"Tasks", nav_boost:"Boost", nav_friends:"Friends", nav_profile:"Profile",
         tank_full:"Tank full · collect now", tank_fill:"24h tank ·", st_active:"Active", st_turbo:"Turbo ×2 active", st_paused:"Paused · tank full",
-        daily_login_title:"Daily login · 7 days", claim_daily_btn:"Claim daily reward",
-        day:"Day", claimed:"Claimed", no_refs_yet:"No invited friends yet."
+        daily_login_title:"Daily login", claim_daily_btn:"Claim daily reward",
+        day:"Day", claimed:"Claimed", no_refs_yet:"No invited friends yet.", day_of:"Day {n} of 7", daily_next:"Next reward in {t}", claim_today:"Claim {n}", earn_more:"More ways to earn", done_lbl:"Done", level_lbl:"Level", boost_need:"Hold {n} more {coin} in your wallet to reach level {l}", boost_max:"You reached the top level", lvl_cur:"Current", lvl_open:"Unlocked", lvl_hold:"Hold {n}", ref_rule_1:"A friend becomes active after holding {n}+ coins in a connected wallet", ref_rule_2:"You get {p}% of everything an active friend collects", wallet_on:"Connected", wallet_off:"Not connected", wallet_none:"No wallet connected yet", max_btn:"Max", wd_ok:"Withdrawal unlocked", wd_lock:"Hold {p}% ({n} {coin}) in a connected wallet to withdraw", wd_none:"No withdrawals yet", settings_sub:"Language and sound", st_pending:"Pending", st_paid:"Paid", st_rejected:"Rejected", ref_st_active:"Active", ref_st_pending:"Pending", tx_btn:"TX"
       },
       ar: {
         mining_rate:"سرعة التعدين", per_day:"يوميًا", pilot_rank:"رتبة الطيار", price_lbl:"السعر", contract_lbl:"العقد الرسمي", daily_badge:"يومي", settings_title:"الإعدادات", language_lbl:"اللغة", sound_lbl:"المؤثرات الصوتية", current_rank:"مستوى المحفظة", claimed_in_app:"رصيدك في التطبيق",
         streak_txt:"دورة 24 ساعة", streak_sub:"اجمع كل 24 ساعة ليستمر التعدين", turbo_btn:"تيربو ×2", turbo_sub:"شاهد إعلانًا",
         collect_btn:"اجمع تعدين 24 ساعة", act_btn:"فعّل التعدين", act_note:"رسوم لمرة واحدة من محفظة TON · بعدها التجميع مجاني", act_connect:"اربط محفظة TON لتفعيل التعدين", act_wait:"تم إرسال الدفع · في انتظار الشبكة…", act_checking:"جاري تأكيد الدفع…", act_slow:"لم يتأكد بعد · اضغط مرة أخرى بعد دقيقة", act_done:"تم تفعيل التعدين!", act_cancel:"تم إلغاء الدفع", mining_ended:"انتهى التعدين", st_ended:"انتهى", halving_next:"التنصيف القادم بعد", bounty_title:"مكافأة صُنّاع المحتوى", bounty_desc:"انشر عن البوت في قناتك أو اصنع فيديو فيه رابط دعوتك، وبعد المراجعة تحصل على مكافأتك.", bounty_r1:"يجب أن يحتوي المنشور أو الفيديو على رابط دعوتك", bounty_r2:"منشورات عامة فقط · بدون مشاهدات مشتراة", bounty_r3:"كلما زاد الوصول وجودة الفيديو زادت المكافأة", bounty_post:"منشور في قناة", bounty_video:"فيديو", bounty_note_ph:"اسم القناة · عدد المشتركين (اختياري)", bounty_copy_ref:"نسخ رابط الدعوة", bounty_send:"إرسال للمراجعة", bounty_sent:"تم الإرسال! ستتم المراجعة قريبًا", bounty_bad_url:"الصق الرابط كاملًا (https://…)", bounty_review:"قيد المراجعة", bounty_no:"لم تتم الموافقة", bounty_mine:"روابطك", bounty_copied:"تم نسخ رابط الدعوة", buy_btn:"شراء", levels_btn:"المستويات",
-        watch_ads_title:"شاهد إعلانات الفيديو", ads_today:"شاهدت اليوم", watch_ad_btn:"شاهد الإعلان كاملًا",
+        watch_ads_title:"شاهد إعلانات الفيديو", ads_today:"شاهدت اليوم", watch_ad_btn:"شاهد",
         ch1_title:"القناة الرسمية", ch2_title:"قناة السحوبات والمجتمع",
-        open_ch:"1. افتح القناة", open_grp:"1. افتح القناة", verify_btn:"2. تحقّق",
+        open_ch:"انضم", open_grp:"انضم", verify_btn:"تحقّق",
         wallet_hold:"رصيد المحفظة", mined_app:"رصيد التعدين",
         buy_upgrade_btn:"اشترِ من STON.fi لرفع مستواك",
-        ref_rule_title:"الإحالات · 5% من التعدين",
+        ref_rule_title:"ادعُ أصدقاءك",
         ref_rule_desc:"1. التفعيل: تُفعَّل الإحالة عندما يمتلك صديقك 200 عملة أو أكثر في محفظة مربوطة.<br>2. المكافأة: كلما جمع صديقك المفعَّل، تحصل على 5% مما عدّنه.",
         ref_pending:"معلّق", ref_verified:"مفعّل", ref_earned:"أرباحك", copy_btn:"نسخ الرابط", share_btn:"مشاركة",
-        my_referrals_title:"أصدقائي المدعوون", pending_ref_title:"أرباح الإحالات المعلّقة", collect_ref_btn:"اجمع أرباح الإحالات",
+        my_referrals_title:"أصدقائي المدعوون", pending_ref_title:"أرباح الإحالات", collect_ref_btn:"اجمع",
         ton_wallet_title:"محفظة TON", connect_wallet_btn:"اربط محفظة TON",
         sync_hold_btn:"تحديث الرصيد", disconnect_wallet_btn:"إلغاء الربط",
         hold_wallet_lbl:"رصيد المحفظة", mine_wallet_lbl:"رصيد التعدين",
@@ -928,22 +1153,22 @@
         buy_hold_btn:"اشترِ من STON.fi لفتح السحب", wd_hist_title:"سجل السحوبات",
         nav_mine:"التعدين", nav_tasks:"المهام", nav_boost:"السرعة", nav_friends:"الأصدقاء", nav_profile:"حسابي",
         tank_full:"الخزان ممتلئ · اجمع الآن", tank_fill:"خزان 24 ساعة ·", st_active:"نشط", st_turbo:"تيربو ×2 نشط", st_paused:"متوقف · الخزان ممتلئ",
-        daily_login_title:"الدخول اليومي · 7 أيام", claim_daily_btn:"استلم المكافأة اليومية",
-        day:"يوم", claimed:"تم الاستلام", no_refs_yet:"لا يوجد أصدقاء مدعوون حتى الآن."
+        daily_login_title:"الدخول اليومي", claim_daily_btn:"استلم المكافأة اليومية",
+        day:"يوم", claimed:"تم الاستلام", no_refs_yet:"لا يوجد أصدقاء مدعوون حتى الآن.", day_of:"اليوم {n} من 7", daily_next:"المكافأة التالية بعد {t}", claim_today:"استلم {n}", earn_more:"طرق أخرى للربح", done_lbl:"تم", level_lbl:"المستوى", boost_need:"احتفظ بـ {n} {coin} إضافية في محفظتك للوصول إلى المستوى {l}", boost_max:"وصلت إلى أعلى مستوى", lvl_cur:"الحالي", lvl_open:"مفتوح", lvl_hold:"احتفظ بـ {n}", ref_rule_1:"يصبح صديقك مفعّلًا عندما يمتلك {n}+ عملة في محفظة مربوطة", ref_rule_2:"تحصل على {p}% من كل ما يجمعه صديقك المفعّل", wallet_on:"مربوطة", wallet_off:"غير مربوطة", wallet_none:"لم تربط محفظة بعد", max_btn:"الكل", wd_ok:"السحب متاح", wd_lock:"احتفظ بـ {p}% ({n} {coin}) في محفظة مربوطة لتتمكن من السحب", wd_none:"لا توجد سحوبات بعد", settings_sub:"اللغة والصوت", st_pending:"قيد المراجعة", st_paid:"تم الدفع", st_rejected:"مرفوض", ref_st_active:"مفعّل", ref_st_pending:"معلّق", tx_btn:"العملية"
       },
       ru: {
         mining_rate:"Скорость", per_day:"/день", pilot_rank:"Ранг пилота", price_lbl:"Цена", contract_lbl:"Контракт", daily_badge:"Бонус", settings_title:"Настройки", language_lbl:"Язык", sound_lbl:"Звуки", current_rank:"Уровень кошелька", claimed_in_app:"Собрано в приложении",
         streak_txt:"Смена 24ч", streak_sub:"Собирайте каждые 24ч, чтобы майнинг шёл", turbo_btn:"Турбо ×2", turbo_sub:"Смотреть рекламу",
         collect_btn:"Собрать за 24ч", act_btn:"Активировать", act_note:"Разовый платёж из TON-кошелька · дальше сбор бесплатно", act_connect:"Подключите TON-кошелёк для активации", act_wait:"Платёж отправлен · ждём сеть…", act_checking:"Проверяем платёж…", act_slow:"Пока не подтверждено · нажмите снова через минуту", act_done:"Майнинг активирован!", act_cancel:"Платёж отменён", mining_ended:"Майнинг завершён", st_ended:"Завершён", halving_next:"Халвинг через", bounty_title:"Бонус для авторов", bounty_desc:"Опубликуйте пост о боте в своём канале или снимите видео с вашей ссылкой-приглашением. После проверки получите награду.", bounty_r1:"В посте или видео должна быть ваша ссылка-приглашение", bounty_r2:"Только публичные посты · без накрутки просмотров", bounty_r3:"Больше охват и лучше видео — выше награда", bounty_post:"Пост в канале", bounty_video:"Видео", bounty_note_ph:"Канал · подписчики (необязательно)", bounty_copy_ref:"Копировать ссылку", bounty_send:"Отправить на проверку", bounty_sent:"Отправлено! Скоро проверим", bounty_bad_url:"Вставьте полную ссылку (https://…)", bounty_review:"На проверке", bounty_no:"Не одобрено", bounty_mine:"Ваши ссылки", bounty_copied:"Ссылка скопирована", buy_btn:"Купить", levels_btn:"Уровни 1–100",
-        watch_ads_title:"Видеореклама", ads_today:"Просмотрено сегодня", watch_ad_btn:"Смотреть рекламу",
+        watch_ads_title:"Видеореклама", ads_today:"Просмотрено сегодня", watch_ad_btn:"Смотреть",
         ch1_title:"Официальный канал", ch2_title:"Выплаты и сообщество",
-        open_ch:"1. Открыть канал", open_grp:"1. Открыть канал", verify_btn:"2. Проверить",
+        open_ch:"Вступить", open_grp:"Вступить", verify_btn:"Проверить",
         wallet_hold:"Холд в кошельке", mined_app:"Намайнено",
         buy_upgrade_btn:"Купить на STON.fi для нового уровня",
-        ref_rule_title:"Рефералы · 5% от майнинга",
+        ref_rule_title:"Приглашайте друзей",
         ref_rule_desc:"1. Активация: реферал активен, когда у друга 200+ монет в подключённом кошельке.<br>2. Бонус: каждый раз, когда активный друг собирает, вы получаете 5% от его добычи.",
         ref_pending:"Ожидание", ref_verified:"Активные", ref_earned:"Заработано", copy_btn:"Копировать", share_btn:"Поделиться",
-        my_referrals_title:"Приглашённые друзья", pending_ref_title:"Ожидаемый реферальный доход", collect_ref_btn:"Собрать реферальный доход",
+        my_referrals_title:"Приглашённые друзья", pending_ref_title:"Реферальный доход", collect_ref_btn:"Собрать",
         ton_wallet_title:"Кошелёк TON", connect_wallet_btn:"Подключить кошелёк TON",
         sync_hold_btn:"Обновить холд", disconnect_wallet_btn:"Отключить",
         hold_wallet_lbl:"Холд в кошельке", mine_wallet_lbl:"Баланс майнинга",
@@ -952,8 +1177,8 @@
         buy_hold_btn:"Купить на STON.fi для вывода", wd_hist_title:"История выводов",
         nav_mine:"Майнинг", nav_tasks:"Задания", nav_boost:"Буст", nav_friends:"Друзья", nav_profile:"Профиль",
         tank_full:"Бак полон · соберите", tank_fill:"Бак 24ч ·", st_active:"Активно", st_turbo:"Турбо ×2 активно", st_paused:"Пауза · бак полон",
-        daily_login_title:"Ежедневный вход · 7 дней", claim_daily_btn:"Получить награду",
-        day:"День", claimed:"Получено", no_refs_yet:"Пока нет приглашённых друзей."
+        daily_login_title:"Ежедневный вход", claim_daily_btn:"Получить награду",
+        day:"День", claimed:"Получено", no_refs_yet:"Пока нет приглашённых друзей.", day_of:"День {n} из 7", daily_next:"Следующая награда через {t}", claim_today:"Забрать {n}", earn_more:"Ещё способы заработать", done_lbl:"Готово", level_lbl:"Уровень", boost_need:"Держите ещё {n} {coin} в кошельке, чтобы открыть уровень {l}", boost_max:"Вы достигли максимального уровня", lvl_cur:"Текущий", lvl_open:"Открыт", lvl_hold:"Нужно {n}", ref_rule_1:"Друг становится активным, когда держит {n}+ монет в подключённом кошельке", ref_rule_2:"Вы получаете {p}% от всего, что собирает активный друг", wallet_on:"Подключён", wallet_off:"Не подключён", wallet_none:"Кошелёк ещё не подключён", max_btn:"Макс", wd_ok:"Вывод доступен", wd_lock:"Держите {p}% ({n} {coin}) в подключённом кошельке для вывода", wd_none:"Выводов пока нет", settings_sub:"Язык и звук", st_pending:"В обработке", st_paid:"Выплачено", st_rejected:"Отклонено", ref_st_active:"Активен", ref_st_pending:"Ожидание", tx_btn:"TX"
       }
     };
     let currentLang = localStorage.getItem('vk_lang') || 'en';
@@ -998,6 +1223,7 @@
     let adsWatched = 0;
     let lastAdUtcDay = 0;
     let task1Done = false, task2Done = false;
+    let chV = {1:false, 2:false}; // channel opened this session -> "Check" button
     let linkedWalletAddr = localStorage.getItem('vksec_wallet_addr') || "";
     let refCommissionEarned = 0;
     let invitedById = null, refBonusPaid = false;
@@ -1012,6 +1238,7 @@
     const rewardF = () => (emission && Number.isFinite(Number(emission.factor)) ? Number(emission.factor) : 1);
     const trx = (k) => ((I18N[currentLang] || I18N.en)[k] || I18N.en[k] || k);
     const fmtR = (x) => Number(x || 0).toLocaleString('en-US', { maximumFractionDigits: 2 });
+    const iso = (x) => '\u2066' + x + '\u2069'; // keeps numbers and $SYMBOLS in order inside Arabic text
     const fmtBig = (n) => n >= 1e6 ? +(n / 1e6).toFixed(n >= 1e7 ? 1 : 2) + 'M' : n >= 1e3 ? +(n / 1e3).toFixed(1) + 'K' : String(Math.floor(n));
     
     const DAILY_REWARDS = [10, 20, 30, 50, 70, 100, 200];
@@ -1112,17 +1339,24 @@
       const lastUtc = getUtcDay(lastDailyCheckIn);
       const hasClaimedToday = (lastUtc === todayUtc);
 
+      const streak = Math.min(7, Math.max(0, dailyStreak || 0));
       container.innerHTML = DAILY_REWARDS.map((rew, idx) => {
         const dayNum = idx + 1;
-        let boxClass = "daily-box", statusText = `+${fmtR(rew * rewardF())}`;
-        if (dayNum <= dailyStreak) { boxClass += " claimed"; statusText = "✓"; }
-        else if (dayNum === dailyStreak + 1 && !hasClaimedToday) { boxClass += " active"; }
-        return `<div class="${boxClass}"><span class="day-num">${dayNum}</span>${statusText}</div>`;
+        const cls = dayNum <= streak ? "dnode claimed" : (dayNum === streak + 1 && !hasClaimedToday ? "dnode active" : "dnode");
+        return `<div class="${cls}"><b>${dayNum <= streak ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>' : dayNum}</b><span>+${fmtR(rew * rewardF())}</span></div>`;
       }).join('');
+      container.style.setProperty('--p', Math.max(0, streak - 1) / 6);
+      const dayNow = hasClaimedToday ? Math.max(1, streak) : Math.min(7, streak + 1);
+      document.getElementById('daily-day-lbl').textContent = trx('day_of').replace('{n}', dayNow);
 
       const btn = document.getElementById('btn-claim-daily');
-      if (hasClaimedToday) { btn.disabled = true; btn.style.opacity = 0.5; btn.innerText = I18N[currentLang].claimed; }
-      else { btn.disabled = false; btn.style.opacity = 1; btn.innerText = I18N[currentLang].claim_daily_btn; }
+      if (hasClaimedToday) {
+        const left = 86400000 - (Date.now() % 86400000), h = Math.floor(left / 3600000), m = Math.floor(left % 3600000 / 60000);
+        btn.disabled = true; btn.innerText = trx('daily_next').replace('{t}', iso(h ? `${h}h ${m}m` : `${m}m`));
+      } else {
+        const rew = DAILY_REWARDS[Math.min(6, streak)] || 0;
+        btn.disabled = false; btn.innerText = trx('claim_today').replace('{n}', iso('+' + fmtR(rew * rewardF())));
+      }
     }
 
     async function claimDailyLogin(e) {
@@ -1291,23 +1525,19 @@
       if (!box) return;
       const dict = I18N[currentLang] || I18N.en;
       if (!myReferrals || myReferrals.length === 0) {
-        box.innerHTML = `<div style="text-align:center;color:var(--m);padding:10px 0;">${dict.no_refs_yet}</div>`;
+        box.innerHTML = `<div class="empty">${esc(dict.no_refs_yet)}</div>`;
         return;
       }
+      const hues = ['#7C3AED', '#0891B2', '#B45309', '#047857', '#BE185D', '#4F46E5'];
       box.innerHTML = myReferrals.map(r => {
         const isVer = r.status && r.status.includes("Verified");
-        const isDup = r.status && r.status.includes("Duplicate");
-        const badgeColor = isVer ? "#22c55e" : (isDup ? "#ef4444" : "#facc15");
+        const name = String(r.name || "Player");
+        const hue = hues[[...name].reduce((a, ch) => a + ch.charCodeAt(0), 0) % hues.length];
         return `
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 4px;border-bottom:1px solid rgba(255,255,255,0.06);">
-            <div>
-              <strong style="color:#fff;">${esc(r.name || "Player")}</strong>
-              <div style="font-size:10px;color:var(--m);">ID: ${esc(String(r.id).slice(0,5))}***</div>
-            </div>
-            <div style="text-align:right;">
-              <span style="color:${badgeColor};font-weight:800;font-size:11px;">${esc(stripEmoji(r.status || "Pending"))}</span>
-              ${r.profit ? `<div style="font-size:10px;color:var(--gb);">+${Number(r.profit).toFixed(2)} ${esc(config.coinSym)}</div>` : ''}
-            </div>
+          <div class="ref-row">
+            <span class="ref-av" style="background:${hue};">${esc([...name.trim()][0] || 'P').toUpperCase()}</span>
+            <div style="min-width:0;"><div class="ref-name">${esc(name)}</div><div class="ref-id">ID ${esc(String(r.id).slice(0, 5))}•••</div></div>
+            <div class="ref-right"><span class="st ${isVer ? 'ok' : ''}">${esc(trx(isVer ? 'ref_st_active' : 'ref_st_pending'))}</span>${r.profit ? `<span class="ref-profit">+${esc(fmtR(r.profit))}</span>` : ''}</div>
           </div>`;
       }).join('');
     }
@@ -1343,17 +1573,32 @@
 
       document.getElementById('ads-watched-txt').innerText = `${adsWatched}/${config.maxAdsPerDay}`;
       document.getElementById('ads-prog-bar').style.width = Math.min(100, (adsWatched / Math.max(1, config.maxAdsPerDay)) * 100) + "%";
-      if (task1Done) document.getElementById('ch-task-1-btn').innerText = "✓ Done";
-      if (task2Done) document.getElementById('ch-task-2-btn').innerText = "✓ Done";
+      [[1, task1Done], [2, task2Done]].forEach(([n, done]) => {
+        const row = document.getElementById('task-row-' + n);
+        row.classList.toggle('done', !!done);
+        row.classList.toggle('opened', !done && !!chV[n]);
+      });
 
       document.getElementById('boost-lvl-header').innerText = "Level " + cur.level;
+      document.getElementById('boost-lvl-num').innerText = cur.level;
       document.getElementById('boost-rank-badge').innerText = cur.groupName + "s";
-      document.getElementById('boost-pnl-txt').innerText = `+${cur.perDay} ${config.coinSym}/d (${cur.ths} TH/s)`;
+      document.getElementById('boost-pnl-txt').innerHTML = `+${esc(Number(cur.perDay).toLocaleString('en-US'))} <small>${esc(config.coinSym)} ${esc(trx('per_day'))}</small>`;
+      document.getElementById('boost-ths-txt').innerText = `${Number(cur.ths).toLocaleString('en-US')} TH/s`;
       document.getElementById('boost-wallet-bal').innerText = Math.floor(walletHold).toLocaleString();
       document.getElementById('boost-app-bal').innerText = Math.floor(minedInApp).toLocaleString();
-      
+
       const toGo = Math.max(0, Math.ceil(next.reqHold - walletHold));
-      document.getElementById('boost-needed-txt').innerText = cur.level < 100 ? `Need ${toGo.toLocaleString()} more ${config.coinSym} in Connected Wallet for Level ${next.level}.` : "MAX LEVEL 100!";
+      const span = Math.max(1, next.reqHold - cur.reqHold);
+      const ringPct = cur.level >= 100 ? 100 : Math.max(0, Math.min(100, (walletHold - cur.reqHold) / span * 100));
+      document.getElementById('boost-ring').setAttribute('stroke-dasharray', `${ringPct.toFixed(1)} 100`);
+      document.getElementById('boost-needed-txt').innerText = cur.level < 100
+        ? trx('boost_need').replace('{n}', iso(toGo.toLocaleString())).replace('{coin}', iso(config.coinSym)).replace('{l}', next.level)
+        : trx('boost_max');
+      const rr = document.querySelectorAll('.invite-rules li');
+      if (rr.length === 2) {
+        rr[0].textContent = trx('ref_rule_1').replace('{n}', Number(config.refMinHold || 200).toLocaleString());
+        rr[1].textContent = trx('ref_rule_2').replace('{p}', config.refClaimPercent ?? 5);
+      }
       renderLevelsGrid();
 
       const verCount = myReferrals.filter(r => r.status?.includes("Verified")).length;
@@ -1376,9 +1621,10 @@
       document.getElementById('prof-id').innerText = "ID " + CURRENT_UID;
 
       const isConn = linkedWalletAddr && linkedWalletAddr.length > 8;
-      document.getElementById('prof-wallet-addr-display').innerText = isConn ? (linkedWalletAddr.slice(0, 6) + "..." + linkedWalletAddr.slice(-6)) : "Not connected";
-      document.getElementById('wallet-badge-status').innerText = isConn ? "Connected" : "Disconnected";
-      document.getElementById('wallet-badge-status').style.background = isConn ? "#047857" : "#B91C1C";
+      document.getElementById('prof-wallet-addr-display').innerText = isConn ? (linkedWalletAddr.slice(0, 6) + "…" + linkedWalletAddr.slice(-6)) : trx('wallet_none');
+      const wb = document.getElementById('wallet-badge-status');
+      wb.innerText = isConn ? trx('wallet_on') : trx('wallet_off');
+      wb.className = 'st ' + (isConn ? 'ok' : 'no');
       document.getElementById('btn-connect-wallet').style.display = isConn ? "none" : "flex";
       document.getElementById('connected-wallet-actions').style.display = isConn ? "grid" : "none";
 
@@ -1537,9 +1783,10 @@
       document.getElementById('wd-net-calc').innerText = (amt - fee).toLocaleString();
       document.getElementById('wd-req-hold-num').innerText = reqHold.toLocaleString();
       document.getElementById('wd-cur-hold-num').innerText = Math.floor(walletHold).toLocaleString();
-      const sb = document.getElementById('wd-unlock-status');
-      sb.style.color = (linkedWalletAddr && walletHold >= reqHold) ? "#86efac" : "#fca5a5";
-      sb.innerText = (linkedWalletAddr && walletHold >= reqHold) ? "Withdrawal unlocked" : `Locked: connect a wallet and hold ${config.holdPercentReq}% (${reqHold.toLocaleString()} ${config.coinSym})`;
+      const sb = document.getElementById('wd-unlock-status'), ok = !!(linkedWalletAddr && walletHold >= reqHold);
+      sb.className = 'wd-status ' + (ok ? 'ok' : 'lock');
+      sb.innerText = ok ? trx('wd_ok') : trx('wd_lock').replace('{p}', config.holdPercentReq).replace('{n}', iso(reqHold.toLocaleString())).replace('{coin}', iso(config.coinSym));
+      document.getElementById('btn-wd-buy').hidden = ok;
     }
 
     function updateLiveMining() {
@@ -1596,24 +1843,20 @@
       const { cur } = getCurrentLevelObj();
       const items = LEVELS_DATA.slice((currentLevelPage - 1) * 10, currentLevelPage * 10);
       document.getElementById('lvl-page-title').innerText = items[0].groupName + "s";
-      document.getElementById('lvl-page-range').innerText = `Level ${items[0].level}–${items[items.length - 1].level}`;
+      document.getElementById('lvl-page-range').innerText = `${trx('level_lbl')} ${iso(items[0].level + '–' + items[items.length - 1].level)}`;
       const box = document.getElementById('levels-grid-container');
+      const lockSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
       box.innerHTML = items.map(it => {
         const isCur = it.level === cur.level, isPass = it.level < cur.level;
-        const btn = isCur ? `<div class="btn-3d-gold" style="min-height:34px;padding:7px;font-size:11px;">✓ ACTIVE</div>` : (isPass ? `<div class="btn-3d-dark" style="min-height:34px;padding:7px;font-size:11px;color:#34D399;">✓ UNLOCKED</div>` : `<div class="btn-3d-dark btn-lck" style="min-height:34px;padding:7px;font-size:11px;color:var(--gb);">Hold ${it.reqHold.toLocaleString()}</div>`);
+        const st = isCur ? `<span class="lc-st cur">${esc(trx('lvl_cur'))}</span>`
+          : isPass ? `<span class="lc-st ok">✓ ${esc(trx('lvl_open'))}</span>`
+          : `<button type="button" class="lc-st lock btn-lck">${lockSvg}${esc(trx('lvl_hold').replace('{n}', fmtBig(it.reqHold)))}</button>`;
         return `
-          <div class="miner-card-3d ${isCur ? 'active-lvl' : ''}">
-            <div>
-              <div class="miner-art-3d ${(!isCur && !isPass) ? 'locked' : ''}">
-                <span class="lvl-pill-tag">LVL ${it.level}</span>
-                ${getLevelArtSVG(it.level)}
-              </div>
-              <h4 style="font-size:12.5px;color:#fff;margin-bottom:3px;">${it.name}</h4>
-              <div style="display:flex;justify-content:space-between;font-size:10.5px;margin-bottom:8px;direction:ltr;">
-                <span style="color:var(--gb);font-weight:800;">+${it.ths} TH/s</span>
-                <span style="color:var(--m);">${it.perDay}/d</span>
-              </div>
-            </div>${btn}
+          <div class="lvl-card ${isCur ? 'cur' : (isPass ? '' : 'locked')}">
+            <div class="lc-top"><span class="lc-num">LVL ${it.level}</span>${st}</div>
+            <div class="lc-art">${getLevelArtSVG(it.level)}</div>
+            <div class="lc-name">${esc(it.name)}</div>
+            <div class="lc-rate"><b>+${esc(it.ths)} TH/s</b><span>${esc(Number(it.perDay).toLocaleString('en-US'))}${esc(trx('per_day').startsWith('/') ? trx('per_day') : ' ' + trx('per_day'))}</span></div>
           </div>`;
       }).join('');
       box.querySelectorAll('.btn-lck').forEach(b => b.addEventListener('click', openStonfiSwap));
@@ -1633,8 +1876,14 @@
 
     function renderWithdrawHistory() {
       const box = document.getElementById('wd-history-box');
-      if (!wdHistory.length) { box.innerHTML = "No withdrawals yet."; return; }
-      box.innerHTML = wdHistory.map(w => `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);direction:ltr;"><span><strong>#${esc(w.wdNum || 1)}</strong> · ${esc(stripEmoji(w.status))} (Net: ${esc(w.net)})</span><strong style="color:#FCA5A5;">-${esc(w.amt)}</strong></div>`).join('');
+      if (!wdHistory.length) { box.innerHTML = `<div class="empty">${esc(trx('wd_none'))}</div>`; return; }
+      const list = [...wdHistory].sort((a, b) => (b.wdNum || 0) - (a.wdNum || 0));
+      box.innerHTML = list.map(w => {
+        const s = String(w.status || ''), paid = s.includes('Paid'), rej = s.includes('Reject');
+        const tx = paid && /^https:\/\/tonviewer\.com\//.test(w.txLink || '') ? `<button type="button" class="h-tx" data-url="${esc(w.txLink)}">${esc(trx('tx_btn'))}</button>` : '';
+        return `<div class="h-row"><span class="h-num">#${esc(w.wdNum || 1)}</span><span class="h-amt">${esc(fmtR(w.net))} <small>${esc(config.coinSym)}</small></span><span class="h-end">${tx}<span class="st ${paid ? 'ok' : (rej ? 'no' : '')}">${esc(trx(paid ? 'st_paid' : (rej ? 'st_rejected' : 'st_pending')))}</span></span></div>`;
+      }).join('');
+      box.querySelectorAll('.h-tx').forEach(b => b.addEventListener('click', () => { const u = b.getAttribute('data-url'); if (tg && tg.openLink) tg.openLink(u); else window.open(u, '_blank'); }));
     }
 
     // referrals opened on the inviter's own phone (players never see this mark, only the owner)
@@ -1810,6 +2059,11 @@
     function openSettings() { SoundFX.click(); settingsSheet.hidden = false; requestAnimationFrame(() => settingsSheet.classList.add('open')); }
     function closeSettings() { if (settingsSheet.hidden) return; settingsSheet.classList.remove('open'); setTimeout(() => { settingsSheet.hidden = true; }, 260); }
     document.getElementById('btn-settings').addEventListener('click', openSettings);
+    document.getElementById('btn-wd-max').addEventListener('click', () => {
+      const inp = document.getElementById('wd-input-amt');
+      inp.value = Math.max(Number(config.minWithdraw) || 0, Math.floor(minedInApp));
+      updateWdCalculation();
+    });
     document.getElementById('btn-close-settings').addEventListener('click', closeSettings);
     settingsSheet.addEventListener('click', (e) => { if (e.target === settingsSheet) closeSettings(); });
     const soundSwitch = document.getElementById('sound-toggle-btn');
@@ -1864,9 +2118,8 @@
       });
     });
 
-    let chV = {1:false, 2:false};
-    document.getElementById('btn-open-ch1').addEventListener('click', () => { chV[1] = true; safeOpen(config.channel1); });
-    document.getElementById('btn-open-ch2').addEventListener('click', () => { chV[2] = true; safeOpen(config.channel2); });
+    document.getElementById('btn-open-ch1').addEventListener('click', () => { chV[1] = true; document.getElementById('task-row-1').classList.add('opened'); safeOpen(config.channel1); });
+    document.getElementById('btn-open-ch2').addEventListener('click', () => { chV[2] = true; document.getElementById('task-row-2').classList.add('opened'); safeOpen(config.channel2); });
     [1, 2].forEach(n => document.getElementById(`ch-task-${n}-btn`).addEventListener('click', async e => {
       if (!isHumanClick(e)) return;
       if ((n === 1 && task1Done) || (n === 2 && task2Done)) return showToast("Already claimed!", "#f59e0b");
